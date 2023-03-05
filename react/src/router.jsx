@@ -11,6 +11,7 @@ import {WeeksRecipes} from "./views/WeeksRecipes";
 import {NotFound} from "./views/NotFound";
 import {GuestLayout} from "./components/GuestLayout";
 import {DefaultLayout} from "./components/DefaultLayout";
+import {HomeGuest} from "./views/HomeGuest.jsx";
 
 export const router = createBrowserRouter([
   {
@@ -18,8 +19,8 @@ export const router = createBrowserRouter([
     element: <GuestLayout/>,
     children: [
       {
-        path: '/home',
-        element: <Home/>,
+        path: '/home_guest',
+        element: <HomeGuest/>,
       },
       {
         path: '/login',
@@ -70,3 +71,4 @@ export const router = createBrowserRouter([
     element: <NotFound/>,
   },
 ])
+// export default router;
