@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useState} from 'react';
 import {Link} from "react-router-dom";
 import axiosClient from "../axios-client.js";
 import {useStateContext} from "../context/ContextProvider.jsx";
@@ -8,7 +8,7 @@ export const Signup = () => {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
-
+  const [errors, setErrors] = useState(null)
   const {setUser, setToken} = useStateContext()
   const emailChange = (event) => {
     setEmail(event.target.value)
@@ -35,12 +35,11 @@ export const Signup = () => {
       .then(({data}) => {
         setUser(data.user)
         setToken(data.token)
-        console.log(data)
       })
       .catch(err => {
         const response = err.response;
         if (response && response.status === 422) {
-          console.log(response.date.errors);
+          setErrors(response.data.errors)
         }
       })
 
@@ -49,14 +48,15 @@ export const Signup = () => {
     <div className="login-signup-form animated fadeInDown">
       <div className="form">
         <form onSubmit={onSubmit}>
-          <h1 className="title">Login into your account</h1>
+          <h1 className="title">Signup for free</h1>
 
-          {/*{message &&*/}
-          {/*  <div className="alert">*/}
-          {/*    <p>{message}</p>*/}
-          {/*  </div>*/}
-          {/*}*/}
-
+          {errors &&
+            <div className={"alert"}>
+              {Object.keys(errors).map(key => (
+                <p key={key}>{errors[key][0]}</p>
+              ))}
+            </div>
+          }
           <input onChange={nameChange} type="text" placeholder="Ваше имя"/>
           <input onChange={emailChange} type="email" placeholder="Email"/>
           <input onChange={passwordChange} type="password" placeholder="Password"/>
