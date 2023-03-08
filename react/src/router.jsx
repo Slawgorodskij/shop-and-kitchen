@@ -9,8 +9,8 @@ import {ShoppingList} from "./views/ShoppingList";
 import {Storeroom} from "./views/Storeroom";
 import {WeeksRecipes} from "./views/WeeksRecipes";
 import {NotFound} from "./views/NotFound";
-import {GuestLayout} from "./components/layout/GuestLayout.jsx";
-import {DefaultLayout} from "./components/layout/DefaultLayout.jsx";
+import {GuestLayout} from "./components/layout/guestLayout/GuestLayout.jsx";
+import {DefaultLayout} from "./components/layout/defaultLayout/DefaultLayout.jsx";
 import {HomeGuest} from "./views/homeGuest/HomeGuest.jsx";
 
 export const router = createBrowserRouter([
