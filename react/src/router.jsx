@@ -1,6 +1,6 @@
 import {createBrowserRouter, Navigate} from "react-router-dom";
-import {Login} from "./views/Login";
-import {Signup} from "./views/Signup";
+import {Login} from "./views/Login/Login.jsx";
+import {Signup} from "./views/Signup/Signup.jsx";
 import {Home} from "./views/Home";
 import {Menu} from "./views/Menu";
 import {MenuCompilation} from "./views/MenuCompilation";
@@ -9,9 +9,9 @@ import {ShoppingList} from "./views/ShoppingList";
 import {Storeroom} from "./views/Storeroom";
 import {WeeksRecipes} from "./views/WeeksRecipes";
 import {NotFound} from "./views/NotFound";
-import {GuestLayout} from "./components/GuestLayout";
-import {DefaultLayout} from "./components/DefaultLayout";
-import {HomeGuest} from "./views/HomeGuest.jsx";
+import {GuestLayout} from "./components/layout/GuestLayout.jsx";
+import {DefaultLayout} from "./components/layout/DefaultLayout.jsx";
+import {HomeGuest} from "./views/homeGuest/HomeGuest.jsx";
 
 export const router = createBrowserRouter([
   {

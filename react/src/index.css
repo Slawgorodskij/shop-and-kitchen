@@ -3,6 +3,20 @@
 * {
   box-sizing: border-box;
 }
+body {
+  font-family: 'Open Sans', sans-serif;
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  color: #3e4964;
+  background-color: #f6f6f6;
+}
+
+
+
+
+
+
 html, body, #root, #defaultLayout, #guestLayout {
   min-height: 100vh;
 }
@@ -11,30 +25,9 @@ h1, h2, h3, h4, h5, h6, p {
   margin: 0;
 }
 
-body {
-  font-family: 'Open Sans', sans-serif;
-  margin: 0;
-  padding: 0;
-  font-size: 14px;
-  color: #212121;
-  background-color: #f6f6f6;
-}
 
-input {
-  outline: 0;
-  background: #ffffff;
-  width: 100%;
-  border: 2px solid #e6e6e6;
-  margin: 0 0 15px;
-  padding: 15px;
-  box-sizing: border-box;
-  font-size: 14px;
-  transition: all 0.3s;
-}
 
-input:focus {
-  border-color: #5b08a7;
-}
+
 
 .btn,
 .btn-add,

@@ -1,0 +1,11 @@
+.link {
+  font-size: 20px;
+  font-weight: bold;
+  text-decoration: none;
+  color: inherit;
+}
+
+.link:hover {
+text-decoration: underline;
+  transform: scale(1.1);
+}

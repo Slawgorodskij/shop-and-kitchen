@@ -1,0 +1,17 @@
+.header {
+  grid-row-start: 1;
+  grid-row-end: 2;
+}
+.block_text {
+  grid-row-start: 3;
+  grid-row-end: 4;
+}
+.buttons_block {
+  grid-row-start: 4;
+  grid-row-end: 5;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+

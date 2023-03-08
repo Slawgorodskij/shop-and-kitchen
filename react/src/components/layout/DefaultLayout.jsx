@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {Link, Navigate, Outlet} from "react-router-dom";
-import {useStateContext} from "../context/ContextProvider.jsx";
-import axiosClient from "../axios-client.js";
+import {useStateContext} from "../../context/ContextProvider.jsx";
+import axiosClient from "../../axios-client.js";
 
 export const DefaultLayout = () => {
   const {user, token, setUser, setToken,} = useStateContext()
@@ -35,7 +35,7 @@ export const DefaultLayout = () => {
         <header>
           <div>Header</div>
           <div>{user.name}</div>
-          <a href="#" onClick={onLogout} className={'btn-logout'}>Выйти</a>
+          <a href=".#" onClick={onLogout} className={'btn-logout'}>Выйти</a>
         </header>
       </div>
       <main>

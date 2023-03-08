@@ -1,0 +1,26 @@
+.background {
+  padding: 5rem;
+  height: 100vh;
+  width: 100vw;
+  background-image: url("/images/banner.webp");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.main {
+  margin: 0 auto;
+  padding: 2.5rem;
+  width: 35vw;
+  height: 70vh;
+
+  display: grid;
+  grid-template-rows: 1fr 1fr 3fr 1fr;
+  text-align: center;
+
+  background-image: url("/images/desk.webp");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 10px;
+}
