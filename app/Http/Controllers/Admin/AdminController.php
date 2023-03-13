@@ -3,24 +3,30 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Contracts\View\View;
-use Illuminate\Http\Request;
+use App\Models\Product;
 
 class AdminController extends Controller
 {
 
-    public function index()
+    public function recipe()
     {
-//        $test = auth()->user();
-//        var_dump($test);
-//        die();
         if (!auth()->user() || !auth()->user()->is_admin) {
-//            var_dump('$test');
-//            die();
             return to_route('login');
         }
-        return view('admin.index');
+        return view('admin.recipe');
     }
+        public function product()
+    {
+        if (!auth()->user() || !auth()->user()->is_admin) {
+            return to_route('login');
+        }
+        $product = Product::simplePaginate(10);
+//        var_dump($product);
+//        die();
+        return view('admin.product', [
+            'array_data' => $product,
+        ]);
+    }
+
+
 }

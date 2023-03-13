@@ -1,0 +1,148 @@
+$browser-context: 16; // Default
+
+@function rem($pixels, $context: $browser-context) {
+    @return #{$pixels/$context}rem;
+}
+
+@function em($pixels, $context: $browser-context) {
+    @return #{$pixels/$context}em;
+}
+
+@function prc($pxOne, $pxTwo) {
+    @return #{$pxOne/$pxTwo*100}'%';
+}
+
+//необходим эксперемент с переменными
+
+$maxWidth: 1920;
+$maxWidthContainer: 1200;
+
+@mixin adaptive-value($property, $startSize, $minSize, $type) {
+    $addSize: $startSize - $minSize;
+    @if ($type==1) {
+        //если меньше контейнера
+        #{$property}: $startSize + px;
+        @media (max-width: #{$maxWidthContainer+px}) {
+            #{$property}: calc(#{$minSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidthContainer - 320}));
+        }
+    } @else if ($type==2) {
+        //если больше контейнера
+        #{$property}: $startSize + px;
+        @media (min-width: #{$maxWidthContainer+px}) {
+            #{$property}: calc(#{$minSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth - 320}));
+        }
+    } @else {
+        //всегда
+        #{$property}: calc(#{$minSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth - 320}));
+    }
+}
+
+@mixin bg-cover {
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+@mixin flex {
+    display: flex;
+}
+
+@mixin flex-v-center {
+    display: flex;
+    align-items: center;
+}
+
+@mixin flex-h-center {
+    display: flex;
+    justify-content: center;
+}
+
+@mixin flex-all-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin flex-all-sb {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+@mixin photo-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+@mixin block-hover {
+    position: absolute;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    text-align: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url(/storage/images/dots.png);
+    z-index: 0;
+    transition: all 0.7s linear;
+    color: var(--color-white);
+}
+
+@keyframes hover {
+    0% {
+        width: 0;
+        height: 34px;
+    }
+    //50%{
+    //  width: 50%;
+    //  height: 50%;
+    //}
+    100% {
+        width: 100%;
+        height: 34px;
+    }
+}
+
+@keyframes leftInAnimation {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes leftOutAnimation {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+@keyframes rightInAnimation {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes rightOutAnimation {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(100%);
+    }
+}
+
