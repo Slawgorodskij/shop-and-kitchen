@@ -3,18 +3,24 @@ import styles from "./menu.module.css"
 import axiosClient from "../../axios-client.js";
 import {MyButton} from "../../components/UI/MyButton/MyButton.jsx";
 import {OneDay} from "../../components/OneDay/OneDay.jsx";
+import {Modal} from "../../components/UI/modal/Modal.jsx";
 
 export const Menu = () => {
   const [deyWeek, setDeyWeek] = useState([]);
   const [mealTime, setMealTime] = useState([]);
-  const [listMenu, setListMenu] = useState(['test']);
+  const [listMenu, setListMenu] = useState([]);
+  const [modalActive, setModalActive] = useState(false);
 
+  const openModal = () => {
+    console.log('test')
+    setModalActive(true)
+  }
   useEffect(() => {
     axiosClient.get('/listMenu')
       .then(({data}) => {
         setDeyWeek(data.deyWeek)
         setMealTime(data.mealTime)
-        //setListMenu(data.listMenu)
+        setListMenu(data.listMenu)
       })
   }, [])
 
@@ -35,11 +41,14 @@ export const Menu = () => {
         }
       </div>
       <div className={styles.block__button}>
-        <MyButton label={'Создать'}/>
+        <MyButton label={'Создать'} click={openModal}/>
         {listMenu.length > 0 &&
           <MyButton label={'Редактировать'}/>
         }
       </div>
+      <Modal active={modalActive} setActive={setModalActive}>
+        ЗДЕСЬ ВЫЗВАТЬ ФОРМУ
+      </Modal>
     </div>
   );
 };
