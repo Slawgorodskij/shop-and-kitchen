@@ -6,31 +6,33 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Structure extends Model
+class MealTimeRecipe extends Model
 {
     use HasFactory;
+
+    /**
+     * Таблица БД, ассоциированная с моделью.
+     *
+     * @var string
+     */
+    protected $table = 'meal_time_recipe';
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
+        'meal_time_id',
         'recipe_id',
-        'product_id',
-        'units_id',
-        'quantity',
     ];
 
     public function recipes(): BelongsTo
     {
         return $this->belongsTo(Recipe::class, 'recipe_id');
     }
-    public function product()
+
+    public function mealTimes()
     {
-        return $this->belongsTo(Product::class, 'product_id');
-    }
-    public function units()
-    {
-        return $this->belongsTo(Units::class, 'units_id');
+        return $this->belongsTo(MealTime::class, 'meal_time_id');
     }
 }

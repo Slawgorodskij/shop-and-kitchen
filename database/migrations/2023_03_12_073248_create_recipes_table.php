@@ -19,6 +19,21 @@ return new class extends Migration {
                 ->nullable();
             $table->string('link')
                 ->nullable();
+            $table->boolean('for_breakfast')
+                ->nullable(false)
+                ->default(false);
+            $table->boolean('for_lunch')
+                ->nullable(false)
+                ->default(false);
+            $table->boolean('for_dinner')
+                ->nullable(false)
+                ->default(false);
+            $table->boolean('for_second_breakfast')
+                ->nullable(false)
+                ->default(false);
+            $table->boolean('for_afternoon_tea')
+                ->nullable(false)
+                ->default(false);
             $table->timestamps();
         });
     }

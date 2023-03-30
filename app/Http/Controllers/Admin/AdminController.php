@@ -4,22 +4,22 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\Recipe;
 
 class AdminController extends Controller
 {
 
     public function recipe()
     {
-        if (!auth()->user() || !auth()->user()->is_admin) {
-            return to_route('login');
-        }
-        return view('admin.recipe');
+        $recipe = Recipe::simplePaginate(10);
+        return view('admin.recipe', [
+            'array_data' => $recipe,
+        ]);
     }
-        public function product()
+
+    public function product()
     {
-        if (!auth()->user() || !auth()->user()->is_admin) {
-            return to_route('login');
-        }
+
         $product = Product::simplePaginate(10);
 //        var_dump($product);
 //        die();

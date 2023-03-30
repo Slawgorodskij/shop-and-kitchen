@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AdminProduct;
+use App\Http\Requests\AdminProductUpdateForm;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,9 @@ class AdminProductController extends Controller
      */
     public function index()
     {
-        //
+//        return view('admin.newProduct', [
+//            'product'=>Product::
+//        ]);
     }
 
     /**
@@ -30,8 +33,8 @@ class AdminProductController extends Controller
      */
     public function store(AdminProduct $request)
     {
-       Product::create($request->validated());
-       return to_route('');
+        Product::create($request->validated());
+        return to_route('product.create');
     }
 
     /**
@@ -45,24 +48,28 @@ class AdminProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Product $product)
     {
-        //
+        return view('admin.newProduct', [
+            'product' => $product,
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(AdminProductUpdateForm $request, Product $product)
     {
-        //
+        $product->update($request->validated());
+        return to_route('admin.product');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Product $product)
     {
-        //
+        $product->delete();
+        return to_route('admin.product');
     }
 }
