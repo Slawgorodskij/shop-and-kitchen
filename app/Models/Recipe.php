@@ -17,11 +17,25 @@ class Recipe extends Model
     protected $fillable = [
         'name',
         'description',
-        'link'
+        'link',
+        'for_breakfast',
+        'for_lunch',
+        'for_dinner',
+        'for_second_breakfast',
+        'for_afternoon_tea',
     ];
 
     public function images(): MorphMany
     {
         return $this->morphMany(Image::class, 'imageable');
+    }
+
+    public function structures()
+    {
+        return $this->hasMany(Structure::class, 'recipe_id');
+    }
+    public function mealTime()
+    {
+        return $this->belongsToMany(MealTime::class, 'meal_time_recipe');
     }
 }

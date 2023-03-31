@@ -1,0 +1,48 @@
+.articles {
+    @include adaptive-value("margin-bottom", 150, 5, 0);
+}
+
+.article {
+    display: flex;
+    min-height: 40vh;
+    margin-bottom: 5vh;
+    cursor: pointer;
+    @include mobile {
+        flex-direction: column;
+    }
+
+    &__photo {
+        position: relative;
+        flex: 1 0 50%;
+        background-color: var(--color-body-dark);
+        background-image: url(/storage/images/dots.png);
+        border-right: 1px solid var(--color-border);
+
+        @include tablet {
+            flex: 1 0 65%;
+        }
+        @include mobile {
+            min-height: 40vh;
+        }
+
+        &_img {
+            @include photo-image;
+        }
+    }
+
+    &__text {
+        padding: 25px;
+        flex: 1 1 50%;
+        color: var(--color-text);
+        background-color: var(--color-body-dark);
+        border-radius: 0 10px 10px 0;
+
+        @include tablet {
+            flex: 1 0 35%;
+        }
+        @include mobile {
+            flex: 0 0 50%;
+            border-radius: 0 0 10px 10px;
+        }
+    }
+}

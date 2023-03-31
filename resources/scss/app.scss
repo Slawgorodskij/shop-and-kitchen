@@ -1,0 +1,13 @@
+@import "mixins";
+@import "vars";
+@import "settings";
+
+@import "./components/header";
+@import "./components/footer";
+@import "./components/main_index";
+@import "./components/main_about";
+@import "./components/main_portfolio";
+@import "components/main_article";
+@import "./components/article";
+@import "components/admin";
+@import "./components/form";

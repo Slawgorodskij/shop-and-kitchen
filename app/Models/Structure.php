@@ -15,7 +15,7 @@ class Structure extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'recipes_id',
+        'recipe_id',
         'product_id',
         'units_id',
         'quantity',
@@ -23,6 +23,14 @@ class Structure extends Model
 
     public function recipes(): BelongsTo
     {
-        return $this->belongsTo(Recipe::class, 'recipes_id');
+        return $this->belongsTo(Recipe::class, 'recipe_id');
+    }
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'product_id');
+    }
+    public function units()
+    {
+        return $this->belongsTo(Units::class, 'units_id');
     }
 }

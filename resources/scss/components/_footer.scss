@@ -1,0 +1,23 @@
+.footer {
+  background-color: var(--color-background);
+
+  &__block {
+    @include flex-all-sb;
+  }
+&__logo{
+  padding-top: 15px;
+    @include mobile{
+        height: 10vh;
+    }
+}
+  &__social {
+    @include flex-all-sb;
+    column-gap: 10px;
+  }
+
+  &__signature {
+    margin: 0;
+    padding-bottom: 15px;
+    text-align: center;
+  }
+}

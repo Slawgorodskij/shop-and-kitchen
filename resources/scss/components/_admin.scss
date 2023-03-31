@@ -1,0 +1,111 @@
+.admin {
+    &-performance {
+        min-height: 40vh;
+        margin-bottom: 10vh;
+        background-image: url(/storage/images/photo_main.jpg);
+        background-position: center;
+        background-size: cover;
+        font-size: 30px;
+        font-weight: 900;
+        color: var(--color-title);
+
+        &__block {
+            padding-top: 90px;
+        }
+    }
+
+    &-main {
+        padding-bottom: 10vh;
+    }
+
+    &-nav {
+        position: relative;
+        display: flex;
+        justify-content: space-around;
+        margin-bottom: 10vh;
+
+        &__text {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--color-black);
+            transition: all 0.4s linear;
+            cursor: pointer;
+
+            &:hover {
+                color: var(--color-title-hover);
+            }
+        }
+
+        &::after {
+            position: absolute;
+            content: '';
+            display: block;
+            top: 200%;
+            left: 0;
+            width: 100%;
+            border-bottom: 2px solid var(--color-black);
+        }
+    }
+
+    &-table {
+        width: 100%;
+        margin-bottom: 7vh;
+        color: var(--color-black);
+        vertical-align: top;
+        border: 1px solid currentColor;
+        caption-side: bottom;
+        border-collapse: collapse;
+        background-color: var(--color-table-backgraund);
+
+        thead {
+            background-color: var(--color-body);
+        }
+
+        td,
+        th {
+            border-style: solid;
+            border-width: 1px;
+            padding: 0.5rem;
+        }
+
+        tr:nth-child(2n) {
+            background-color: var(--color-table-backgraund-two);
+        }
+
+        &__content {
+            width: 70vw;
+        }
+
+        &__block-button {
+            padding: 0.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        &__button {
+            min-width: 15vw;
+            margin-bottom: 0.5rem;
+
+        }
+    }
+
+    &__button {
+        @include flex-all-center;
+        width: 100%;
+        height: 8vh;
+        margin-bottom: 2vh;
+
+        &_text {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--color-white);
+        }
+
+        &:hover {
+            background-color: var(--color-button-backgraund-hover);
+            border: var(--color-border-hover) solid 2px;
+            box-shadow: 0 15px 25px -2px rgba(34, 60, 80, 0.35);
+        }
+    }
+}

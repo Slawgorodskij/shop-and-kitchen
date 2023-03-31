@@ -1,0 +1,33 @@
+// COLORS
+:root {
+    // цвет фона
+    --color-body: #e1eefd;
+    --color-body-dark: #6ca1d0;
+
+    --color-background: rgba(10, 25, 39, 0.4);
+    --color-background-notice: rgba(158, 207, 250, .3);
+    --color-table-backgraund: #a0ddfb;
+    --color-table-backgraund-two: #5fa4c5;
+
+    --color-button-backgraund: #0286c2;
+    --color-button-backgraund-hover: #2ebcfc;
+
+    --color-footer: rgb(10, 25, 39);
+
+    //цвет шрифтов
+
+    --color-green: #2a862a;
+    --color-title:  #e6d0d0;
+    --color-title-hover: #dba6a6;
+    --color-text: #534c48;
+    --color-black: #000;
+    --color-white: #fff;
+
+    //цвет границ
+
+    --color-border: #5f7682;
+    --color-border-hover: #95a8b2;
+
+    --color-error: #f44e03;
+
+}

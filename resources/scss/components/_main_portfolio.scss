@@ -1,0 +1,42 @@
+.portfolio {
+    display: flex;
+    margin-bottom: 25vh;
+    flex-wrap: wrap;
+    gap: 25px;
+
+    &__item {
+        position: relative;
+        flex: 1 1 40%;
+        padding: 10px;
+        min-height: 50vh;
+        border-radius: 15px;
+        box-shadow: 0 15px 25px -2px rgba(34, 60, 80, 0.35);
+        cursor: pointer;
+        @include mobile{
+            flex: 1 0 90%;
+        }
+    }
+
+    &__photo {
+        @include photo-image;
+        border-radius: 25px;
+        z-index: 2;
+        transition: all 0.4s linear;
+    }
+
+    &__hover {
+        @include block-hover;
+    }
+
+    &__link {
+        color: var(--color-white);
+    }
+
+    &__item:hover .portfolio__hover {
+        z-index: 5;
+    }
+
+    &__item:hover .portfolio__photo {
+        border-radius: 0;
+    }
+}
