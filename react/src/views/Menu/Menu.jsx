@@ -4,12 +4,15 @@ import axiosClient from "../../axios-client.js";
 import {MyButton} from "../../components/UI/MyButton/MyButton.jsx";
 import {OneDay} from "../../components/OneDay/OneDay.jsx";
 import {Modal} from "../../components/UI/modal/Modal.jsx";
+import {useStateContext} from "../../context/ContextProvider.jsx";
+import {CreatingMenu} from "../../components/creatingMenu/CreatingMenu.jsx";
 
 export const Menu = () => {
-  const [deyWeek, setDeyWeek] = useState([]);
-  const [mealTime, setMealTime] = useState([]);
   const [listMenu, setListMenu] = useState([]);
   const [modalActive, setModalActive] = useState(false);
+
+  const {deyWeek, setDeyWeek} = useStateContext()
+  const {mealTime, setMealTime} = useStateContext()
 
   const openModal = () => {
     console.log('test')
@@ -47,7 +50,7 @@ export const Menu = () => {
         }
       </div>
       <Modal active={modalActive} setActive={setModalActive}>
-        ЗДЕСЬ ВЫЗВАТЬ ФОРМУ
+        <CreatingMenu/>
       </Modal>
     </div>
   );
