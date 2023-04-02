@@ -13,10 +13,19 @@ export const Menu = () => {
 
   const {deyWeek, setDeyWeek} = useStateContext()
   const {mealTime, setMealTime} = useStateContext()
+  const {user} = useStateContext()
+  const {mealTimeAndRecipe, setMealTimeAndRecipe} = useStateContext()
 
   const openModal = () => {
-    console.log('test')
     setModalActive(true)
+  }
+  const addListMenu = (data) => {
+    data['users_id'] = user.id
+    console.log(data)
+    axiosClient.post('/addListMenu', data)
+      .then(({data}) => {
+        console.log(data)
+      })
   }
   useEffect(() => {
     axiosClient.get('/listMenu')
@@ -24,6 +33,8 @@ export const Menu = () => {
         setDeyWeek(data.deyWeek)
         setMealTime(data.mealTime)
         setListMenu(data.listMenu)
+        setMealTimeAndRecipe(data.mealTimeAndRecipe)
+        // console.log(data.mealTimeAndRecipe)
       })
   }, [])
 
@@ -50,7 +61,7 @@ export const Menu = () => {
         }
       </div>
       <Modal active={modalActive} setActive={setModalActive}>
-        <CreatingMenu/>
+        <CreatingMenu deyWeek={deyWeek} addListMenu={addListMenu}/>
       </Modal>
     </div>
   );

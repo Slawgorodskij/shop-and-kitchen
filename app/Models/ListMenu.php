@@ -19,6 +19,7 @@ class ListMenu extends Model
         'recipes_id',
         'dey_weeks_id',
         'meal_times_id',
+        'date',
     ];
 
 }

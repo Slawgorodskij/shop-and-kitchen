@@ -1,45 +1,112 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from './creatingMenu.module.css'
 import {useStateContext} from "../../context/ContextProvider.jsx";
+import {Modal} from "../UI/modal/Modal.jsx";
 
-let date = new Date();
-date.setDate(date.getDate() + (1 + 7 - date.getDay()) % 7)
-const startDate = date.toLocaleDateString("ru-RU")
-date.setDate(date.getDate() + 6)
-const endDate = date.toLocaleDateString("ru-RU")
-export const CreatingMenu = () => {
-  const {deyWeek} = useStateContext()
+const date = new Date();
+date.setDate(date.getDate() + (1 + 6 - date.getDay()) % 7)
+
+export const CreatingMenu = ({deyWeek, addListMenu}) => {
+
   const {mealTime} = useStateContext()
+  const {mealTimeAndRecipe} = useStateContext()
+  const [modalActive, setModalActive] = useState(false);
+  const [modalActiveTitle, setModalActiveTitle] = useState('');
+
+  const [renderDay, setRenderDay] = useState(([]))
+  const [recipeSelect, setRecipeSelect] = useState([])
+  const [selectedRecipeName, setSelectedRecipeName] = useState([])
+
+
+  useEffect(() => {
+    deyWeek.map(oneDay => {
+      date.setDate(date.getDate() + 1)
+      oneDay['date'] = date.toLocaleDateString("ru-RU")
+    })
+    setRenderDay(deyWeek)
+  }, [deyWeek]);
+
+  const renderRecipe = (itemMealTime, oneDayWeek) => {
+
+    const recipeArray = mealTimeAndRecipe.filter(item => {
+      return item.meal_times_id === itemMealTime.id
+    })
+    recipeArray.map(recipe => {
+      recipe['date'] = oneDayWeek.date
+      recipe['itemMealTime'] = itemMealTime.id
+      recipe['oneDayWeek'] = oneDayWeek.id
+    })
+    setRecipeSelect(recipeArray)
+    setModalActiveTitle(itemMealTime.name.toLowerCase())
+    setModalActive(true)
+  }
+  const addRecipe = (recipe) => {
+    const newName = {
+      'id': Math.round(Date.now() * Math.random()).toString(),
+      'oneDayWeek': recipe.oneDayWeek,
+      'itemMealTime': recipe.itemMealTime,
+      'arrayNameRecipe': recipe.recipe_name,
+    }
+
+    setSelectedRecipeName(prev => [...prev, newName])
+    addListMenu({
+      'recipes_id': recipe.recipe_id,
+      'dey_weeks_id':recipe.oneDayWeek,
+      'meal_times_id':recipe.itemMealTime,
+      'date': recipe.date
+    })
+    setModalActive(false)
+  }
+
 
   return (
     <>
-      <h2 className={styles.title}>c {startDate} по {endDate}</h2>
-      {deyWeek.map(oneDay =>
+      {renderDay.map(oneDay =>
         <div key={oneDay.id}>
           <div className={styles.block__title}>
-            <h2 id={'renderDate'}>{oneDay.name}</h2>
+            <h2>{oneDay.name} {oneDay.date}</h2>
           </div>
-          <div className={styles.main}>
-            {mealTime.map(item =>
-              <div
-                className={styles.block__meal}
-                key={item.id}
-              >
-                <div className={styles.meal__name}>
-                  <p>{item.name}</p>
-                </div>
-
+          {mealTime.map(eating =>
+            <div
+              className={styles.block__meal}
+              key={eating.id}
+            >
+              <div className={styles.meal__name}>
+                <p>{eating.name}</p>
               </div>
-            )}
-          </div>
-        </div>
-      )}
+              <div className={styles.block__recipe}>
+                {selectedRecipeName.length > 0 &&
+                  selectedRecipeName.filter(item => {
+                    if (item.oneDayWeek === oneDay.id && item.itemMealTime === eating.id) {
+                      return item
+                    }
+                  }).map(item => <p key={item.id}>{item.arrayNameRecipe}</p>)
+                }
+                <p
+                  className={styles.text_btn}
+                  onClick={() => renderRecipe(eating, oneDay)}> добавить< /p>
+              </div>
+            </div>
+          )}
+        </div>)}
+
+      <Modal active={modalActive} setActive={setModalActive}>
+        <h3 className={styles.title}>На {modalActiveTitle} подойдет</h3>
+        {recipeSelect.map(recipe =>
+          <p
+            className={styles.text_btn}
+            key={recipe.recipe_id}
+            onClick={() => addRecipe(recipe)}
+          >
+            {recipe.recipe_name}
+          </p>)}
+      </Modal>
     </>
   )
-    ;
+
 };
 //
-//       {mealTime.length > 0 &&
+// {mealTime.length > 0 &&
 // <div className={styles.block__recipe}>
 //               <p>Название блюда</p>
 //               <p>Название блюда</p>
