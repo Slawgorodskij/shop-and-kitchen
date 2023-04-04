@@ -18,8 +18,9 @@ return new class extends Migration
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
             $table->integer('recipes_id');
-            $table->integer('dey_weeks_id');
+            $table->integer('day_weeks_id');
             $table->integer('meal_times_id');
+            $table->text('date');
             $table->timestamps();
         });
     }

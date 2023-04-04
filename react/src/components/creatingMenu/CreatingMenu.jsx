@@ -6,7 +6,7 @@ import {Modal} from "../UI/modal/Modal.jsx";
 const date = new Date();
 date.setDate(date.getDate() + (1 + 6 - date.getDay()) % 7)
 
-export const CreatingMenu = ({deyWeek, addListMenu}) => {
+export const CreatingMenu = ({DayWeek, addListMenu}) => {
 
   const {mealTime} = useStateContext()
   const {mealTimeAndRecipe} = useStateContext()
@@ -19,12 +19,12 @@ export const CreatingMenu = ({deyWeek, addListMenu}) => {
 
 
   useEffect(() => {
-    deyWeek.map(oneDay => {
+    DayWeek.map(oneDay => {
       date.setDate(date.getDate() + 1)
       oneDay['date'] = date.toLocaleDateString("ru-RU")
     })
-    setRenderDay(deyWeek)
-  }, [deyWeek]);
+    setRenderDay(DayWeek)
+  }, [DayWeek]);
 
   const renderRecipe = (itemMealTime, oneDayWeek) => {
 
@@ -51,7 +51,7 @@ export const CreatingMenu = ({deyWeek, addListMenu}) => {
     setSelectedRecipeName(prev => [...prev, newName])
     addListMenu({
       'recipes_id': recipe.recipe_id,
-      'dey_weeks_id':recipe.oneDayWeek,
+      'day_weeks_id':recipe.oneDayWeek,
       'meal_times_id':recipe.itemMealTime,
       'date': recipe.date
     })

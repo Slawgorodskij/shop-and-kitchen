@@ -3,12 +3,12 @@ import {listPages} from "../listPages.js";
 const StateContext = createContext({
   user: null,
   token: null,
-  deyWeek: null,
+  DayWeek: null,
   mealTime: null,
   mealTimeAndRecipe: null,
   setUser: () => { },
   setToken: () => { },
-  setDeyWeek: () => { },
+  setDayWeek: () => { },
   setMealTime: () => { },
   setMealTimeAndRecipe: () => { },
   listPages: listPages,
@@ -18,7 +18,7 @@ export const ContextProvider = ({children}) => {
   const [token, _setToken] = useState(localStorage.getItem('ACCESS_TOKEN'));
   const [list] = useState(listPages);
 
-  const [deyWeek, setDeyWeek] = useState([]);
+  const [DayWeek, setDayWeek] = useState([]);
   const [mealTime, setMealTime] = useState([]);
   const [mealTimeAndRecipe, setMealTimeAndRecipe] = useState([]);
 
@@ -38,8 +38,8 @@ export const ContextProvider = ({children}) => {
       token,
       setToken,
       list,
-      deyWeek,
-      setDeyWeek,
+      DayWeek,
+      setDayWeek,
       mealTime,
       setMealTime,
       mealTimeAndRecipe,

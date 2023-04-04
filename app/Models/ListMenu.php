@@ -17,7 +17,7 @@ class ListMenu extends Model
     protected $fillable = [
         'users_id',
         'recipes_id',
-        'dey_weeks_id',
+        'day_weeks_id',
         'meal_times_id',
         'date',
     ];

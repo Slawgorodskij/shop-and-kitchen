@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ApiListMenuRequest;
-use App\Models\DeyWeek;
+use App\Models\DayWeek;
 use App\Models\ListMenu;
 use App\Models\MealTime;
 use Illuminate\Http\Request;
@@ -21,7 +21,7 @@ class ListMenuController extends Controller
 //            'password' => bcrypt($data['password']),
 //        ]);
         $listMenu = ListMenu::all();
-        $deyWeek = DeyWeek::all();
+        $DayWeek = DayWeek::all();
         $mealTime = MealTime::all();
         $mealTimeAndRecipe = MealTime::select(
             'meal_times.id as meal_times_id',
@@ -33,7 +33,7 @@ class ListMenuController extends Controller
             ->join('recipes', 'meal_time_recipe.recipe_id', '=', 'recipes.id')
             ->get();
 
-        return response(compact('listMenu', 'deyWeek', 'mealTime', 'mealTimeAndRecipe'));
+        return response(compact('listMenu', 'DayWeek', 'mealTime', 'mealTimeAndRecipe'));
     }
 
     public function addListMenu(ApiListMenuRequest $request)
@@ -42,7 +42,7 @@ class ListMenuController extends Controller
         $listMenu = ListMenu::create([
             'users_id' => $data['users_id'],
             'recipes_id' => $data['recipes_id'],
-            'dey_weeks_id' => $data['dey_weeks_id'],
+            'day_weeks_id' => $data['day_weeks_id'],
             'meal_times_id' => $data['meal_times_id'],
             'date' => $data['date'],
         ]);

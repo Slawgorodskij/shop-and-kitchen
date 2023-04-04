@@ -24,7 +24,7 @@ class ApiListMenuRequest extends FormRequest
         return [
             'users_id'=>'required',
             'recipes_id'=>'required',
-            'dey_weeks_id'=>'required',
+            'day_weeks_id'=>'required',
             'meal_times_id'=>'required',
             'date'=>'required',
         ];

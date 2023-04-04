@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('dey_weeks', function (Blueprint $table) {
+        Schema::create('day_weeks', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->timestamps();
@@ -23,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('dey_weeks');
+        Schema::dropIfExists('day_weeks');
     }
 };
