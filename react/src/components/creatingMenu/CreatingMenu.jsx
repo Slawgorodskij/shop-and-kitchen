@@ -6,7 +6,7 @@ import {Modal} from "../UI/modal/Modal.jsx";
 const date = new Date();
 date.setDate(date.getDate() + (1 + 6 - date.getDay()) % 7)
 
-export const CreatingMenu = ({DayWeek, addListMenu}) => {
+export const CreatingMenu = ({DayWeek, addListMenu, addShoppingList}) => {
 
   const {mealTime} = useStateContext()
   const {mealTimeAndRecipe} = useStateContext()
@@ -56,6 +56,9 @@ export const CreatingMenu = ({DayWeek, addListMenu}) => {
       'date': recipe.date
     })
     setModalActive(false)
+    addShoppingList({
+      'recipes_id': recipe.recipe_id,
+    })
   }
 
 

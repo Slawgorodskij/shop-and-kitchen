@@ -15,6 +15,7 @@ export const Menu = () => {
   const {mealTime, setMealTime} = useStateContext()
   const {user} = useStateContext()
   const {listNameRecipes, setListNameRecipes} = useStateContext()
+  const {setMealTimeAndRecipe} = useStateContext()
 
   const openModal = () => {
     setModalActive(true)
@@ -27,7 +28,7 @@ export const Menu = () => {
         console.log(data)
       })
   }
-  const addShoppingList = (data) =>{
+  const addShoppingList = (data) => {
     data['users_id'] = user.id
     axiosClient.post('/addShoppingList', data)
       .then(({data}) => {
@@ -44,6 +45,7 @@ export const Menu = () => {
           setDayWeek(data.DayWeek)
           setMealTime(data.mealTime)
           setListNameRecipes(data.listNameRecipes)
+          setMealTimeAndRecipe(data.mealTimeAndRecipe)
         })
     }
     console.log(listNameRecipes)
@@ -61,7 +63,11 @@ export const Menu = () => {
         }
         {listNameRecipes.length > 0 &&
           DayWeek.map(deyName =>
-            <OneDay key={deyName.id} nameDay={deyName} mealTime={mealTime} listNameRecipes={listNameRecipes}/>
+            <OneDay key={deyName.id}
+                    nameDay={deyName}
+                    mealTime={mealTime}
+                    listNameRecipes={listNameRecipes}
+            />
           )
         }
       </div>
@@ -72,7 +78,11 @@ export const Menu = () => {
         }
       </div>
       <Modal active={modalActive} setActive={setModalActive}>
-        <CreatingMenu DayWeek={DayWeek} addListMenu={addListMenu}/>
+        <CreatingMenu
+          DayWeek={DayWeek}
+          addListMenu={addListMenu}
+          addShoppingList={addShoppingList}
+        />
       </Modal>
     </div>
   );

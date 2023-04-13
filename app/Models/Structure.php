@@ -21,7 +21,7 @@ class Structure extends Model
         'quantity',
     ];
 
-    public function recipes(): BelongsTo
+    public function recipes()
     {
         return $this->belongsTo(Recipe::class, 'recipe_id');
     }

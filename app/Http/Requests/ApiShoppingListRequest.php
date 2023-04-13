@@ -11,7 +11,7 @@ class ApiShoppingListRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,8 @@ class ApiShoppingListRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'users_id' => 'required',
+            'recipes_id' => 'required',
         ];
     }
 }

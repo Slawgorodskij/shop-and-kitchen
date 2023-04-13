@@ -8,8 +8,6 @@ use App\Http\Requests\ApiListMenuUserRequest;
 use App\Models\DayWeek;
 use App\Models\ListMenu;
 use App\Models\MealTime;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 
 class ListMenuController extends Controller
@@ -31,17 +29,17 @@ class ListMenuController extends Controller
             ->where('users_id', $data['users_id'])
             ->get();
 
-//        $mealTimeAndRecipe = MealTime::select(
-//            'meal_times.id as meal_times_id',
-//            'meal_times.name as meal_times_name',
-//            'recipes.id as recipe_id',
-//            'recipes.name as recipe_name'
-//        )
-//            ->join('meal_time_recipe', 'meal_times.id', '=', 'meal_time_recipe.meal_time_id')
-//            ->join('recipes', 'meal_time_recipe.recipe_id', '=', 'recipes.id')
-//            ->get();
+        $mealTimeAndRecipe = MealTime::select(
+            'meal_times.id as meal_times_id',
+            'meal_times.name as meal_times_name',
+            'recipes.id as recipe_id',
+            'recipes.name as recipe_name'
+        )
+            ->join('meal_time_recipe', 'meal_times.id', '=', 'meal_time_recipe.meal_time_id')
+            ->join('recipes', 'meal_time_recipe.recipe_id', '=', 'recipes.id')
+            ->get();
 
-        return response(compact('listNameRecipes', 'DayWeek', 'mealTime'));
+        return response(compact('listNameRecipes', 'DayWeek', 'mealTime', 'mealTimeAndRecipe'));
     }
 
     public function addListMenu(ApiListMenuRequest $request)

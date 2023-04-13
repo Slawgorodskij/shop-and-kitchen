@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ListMenuController;
+use App\Http\Controllers\Api\ShoppingListController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,5 +27,6 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::post('/signup', [AuthController::class, 'signup']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/listMenu', [ListMenuController::class, 'listMenu']);
+Route::post('/addShoppingList', [ShoppingListController::class, 'addShoppingList']);
 Route::post('/addListMenu', [ListMenuController::class, 'addListMenu']);
 
