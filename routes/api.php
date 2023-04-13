@@ -25,6 +25,6 @@ Route::middleware('auth:sanctum')->group(function () {
 
 Route::post('/signup', [AuthController::class, 'signup']);
 Route::post('/login', [AuthController::class, 'login']);
-Route::get('/listMenu', [ListMenuController::class, 'listMenu']);
+Route::post('/listMenu', [ListMenuController::class, 'listMenu']);
 Route::post('/addListMenu', [ListMenuController::class, 'addListMenu']);
 

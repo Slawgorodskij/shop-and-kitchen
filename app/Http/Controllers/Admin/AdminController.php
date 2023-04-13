@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\ListMenu;
 use App\Models\Product;
 use App\Models\Recipe;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
@@ -21,7 +23,10 @@ class AdminController extends Controller
     {
 
         $product = Product::simplePaginate(10);
-//        var_dump($product);
+//        $listMenu = ListMenu::where('users_id', auth()->user()->id)->get();
+        /** $var User $user */
+        $user = Auth::user();
+        dd($user->id);
 //        die();
         return view('admin.product', [
             'array_data' => $product,

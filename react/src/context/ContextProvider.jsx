@@ -1,16 +1,22 @@
 import {createContext, useContext, useState} from "react";
 import {listPages} from "../listPages.js";
+
 const StateContext = createContext({
   user: null,
   token: null,
   DayWeek: null,
   mealTime: null,
-  mealTimeAndRecipe: null,
-  setUser: () => { },
-  setToken: () => { },
-  setDayWeek: () => { },
-  setMealTime: () => { },
-  setMealTimeAndRecipe: () => { },
+  listNameRecipes: null,
+  setUser: () => {
+  },
+  setToken: () => {
+  },
+  setDayWeek: () => {
+  },
+  setMealTime: () => {
+  },
+  setListNameRecipes: () => {
+  },
   listPages: listPages,
 })
 export const ContextProvider = ({children}) => {
@@ -20,7 +26,7 @@ export const ContextProvider = ({children}) => {
 
   const [DayWeek, setDayWeek] = useState([]);
   const [mealTime, setMealTime] = useState([]);
-  const [mealTimeAndRecipe, setMealTimeAndRecipe] = useState([]);
+  const [listNameRecipes, setListNameRecipes] = useState([]);
 
   const setToken = (token) => {
     _setToken(token)
@@ -42,8 +48,10 @@ export const ContextProvider = ({children}) => {
       setDayWeek,
       mealTime,
       setMealTime,
-      mealTimeAndRecipe,
-      setMealTimeAndRecipe
+      listNameRecipes,
+      setListNameRecipes,
+      // mealTimeAndRecipe,
+      // setMealTimeAndRecipe
     }}>
       {children}
     </StateContext.Provider>

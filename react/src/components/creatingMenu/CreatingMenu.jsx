@@ -103,13 +103,4 @@ export const CreatingMenu = ({DayWeek, addListMenu}) => {
       </Modal>
     </>
   )
-
 };
-//
-// {mealTime.length > 0 &&
-// <div className={styles.block__recipe}>
-//               <p>Название блюда</p>
-//               <p>Название блюда</p>
-//               <p>Название блюда</p>
-//             </div>
-//         </div>
