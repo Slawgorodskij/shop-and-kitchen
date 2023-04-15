@@ -1,0 +1,16 @@
+.block {
+  margin: 0 auto;
+  width: 80%;
+  height: 35vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.error {
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  color: darkred;
+}

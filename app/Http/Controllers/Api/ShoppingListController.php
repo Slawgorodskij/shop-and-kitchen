@@ -66,6 +66,8 @@ class ShoppingListController extends Controller
 
         $shoppingListRendering = ShoppingList::select(
             'shopping_lists.id as id',
+            'shopping_lists.units_id',
+            'shopping_lists.product_id',
             'units.name as units_name',
             'shopping_lists.quantity',
             'products.name as product_name'

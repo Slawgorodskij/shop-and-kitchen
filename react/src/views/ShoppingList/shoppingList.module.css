@@ -35,18 +35,7 @@
 
 .none__table {
   height: 45%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
   font-size: 20px;
-
-
+  text-align: center;
 }
 
-.block__button {
-  grid-row-start: 3;
-  grid-row-end: 4;
-  display: flex;
-  gap: 10px;
-}
