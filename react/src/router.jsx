@@ -5,7 +5,7 @@ import {Home} from "./views/Home";
 import {Menu} from "./views/Menu/Menu.jsx";
 import {MenuCompilation} from "./views/MenuCompilation";
 import {Recipe} from "./views/Recipe";
-import {ShoppingList} from "./views/ShoppingList";
+import {ShoppingList} from "./views/ShoppingList/ShoppingList.jsx";
 import {Storeroom} from "./views/Storeroom";
 import {WeeksRecipes} from "./views/WeeksRecipes";
 import {NotFound} from "./views/NotFound";

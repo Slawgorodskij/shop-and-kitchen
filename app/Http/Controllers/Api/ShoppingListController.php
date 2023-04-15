@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ApiListUserRequest;
 use App\Http\Requests\ApiShoppingListRequest;
 use App\Models\ShoppingList;
 use App\Models\Storeroom;
@@ -57,5 +58,23 @@ class ShoppingListController extends Controller
         $shoppingList = ShoppingList::all();
 
         return response(compact('shoppingList'));
+    }
+
+    public function shoppingListRendering(ApiListUserRequest $request)
+    {
+        $data = $request->validated();
+
+        $shoppingListRendering = ShoppingList::select(
+            'shopping_lists.id as id',
+            'units.name as units_name',
+            'shopping_lists.quantity',
+            'products.name as product_name'
+        )
+            ->join('products', 'shopping_lists.product_id', '=', 'products.id')
+            ->join('units', 'shopping_lists.units_id', '=', 'units.id')
+            ->where('users_id', $data['users_id'])
+            ->get();
+
+        return response(compact('shoppingListRendering'));
     }
 }

@@ -8,7 +8,7 @@ import {useStateContext} from "../../context/ContextProvider.jsx";
 import {CreatingMenu} from "../../components/creatingMenu/CreatingMenu.jsx";
 
 export const Menu = () => {
-  //const [listMenu, setListMenu] = useState([]);
+
   const [modalActive, setModalActive] = useState(false);
 
   const {DayWeek, setDayWeek} = useStateContext()

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ApiListMenuRequest;
-use App\Http\Requests\ApiListMenuUserRequest;
+use App\Http\Requests\ApiListUserRequest;
 use App\Models\DayWeek;
 use App\Models\ListMenu;
 use App\Models\MealTime;
@@ -12,7 +12,7 @@ use App\Models\MealTime;
 
 class ListMenuController extends Controller
 {
-    public function listMenu(ApiListMenuUserRequest $request)
+    public function listMenu(ApiListUserRequest $request)
     {
         //TODO добавить проверку на дату
         $DayWeek = DayWeek::all();
