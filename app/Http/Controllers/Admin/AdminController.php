@@ -21,13 +21,7 @@ class AdminController extends Controller
 
     public function product()
     {
-
         $product = Product::simplePaginate(10);
-//        $listMenu = ListMenu::where('users_id', auth()->user()->id)->get();
-        /** $var User $user */
-        $user = Auth::user();
-        dd($user->id);
-//        die();
         return view('admin.product', [
             'array_data' => $product,
         ]);

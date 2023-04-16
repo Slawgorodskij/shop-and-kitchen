@@ -34,21 +34,30 @@ export const ShoppingList = () => {
     }
     setDataModal(dataModalRendering)
   }
-  const purchasedProduct = (data) => {
-    const oneRow = shoppingListRendering.filter(item => item.id === data)
+  const purchasedProduct = (dataId) => {
+    const oneRow = shoppingListRendering.filter(item => item.id === dataId)
     const request = {
       users_id: user.id,
       product_id: oneRow[0].product_id,
       units_id: oneRow[0].units_id,
       quantity: oneRow[0].quantity,
+      shopping_list_id: oneRow[0].id,
     }
-    console.log(request)
-    console.log(oneRow)
-    console.log(shoppingListRendering)
-    // axiosClient.post('/addStorerooms', request)
-    //   .then(({data}) => {
-    //     console.log(data)
-    //   })
+    axiosClient.post('/transferStorerooms', request)
+      .then(({data}) => {
+        setTextModal(data.message)
+        setSecond('5')
+        setModalInformationActive(true)
+        setShoppingListRendering(shoppingListRendering.filter(item => item.id !== dataId))
+      })
+      .catch(err => {
+        const response = err.response;
+        if (response && response.status === 422) {
+          setTextModal(response.data.message)
+          setSecond('5')
+          setModalInformationActive(true)
+        }
+      })
     setModalActive(false)
   }
   const deleteProduct = (data) => {

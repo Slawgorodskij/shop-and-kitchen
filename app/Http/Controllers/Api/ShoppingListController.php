@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ApiListUserRequest;
 use App\Http\Requests\ApiShoppingListRequest;
+use App\Http\Requests\ApiStoreroomRequest;
 use App\Models\ShoppingList;
 use App\Models\Storeroom;
 use App\Models\Structure;
@@ -89,5 +90,19 @@ class ShoppingListController extends Controller
         }
 
         return response(['message' => 'Продукт не удален из списка'], 422);
+    }
+
+    public function transferStorerooms(ApiStoreroomRequest $request)
+    {
+        $data = $request->validated();
+        $storeroom = Storeroom::create($data);
+
+        if ($storeroom) {
+            $shoppingList = ShoppingList::find($data['shopping_list_id']);
+            $shoppingList->delete();
+            return response(['message' => 'Продукт перенесен в кладовую'], 200);
+        }
+
+        return response(['message' => 'Продукт не перенесен в кладовую'], 422);
     }
 }
