@@ -29,5 +29,6 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/listMenu', [ListMenuController::class, 'listMenu']);
 Route::post('/addShoppingList', [ShoppingListController::class, 'addShoppingList']);
 Route::post('/shoppingListRendering', [ShoppingListController::class, 'shoppingListRendering']);
+Route::post('/deleteProductOfShoppingList', [ShoppingListController::class, 'deleteProductOfShoppingList']);
 Route::post('/addListMenu', [ListMenuController::class, 'addListMenu']);
 

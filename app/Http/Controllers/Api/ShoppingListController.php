@@ -8,6 +8,7 @@ use App\Http\Requests\ApiShoppingListRequest;
 use App\Models\ShoppingList;
 use App\Models\Storeroom;
 use App\Models\Structure;
+use Illuminate\Http\Request;
 
 
 class ShoppingListController extends Controller
@@ -78,5 +79,15 @@ class ShoppingListController extends Controller
             ->get();
 
         return response(compact('shoppingListRendering'));
+    }
+
+    public function deleteProductOfShoppingList(Request $request)
+    {
+        $shoppingList = ShoppingList::find($request['id']);
+        if ($shoppingList->delete()) {
+            return response(['message' => 'Продукт удален из списка'], 200);
+        }
+
+        return response(['message' => 'Продукт не удален из списка'], 422);
     }
 }

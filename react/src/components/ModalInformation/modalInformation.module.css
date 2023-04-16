@@ -1,7 +1,7 @@
 .block {
   margin: 0 auto;
   width: 80%;
-  height: 35vh;
+  height: 20vh;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -10,12 +10,7 @@
 
 .error {
   text-align: center;
-  font-size: 16px;
+  font-size: 20px;
   font-weight: bold;
   color: darkred;
-}
-.block__button {
-  width: 100%;
-  display: flex;
-  gap: 10px;
 }

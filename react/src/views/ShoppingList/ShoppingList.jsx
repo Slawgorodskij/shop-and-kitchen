@@ -5,13 +5,18 @@ import {useStateContext} from "../../context/ContextProvider.jsx";
 import {OneNotes} from "../../components/OneNotes/OneNotes.jsx";
 import {Modal} from "../../components/UI/modal/Modal.jsx";
 import {ConfirmationAction} from "../../components/ConfirmationAction/ConfirmationAction.jsx";
+import {ModalInformation} from "../../components/ModalInformation/ModalInformation.jsx";
 
 const purchasedText = 'Этот товар куплен и вы его хотите перенести в кладовую?';
 const label = 'Подтверждаю';
+const labelClose = 'Отмена';
 const deleteProductText = 'Вы действительно хотите удалит этот товар?';
 export const ShoppingList = () => {
   const [modalActive, setModalActive] = useState(false);
+  const [modalInformationActive, setModalInformationActive] = useState(false);
   const [dataModal, setDataModal] = useState({});
+  const [textModal, setTextModal] = useState('');
+  const [second, setSecond] = useState('');
 
   const {user} = useStateContext()
   const {shoppingListRendering, setShoppingListRendering} = useStateContext()
@@ -24,23 +29,23 @@ export const ShoppingList = () => {
       name: oneRow[0].product_name,
       text: purchasedText,
       label: label,
+      labelClose: labelClose,
       functionName: purchasedProduct,
     }
     setDataModal(dataModalRendering)
-    console.log(dataModalRendering)
   }
   const purchasedProduct = (data) => {
     const oneRow = shoppingListRendering.filter(item => item.id === data)
-    const response = {
+    const request = {
       users_id: user.id,
       product_id: oneRow[0].product_id,
       units_id: oneRow[0].units_id,
       quantity: oneRow[0].quantity,
     }
-    console.log(response)
+    console.log(request)
     console.log(oneRow)
     console.log(shoppingListRendering)
-    // axiosClient.post('/addStorerooms', response)
+    // axiosClient.post('/addStorerooms', request)
     //   .then(({data}) => {
     //     console.log(data)
     //   })
@@ -54,18 +59,29 @@ export const ShoppingList = () => {
       name: oneRow[0].product_name,
       text: deleteProductText,
       label: label,
+      labelClose: labelClose,
       functionName: confirmationDeleteProduct,
     }
     setDataModal(dataModalRendering)
-    console.log(dataModalRendering)
   }
 
-  const confirmationDeleteProduct = (data) => {
-    console.log(data)
-    // axiosClient.post('/deleteProductOfShoppingList', data)
-    //   .then(({data}) => {
-    //     console.log(data)
-    //   })
+  const confirmationDeleteProduct = (dataId) => {
+    const request = {id: dataId}
+    axiosClient.post('/deleteProductOfShoppingList', request)
+      .then(({data}) => {
+        setTextModal(data.message)
+        setSecond('5')
+        setModalInformationActive(true)
+        setShoppingListRendering(shoppingListRendering.filter(item => item.id !== dataId))
+      })
+      .catch(err => {
+        const response = err.response;
+        if (response && response.status === 422) {
+          setTextModal(response.data.message)
+          setSecond('5')
+          setModalInformationActive(true)
+        }
+      })
     setModalActive(false)
   }
   useEffect(() => {
@@ -102,7 +118,15 @@ export const ShoppingList = () => {
       }
 
       <Modal active={modalActive} setActive={setModalActive}>
-        <ConfirmationAction dataModal={dataModal}/>
+        <ConfirmationAction dataModal={dataModal} setModalActive={setModalActive}/>
+      </Modal>
+      <Modal active={modalInformationActive} setActive={setModalInformationActive}>
+        <ModalInformation
+          second={second}
+          text={textModal}
+          setModalInformationActive={setModalInformationActive}
+          setTextModal={setTextModal}
+        />
       </Modal>
     </div>
   );
