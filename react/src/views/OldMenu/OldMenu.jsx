@@ -15,9 +15,10 @@ export const OldMenu = () => {
   useEffect(() => {
     if (user.id) {
       const data = {
-        users_id: user.id
+        users_id: user.id,
+        date: 'this',
       }
-      axiosClient.post('/oldListMenu', data)
+      axiosClient.post('/listMenu', data)
         .then(({data}) => {
           setDayWeek(data.DayWeek)
           setMealTime(data.mealTime)

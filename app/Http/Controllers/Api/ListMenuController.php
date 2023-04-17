@@ -14,13 +14,24 @@ use App\Models\MealTime;
 
 class ListMenuController extends Controller
 {
-    public function oldListMenu(Request $request)
+    public function listMenu(Request $request)
     {
-        $monday = strtotime('monday this week');
+        $monday = '';
+        switch ($request['date']) {
+            case 'next':
+                $monday = strtotime('monday next week');
+                break;
+            case 'this':
+                $monday = strtotime('monday this week');
+                break;
+        }
+
         $sunday = strtotime('+6 day', $monday);
 
         $DayWeek = DayWeek::all();
         $mealTime = MealTime::all();
+
+
         $listNameRecipes = ListMenu::select(
             'list_menus.id as id',
             'list_menus.day_weeks_id as day_weeks_id',
@@ -30,26 +41,6 @@ class ListMenuController extends Controller
             ->join('recipes', 'list_menus.recipes_id', '=', 'recipes.id')
             ->where('users_id', $request['users_id'])
             ->whereBetween('date', [date("d.m.Y", $monday), date("d.m.Y", $sunday)])
-            ->get();
-
-        return response(compact('listNameRecipes', 'DayWeek', 'mealTime'));
-    }
-
-    public function newlistMenu(ApiListUserRequest $request)
-    {
-        //TODO добавить проверку на дату
-        $DayWeek = DayWeek::all();
-        $mealTime = MealTime::all();
-
-        $data = $request->validated();
-        $listNameRecipes = ListMenu::select(
-            'list_menus.id as id',
-            'list_menus.day_weeks_id as day_weeks_id',
-            'list_menus.meal_times_id as meal_times_id',
-            'recipes.name as recipe_name'
-        )
-            ->join('recipes', 'list_menus.recipes_id', '=', 'recipes.id')
-            ->where('users_id', $data['users_id'])
             ->get();
 
         $mealTimeAndRecipe = MealTime::select(
@@ -62,7 +53,8 @@ class ListMenuController extends Controller
             ->join('recipes', 'meal_time_recipe.recipe_id', '=', 'recipes.id')
             ->get();
 
-        return response(compact('listNameRecipes', 'DayWeek', 'mealTime', 'mealTimeAndRecipe'));
+        $date = date("Y-m-d", strtotime('-1 day', $monday));
+        return response(compact('listNameRecipes', 'DayWeek', 'mealTime', 'mealTimeAndRecipe', 'date'));
     }
 
     public function addListMenu(ApiListMenuRequest $request)

@@ -44,9 +44,3 @@
 
 }
 
-.block__button {
-  grid-row-start: 3;
-  grid-row-end: 4;
-  display: flex;
-  gap: 10px;
-}

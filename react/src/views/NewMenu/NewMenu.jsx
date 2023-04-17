@@ -10,12 +10,17 @@ import {CreatingMenu} from "../../components/creatingMenu/CreatingMenu.jsx";
 export const NewMenu = () => {
 
   const [modalActive, setModalActive] = useState(false);
+  const [creatingModalActive, setCreatingModalActive] = useState(false);
+  const [startWeek, setStartWeek] = useState([])
+  const [modalActiveTitle, setModalActiveTitle] = useState('');
+  const [recipeSelect, setRecipeSelect] = useState([])
+  const [selectedRecipeName, setSelectedRecipeName] = useState([])
 
   const {DayWeek, setDayWeek} = useStateContext()
   const {mealTime, setMealTime} = useStateContext()
   const {user} = useStateContext()
   const {listNameRecipes, setListNameRecipes} = useStateContext()
-  const {setMealTimeAndRecipe} = useStateContext()
+  const {mealTimeAndRecipe, setMealTimeAndRecipe} = useStateContext()
 
   const openModal = () => {
     setModalActive(true)
@@ -38,7 +43,8 @@ export const NewMenu = () => {
   useEffect(() => {
     if (user.id) {
       const data = {
-        users_id: user.id
+        users_id: user.id,
+        date: 'next'
       }
       axiosClient.post('/listMenu', data)
         .then(({data}) => {
@@ -46,43 +52,82 @@ export const NewMenu = () => {
           setMealTime(data.mealTime)
           setListNameRecipes(data.listNameRecipes)
           setMealTimeAndRecipe(data.mealTimeAndRecipe)
+          setStartWeek(data.date)
         })
     }
-    console.log(listNameRecipes)
   }, [user])
+  const renderRecipe = (itemMealTime, oneDayWeek) => {
+
+    const recipeArray = mealTimeAndRecipe.filter(item => {
+      return item.meal_times_id === itemMealTime.id
+    })
+    recipeArray.map(recipe => {
+      recipe['date'] = oneDayWeek.date
+      recipe['itemMealTime'] = itemMealTime.id
+      recipe['oneDayWeek'] = oneDayWeek.id
+    })
+    setRecipeSelect(recipeArray)
+    setModalActiveTitle(itemMealTime.name.toLowerCase())
+    setCreatingModalActive(true)
+  }
+
+  const addRecipe = (recipe) => {
+    const newName = {
+      'id': Math.round(Date.now() * Math.random()).toString(),
+      'oneDayWeek': recipe.oneDayWeek,
+      'itemMealTime': recipe.itemMealTime,
+      'arrayNameRecipe': recipe.recipe_name,
+    }
+
+    setSelectedRecipeName(prev => [...prev, newName])
+    addListMenu({
+      'recipes_id': recipe.recipe_id,
+      'day_weeks_id': recipe.oneDayWeek,
+      'meal_times_id': recipe.itemMealTime,
+      'date': recipe.date
+    })
+    setCreatingModalActive(false)
+    addShoppingList({
+      'recipes_id': recipe.recipe_id,
+    })
+  }
+
 
   return (
     <div className={styles.container}>
-      <h2 className={styles.title}>Меню</h2>
+      <h2 className={styles.title}>Меню на следующую неделю</h2>
       <div className={styles.main}>
-        {listNameRecipes.length === 0 &&
-          <div className={styles.none__table}>
-            <p>Меню не составлено.</p>
-            <p>Нажмите кнопку "Создать".</p>
-          </div>
-        }
-        {listNameRecipes.length > 0 &&
-          DayWeek.map(deyName =>
-            <OneDay key={deyName.id}
-                    nameDay={deyName}
-                    mealTime={mealTime}
-                    listNameRecipes={listNameRecipes}
-            />
-          )
-        }
+        {DayWeek.map(deyName =>
+          <OneDay key={deyName.id}
+                  nameDay={deyName}
+                  mealTime={mealTime}
+                  listNameRecipes={listNameRecipes}
+          />)}
       </div>
       <div className={styles.block__button}>
-        <MyButton label={'Создать'} click={openModal}/>
-        {listNameRecipes.length > 0 &&
-          <MyButton label={'Редактировать'}/>
-        }
+        <MyButton label={'Редактировать'} click={openModal}/>
       </div>
       <Modal active={modalActive} setActive={setModalActive}>
         <CreatingMenu
           DayWeek={DayWeek}
+          startWeek={startWeek}
           addListMenu={addListMenu}
           addShoppingList={addShoppingList}
+          renderRecipe={renderRecipe}
+          selectedRecipeName={selectedRecipeName}
         />
+      </Modal>
+
+      <Modal active={creatingModalActive} setActive={setCreatingModalActive}>
+        <h3 className={styles.title}>На {modalActiveTitle} подойдет</h3>
+        {recipeSelect.map(recipe =>
+          <p
+            className={styles.text_btn}
+            key={recipe.recipe_id}
+            onClick={() => addRecipe(recipe)}
+          >
+            {recipe.recipe_name}
+          </p>)}
       </Modal>
     </div>
   );

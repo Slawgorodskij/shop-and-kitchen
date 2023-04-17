@@ -50,3 +50,12 @@
   display: flex;
   gap: 10px;
 }
+
+.text_btn {
+  color: #5b08a7;
+  cursor: pointer;
+}
+
+.text_btn:hover {
+  text-decoration: underline;
+}
