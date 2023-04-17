@@ -6,7 +6,7 @@ import {Menu} from "./views/Menu/Menu.jsx";
 import {MenuCompilation} from "./views/MenuCompilation";
 import {Recipe} from "./views/Recipe";
 import {ShoppingList} from "./views/ShoppingList/ShoppingList.jsx";
-import {Storeroom} from "./views/Storeroom";
+import {Storeroom} from "./views/Storeroom/Storeroom.jsx";
 import {WeeksRecipes} from "./views/WeeksRecipes";
 import {NotFound} from "./views/NotFound";
 import {GuestLayout} from "./components/layout/guestLayout/GuestLayout.jsx";

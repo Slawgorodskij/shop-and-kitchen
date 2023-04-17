@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ListMenuController;
 use App\Http\Controllers\Api\ShoppingListController;
+use App\Http\Controllers\Api\StoreroomController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -32,4 +33,6 @@ Route::post('/shoppingListRendering', [ShoppingListController::class, 'shoppingL
 Route::post('/deleteProductOfShoppingList', [ShoppingListController::class, 'deleteProductOfShoppingList']);
 Route::post('/transferStorerooms', [ShoppingListController::class, 'transferStorerooms']);
 Route::post('/addListMenu', [ListMenuController::class, 'addListMenu']);
+Route::post('/storeroomListRendering', [StoreroomController::class, 'storeroomListRendering']);
+Route::post('/deleteProductOfStoreroom', [StoreroomController::class, 'deleteProductOfStoreroom']);
 
