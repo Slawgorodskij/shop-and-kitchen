@@ -6,11 +6,16 @@ export const listPages = [
   },
   {
     id: 2,
-    link: '/menu',
-    label: 'Меню',
+    link: '/old_menu',
+    label: 'Текущее меню',
   },
   {
     id: 3,
+    link: '/new_menu',
+    label: 'Будущее меню',
+  },
+  {
+    id: 4,
     link: '/storeroom',
     label: 'Кладовая',
   },

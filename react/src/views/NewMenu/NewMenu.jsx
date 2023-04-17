@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import styles from "./menu.module.css"
+import styles from "./newMenu.module.css"
 import axiosClient from "../../axios-client.js";
 import {MyButton} from "../../components/UI/MyButton/MyButton.jsx";
 import {OneDay} from "../../components/OneDay/OneDay.jsx";
@@ -7,7 +7,7 @@ import {Modal} from "../../components/UI/modal/Modal.jsx";
 import {useStateContext} from "../../context/ContextProvider.jsx";
 import {CreatingMenu} from "../../components/creatingMenu/CreatingMenu.jsx";
 
-export const Menu = () => {
+export const NewMenu = () => {
 
   const [modalActive, setModalActive] = useState(false);
 

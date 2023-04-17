@@ -27,7 +27,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
 Route::post('/signup', [AuthController::class, 'signup']);
 Route::post('/login', [AuthController::class, 'login']);
-Route::post('/listMenu', [ListMenuController::class, 'listMenu']);
+Route::post('/oldListMenu', [ListMenuController::class, 'oldListMenu']);
+Route::post('/newListMenu', [ListMenuController::class, 'newListMenu']);
 Route::post('/addShoppingList', [ShoppingListController::class, 'addShoppingList']);
 Route::post('/shoppingListRendering', [ShoppingListController::class, 'shoppingListRendering']);
 Route::post('/deleteProductOfShoppingList', [ShoppingListController::class, 'deleteProductOfShoppingList']);

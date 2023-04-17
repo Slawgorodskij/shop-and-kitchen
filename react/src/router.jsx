@@ -2,7 +2,7 @@ import {createBrowserRouter, Navigate} from "react-router-dom";
 import {Login} from "./views/Login/Login.jsx";
 import {Signup} from "./views/Signup/Signup.jsx";
 import {Home} from "./views/Home";
-import {Menu} from "./views/Menu/Menu.jsx";
+import {NewMenu} from "./views/NewMenu/NewMenu.jsx";
 import {MenuCompilation} from "./views/MenuCompilation";
 import {Recipe} from "./views/Recipe";
 import {ShoppingList} from "./views/ShoppingList/ShoppingList.jsx";
@@ -12,6 +12,7 @@ import {NotFound} from "./views/NotFound";
 import {GuestLayout} from "./components/layout/guestLayout/GuestLayout.jsx";
 import {DefaultLayout} from "./components/layout/defaultLayout/DefaultLayout.jsx";
 import {HomeGuest} from "./views/homeGuest/HomeGuest.jsx";
+import {OldMenu} from "./views/OldMenu/OldMenu.jsx";
 
 export const router = createBrowserRouter([
   {
@@ -49,8 +50,12 @@ export const router = createBrowserRouter([
         element: <Home/>,
       },
       {
-        path: '/menu',
-        element: <Menu/>,
+        path: '/new_menu',
+        element: <NewMenu/>,
+      },
+      {
+        path: '/old_menu',
+        element: <OldMenu/>,
       },
       {
         path: '/menu_compilation',

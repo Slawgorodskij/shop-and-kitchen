@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+
 use App\Http\Requests\ApiListMenuRequest;
 use App\Http\Requests\ApiListUserRequest;
 use App\Models\DayWeek;
@@ -12,7 +14,28 @@ use App\Models\MealTime;
 
 class ListMenuController extends Controller
 {
-    public function listMenu(ApiListUserRequest $request)
+    public function oldListMenu(Request $request)
+    {
+        $monday = strtotime('monday this week');
+        $sunday = strtotime('+6 day', $monday);
+
+        $DayWeek = DayWeek::all();
+        $mealTime = MealTime::all();
+        $listNameRecipes = ListMenu::select(
+            'list_menus.id as id',
+            'list_menus.day_weeks_id as day_weeks_id',
+            'list_menus.meal_times_id as meal_times_id',
+            'recipes.name as recipe_name'
+        )
+            ->join('recipes', 'list_menus.recipes_id', '=', 'recipes.id')
+            ->where('users_id', $request['users_id'])
+            ->whereBetween('date', [date("d.m.Y", $monday), date("d.m.Y", $sunday)])
+            ->get();
+
+        return response(compact('listNameRecipes', 'DayWeek', 'mealTime'));
+    }
+
+    public function newlistMenu(ApiListUserRequest $request)
     {
         //TODO добавить проверку на дату
         $DayWeek = DayWeek::all();
