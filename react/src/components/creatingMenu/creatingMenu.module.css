@@ -30,6 +30,7 @@
 }
 
 .block__recipe {
+  width: 100%;
   padding: 0.5rem;
   display: grid;
   gap: 0.5rem;
@@ -43,4 +44,16 @@
 
 .text_btn:hover {
   text-decoration: underline;
+}
+
+.button:hover {
+  transform: scale(1.1);
+  fill: darkred;
+}
+
+.notes {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px dotted darkgray;
 }

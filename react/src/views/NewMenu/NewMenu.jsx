@@ -49,26 +49,40 @@ export const NewMenu = () => {
       }
       axiosClient.post('/listMenu', data)
         .then(({data}) => {
-         // setDayWeek(data.DayWeek)
+          // setDayWeek(data.DayWeek)
           setMealTime(data.mealTime)
           setListNameRecipes(data.listNameRecipes)
           setMealTimeAndRecipe(data.mealTimeAndRecipe)
           //setStartWeek(data.date)
           renderDate(data.date, data.DayWeek)
+          creatSelectedRecipeName(data.listNameRecipes)
         })
     }
   }, [user])
 
-const renderDate = (startDate, dayWeek)=>{
-  const date = new Date(startDate);
-  dayWeek.map(oneDay => {
-    date.setDate(date.getDate() + 1)
-    oneDay['date'] = date.toLocaleDateString("ru-RU")
-  })
-  setRenderDay(dayWeek)
-  console.log(dayWeek)
-}
+  const renderDate = (startDate, dayWeek) => {
+    const date = new Date(startDate);
+    dayWeek.map(oneDay => {
+      date.setDate(date.getDate() + 1)
+      oneDay['date'] = date.toLocaleDateString("ru-RU")
+    })
+    setRenderDay(dayWeek)
+  }
 
+  const creatSelectedRecipeName = (data) => {
+    for (let key in data){
+      const newName = {
+        'id': Math.round(Date.now() * Math.random()).toString(),
+        'recipesId': data[key].recipe_id,
+        'oneDayWeek': data[key].day_weeks_id,
+        'itemMealTime': data[key].meal_times_id,
+        'arrayNameRecipe': data[key].recipe_name,
+      }
+
+      setSelectedRecipeName(prev => [...prev, newName])
+    }
+
+  }
 
   const renderRecipe = (itemMealTime, oneDayWeek) => {
 
@@ -88,12 +102,14 @@ const renderDate = (startDate, dayWeek)=>{
   const addRecipe = (recipe) => {
     const newName = {
       'id': Math.round(Date.now() * Math.random()).toString(),
+      'recipesId': recipe.recipe_id,
       'oneDayWeek': recipe.oneDayWeek,
       'itemMealTime': recipe.itemMealTime,
       'arrayNameRecipe': recipe.recipe_name,
     }
 
     setSelectedRecipeName(prev => [...prev, newName])
+
     addListMenu({
       'recipes_id': recipe.recipe_id,
       'day_weeks_id': recipe.oneDayWeek,
@@ -101,11 +117,14 @@ const renderDate = (startDate, dayWeek)=>{
       'date': recipe.date
     })
     setCreatingModalActive(false)
+
     addShoppingList({
       'recipes_id': recipe.recipe_id,
     })
   }
-
+ const deleteSelectedDish = (data) => {
+   console.log(data)
+ }
 
   return (
     <div className={styles.container}>
@@ -128,6 +147,7 @@ const renderDate = (startDate, dayWeek)=>{
           addShoppingList={addShoppingList}
           renderRecipe={renderRecipe}
           selectedRecipeName={selectedRecipeName}
+          deleteSelectedDish={deleteSelectedDish}
         />
       </Modal>
 

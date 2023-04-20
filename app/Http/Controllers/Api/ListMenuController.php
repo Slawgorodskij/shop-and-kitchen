@@ -36,7 +36,8 @@ class ListMenuController extends Controller
             'list_menus.id as id',
             'list_menus.day_weeks_id as day_weeks_id',
             'list_menus.meal_times_id as meal_times_id',
-            'recipes.name as recipe_name'
+            'recipes.name as recipe_name',
+            'recipes.id as recipe_id'
         )
             ->join('recipes', 'list_menus.recipes_id', '=', 'recipes.id')
             ->where('users_id', $request['users_id'])
