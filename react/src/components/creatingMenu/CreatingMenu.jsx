@@ -1,23 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React  from 'react';
 import styles from './creatingMenu.module.css'
 import {useStateContext} from "../../context/ContextProvider.jsx";
-import {Modal} from "../UI/modal/Modal.jsx";
 
-export const CreatingMenu = ({DayWeek, startWeek, renderRecipe, selectedRecipeName}) => {
+export const CreatingMenu = ({renderDay, renderRecipe, selectedRecipeName}) => {
 
   const {mealTime} = useStateContext()
-  const [renderDay, setRenderDay] = useState([])
-
-  useEffect(() => {
-    const date = new Date(startWeek);
-    DayWeek.map(oneDay => {
-      date.setDate(date.getDate() + 1)
-      oneDay['date'] = date.toLocaleDateString("ru-RU")
-    })
-    setRenderDay(DayWeek)
-    console.log(selectedRecipeName)
-  }, [DayWeek]);
-
 
   return (
     <>
@@ -49,8 +36,6 @@ export const CreatingMenu = ({DayWeek, startWeek, renderRecipe, selectedRecipeNa
             </div>
           )}
         </div>)}
-
-
     </>
   )
 };

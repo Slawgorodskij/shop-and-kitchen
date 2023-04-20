@@ -11,10 +11,11 @@ export const NewMenu = () => {
 
   const [modalActive, setModalActive] = useState(false);
   const [creatingModalActive, setCreatingModalActive] = useState(false);
-  const [startWeek, setStartWeek] = useState([])
+  //const [startWeek, setStartWeek] = useState([])
   const [modalActiveTitle, setModalActiveTitle] = useState('');
   const [recipeSelect, setRecipeSelect] = useState([])
   const [selectedRecipeName, setSelectedRecipeName] = useState([])
+  const [renderDay, setRenderDay] = useState([])
 
   const {DayWeek, setDayWeek} = useStateContext()
   const {mealTime, setMealTime} = useStateContext()
@@ -48,14 +49,27 @@ export const NewMenu = () => {
       }
       axiosClient.post('/listMenu', data)
         .then(({data}) => {
-          setDayWeek(data.DayWeek)
+         // setDayWeek(data.DayWeek)
           setMealTime(data.mealTime)
           setListNameRecipes(data.listNameRecipes)
           setMealTimeAndRecipe(data.mealTimeAndRecipe)
-          setStartWeek(data.date)
+          //setStartWeek(data.date)
+          renderDate(data.date, data.DayWeek)
         })
     }
   }, [user])
+
+const renderDate = (startDate, dayWeek)=>{
+  const date = new Date(startDate);
+  dayWeek.map(oneDay => {
+    date.setDate(date.getDate() + 1)
+    oneDay['date'] = date.toLocaleDateString("ru-RU")
+  })
+  setRenderDay(dayWeek)
+  console.log(dayWeek)
+}
+
+
   const renderRecipe = (itemMealTime, oneDayWeek) => {
 
     const recipeArray = mealTimeAndRecipe.filter(item => {
@@ -109,8 +123,7 @@ export const NewMenu = () => {
       </div>
       <Modal active={modalActive} setActive={setModalActive}>
         <CreatingMenu
-          DayWeek={DayWeek}
-          startWeek={startWeek}
+          renderDay={renderDay}
           addListMenu={addListMenu}
           addShoppingList={addShoppingList}
           renderRecipe={renderRecipe}
