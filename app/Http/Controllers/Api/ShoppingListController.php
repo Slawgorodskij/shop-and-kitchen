@@ -81,7 +81,7 @@ class ShoppingListController extends Controller
 
         return response(compact('shoppingListRendering'));
     }
-
+//TODO добаввить проверку резерва
     public function deleteProductOfShoppingList(Request $request)
     {
         $shoppingList = ShoppingList::find($request['id']);
@@ -92,6 +92,7 @@ class ShoppingListController extends Controller
         return response(['message' => 'Продукт не удален из списка'], 422);
     }
 
+    //TODO добаввить проверку резерва метод create не подходит
     public function transferStorerooms(ApiStoreroomRequest $request)
     {
         $data = $request->validated();

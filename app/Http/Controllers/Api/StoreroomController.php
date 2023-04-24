@@ -29,6 +29,7 @@ class StoreroomController extends Controller
         return response(compact('storeroomListRendering'));
     }
 
+    //TODO переделать
     public function deleteProductOfStoreroom(Request $request)
     {
         $storeroom = Storeroom::find($request['id']);

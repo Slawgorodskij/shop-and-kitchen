@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\ShoppingList;
+use App\Models\Storeroom;
+use App\Models\Structure;
 use Illuminate\Http\Request;
 
 use App\Http\Requests\ApiListMenuRequest;
-use App\Http\Requests\ApiListUserRequest;
 use App\Models\DayWeek;
 use App\Models\ListMenu;
 use App\Models\MealTime;
@@ -70,6 +72,41 @@ class ListMenuController extends Controller
         ]);
 
         return response(compact('listMenu'));
+    }
 
+    public function deleteSelectedDish(Request $request)
+    {
+        //$storeroom = Storeroom::find($request['id']);
+        $structures = Structure::where(['recipe_id' => $request['recipe_id']])->get();
+        //return response(compact('structures'));
+        if (count($structures) > 0) {
+            foreach ($structures as $product) {
+                $shoppingList = ShoppingList::where(['product_id' => $product->product_id])->get();
+                if (count($shoppingList) > 0
+                    && ($shoppingList[0]->quantity >= $product->quantity)) {
+                    $shoppingList[0]->quantity -= $product->quantity;
+                    $shoppingList[0]->save();
+                } else {
+                    $newQuantity = $product->quantity;
+                    if (count($shoppingList) > 0) {
+                        $newQuantity -= $shoppingList[0]->quantity;
+                    }
+
+                    $storeroom = Storeroom::where(['product_id' => $product->product_id])->get();
+                    if (count($storeroom) > 0) {
+                        if ($storeroom[0]->reserve > $newQuantity) {
+                            $storeroom[0]->reserve -= $newQuantity;
+                            $storeroom[0]->quantity += $newQuantity;
+                        } else {
+                            $storeroom[0]->reserve = 0;
+                            $storeroom[0]->quantity += $storeroom[0]->reserve;
+                            $storeroom[0]->save();
+                        }
+                    }
+                }
+            }
+            return response(['message' => 'Блюдо удалено'], 200);
+        }
+        return response(['message' => 'Блюдо не удалено'], 422);
     }
 }

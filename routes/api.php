@@ -33,6 +33,7 @@ Route::post('/shoppingListRendering', [ShoppingListController::class, 'shoppingL
 Route::post('/deleteProductOfShoppingList', [ShoppingListController::class, 'deleteProductOfShoppingList']);
 Route::post('/transferStorerooms', [ShoppingListController::class, 'transferStorerooms']);
 Route::post('/addListMenu', [ListMenuController::class, 'addListMenu']);
+Route::post('/deleteSelectedDish', [ListMenuController::class, 'deleteSelectedDish']);
 Route::post('/storeroomListRendering', [StoreroomController::class, 'storeroomListRendering']);
 Route::post('/deleteProductOfStoreroom', [StoreroomController::class, 'deleteProductOfStoreroom']);
 

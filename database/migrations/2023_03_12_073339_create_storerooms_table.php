@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('product_id');
             $table->integer('units_id');
             $table->integer('quantity');
+            $table->integer('reserve');
             $table->timestamps();
         });
     }

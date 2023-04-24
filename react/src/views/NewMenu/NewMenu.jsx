@@ -11,7 +11,6 @@ export const NewMenu = () => {
 
   const [modalActive, setModalActive] = useState(false);
   const [creatingModalActive, setCreatingModalActive] = useState(false);
-  //const [startWeek, setStartWeek] = useState([])
   const [modalActiveTitle, setModalActiveTitle] = useState('');
   const [recipeSelect, setRecipeSelect] = useState([])
   const [selectedRecipeName, setSelectedRecipeName] = useState([])
@@ -26,7 +25,6 @@ export const NewMenu = () => {
   const openModal = () => {
     setModalActive(true)
   }
-//TODO выбор даты надо сделать
   const addListMenu = (data) => {
     data['users_id'] = user.id
     axiosClient.post('/addListMenu', data)
@@ -49,11 +47,10 @@ export const NewMenu = () => {
       }
       axiosClient.post('/listMenu', data)
         .then(({data}) => {
-          // setDayWeek(data.DayWeek)
+          setDayWeek(data.DayWeek)
           setMealTime(data.mealTime)
           setListNameRecipes(data.listNameRecipes)
           setMealTimeAndRecipe(data.mealTimeAndRecipe)
-          //setStartWeek(data.date)
           renderDate(data.date, data.DayWeek)
           creatSelectedRecipeName(data.listNameRecipes)
         })
@@ -78,14 +75,11 @@ export const NewMenu = () => {
         'itemMealTime': data[key].meal_times_id,
         'arrayNameRecipe': data[key].recipe_name,
       }
-
       setSelectedRecipeName(prev => [...prev, newName])
     }
-
   }
 
   const renderRecipe = (itemMealTime, oneDayWeek) => {
-
     const recipeArray = mealTimeAndRecipe.filter(item => {
       return item.meal_times_id === itemMealTime.id
     })
@@ -107,7 +101,6 @@ export const NewMenu = () => {
       'itemMealTime': recipe.itemMealTime,
       'arrayNameRecipe': recipe.recipe_name,
     }
-
     setSelectedRecipeName(prev => [...prev, newName])
 
     addListMenu({
@@ -123,7 +116,13 @@ export const NewMenu = () => {
     })
   }
  const deleteSelectedDish = (data) => {
-   console.log(data)
+   const response = {
+     recipe_id: data.recipesId
+   }
+   axiosClient.post('/deleteSelectedDish', response)
+     .then(({data}) => {
+       console.log(data)
+     })
  }
 
   return (
