@@ -4,7 +4,6 @@ import styles from "./homeGuest.module.css"
 import {MyLink} from "../../components/UI/MyLink/MyLink.jsx";
 
 export const HomeGuest = () => {
-const text = 'БЛОК С ОПИСАНИЕМ ПРИЛОЖЕНИЯ'
   return (
     <>
       <header className={styles.header}>
@@ -12,7 +11,9 @@ const text = 'БЛОК С ОПИСАНИЕМ ПРИЛОЖЕНИЯ'
         <h2>быстро и просто</h2>
       </header>
       <div className={styles.block_text}>
-        {text}
+        <h3>Поход в магазин - это всегда соблазн</h3>
+        <p>Если хотите подойти к этома вопросу рационально, то это приложение для Вас.</p>
+        <p>Оно поможет составить список необходимых продуктов на основании предварительно составленного меню</p>
       </div>
       <div className={styles.buttons_block}>
         <MyLink link={'/login'} label={'Вход'}/>

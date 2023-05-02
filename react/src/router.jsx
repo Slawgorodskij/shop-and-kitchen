@@ -1,7 +1,7 @@
 import {createBrowserRouter, Navigate} from "react-router-dom";
 import {Login} from "./views/Login/Login.jsx";
 import {Signup} from "./views/Signup/Signup.jsx";
-import {Home} from "./views/Home";
+import {Home} from "./views/Home/Home.jsx";
 import {NewMenu} from "./views/NewMenu/NewMenu.jsx";
 import {MenuCompilation} from "./views/MenuCompilation";
 import {Recipe} from "./views/Recipe";

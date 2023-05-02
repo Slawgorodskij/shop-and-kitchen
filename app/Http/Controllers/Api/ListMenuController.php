@@ -38,10 +38,12 @@ class ListMenuController extends Controller
             'list_menus.id as id',
             'list_menus.day_weeks_id as day_weeks_id',
             'list_menus.meal_times_id as meal_times_id',
+            'meal_times.name as meal_times_name',
             'recipes.name as recipe_name',
             'recipes.id as recipe_id'
         )
             ->join('recipes', 'list_menus.recipes_id', '=', 'recipes.id')
+            ->join('meal_times', 'list_menus.meal_times_id', '=', 'meal_times.id')
             ->where('users_id', $request['users_id'])
             ->whereBetween('date', [date("d.m.Y", $monday), date("d.m.Y", $sunday)])
             ->get();
