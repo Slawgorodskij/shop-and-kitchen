@@ -13,5 +13,17 @@
   align-items: center;
   justify-content: space-around;
 }
+.title{
+  margin-bottom: 1rem;
+}
 
-
+@media (max-width: 450px) {
+  .block_text{
+    grid-row-start: 2;
+    grid-row-end: 4;
+    padding-top: 1.5rem;
+  }
+  .buttons_block{
+    flex-direction: column;
+  }
+}

@@ -49,7 +49,7 @@ export const Home = () => {
 
       {currentData.length === 0 &&
         <div className="main">
-          <div className={styles.title}>
+          <div className={styles.subtitle}>
             <p>Сегодня вы ни чего не планировали готовить.</p>
           </div>
         </div>
