@@ -20,10 +20,10 @@
 }
 
 .modal__content {
-  width: 40vw;
+  width: 60vw;
   min-height: 30vh;
   max-height: 80vh;
-  padding: 20px;
+  padding: 1.5rem;
   background-image: url("/images/desk.webp");
   background-position: center;
   background-size: cover;
@@ -64,4 +64,15 @@
 .button_close:hover {
   transform: scale(1.1);
   fill: darkred;
+}
+
+@media (max-width: 762px) {
+  .modal__content {
+    width: 75vw;
+  }
+}
+@media (max-width: 520px) {
+  .modal__content {
+    width: 90vw;
+  }
 }

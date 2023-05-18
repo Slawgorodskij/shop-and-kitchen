@@ -30,7 +30,7 @@ export const CreatingMenu = ({renderDay, renderRecipe, selectedRecipeName, delet
                   }).map(item => <div key={item.id} className={styles.notes}>
                     <p >{item.arrayNameRecipe}</p>
                     <svg
-                      onClick={()=>deleteSelectedDish(item)}
+                      onClick={()=>deleteSelectedDish([item, oneDay.date])}
                       className={styles.button}
                       x="0px" y="0px" viewBox="0 0 512.021 512.021" width="15" height="15">
                       <g>

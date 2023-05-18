@@ -22,7 +22,14 @@ export const Sidebar = ({user, onLogout, burgerActive, setBurgerActive}) => {
         <p> {user}</p>
       </div>
       <div className={styles.block_link}>
-        {list.map((item) => <MyLink key={item.id} link={item.link} label={item.label}/>)}
+        {list.map((item) =>
+          <MyLink
+            key={item.id}
+            link={item.link}
+            label={item.label}
+            stateName={burgerActive}
+            setStateName={setBurgerActive}
+          />)}
       </div>
 
     </aside>

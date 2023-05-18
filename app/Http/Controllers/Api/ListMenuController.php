@@ -6,12 +6,15 @@ use App\Http\Controllers\Controller;
 use App\Models\ShoppingList;
 use App\Models\Storeroom;
 use App\Models\Structure;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Request;
 
 use App\Http\Requests\ApiListMenuRequest;
 use App\Models\DayWeek;
 use App\Models\ListMenu;
 use App\Models\MealTime;
+use Illuminate\Http\Response;
 
 
 class ListMenuController extends Controller
@@ -76,14 +79,16 @@ class ListMenuController extends Controller
         return response(compact('listMenu'));
     }
 
-    public function deleteSelectedDish(Request $request)
+    public function deleteSelectedDish(Request $request): \Illuminate\Foundation\Application|Response|Application|ResponseFactory
     {
         //$storeroom = Storeroom::find($request['id']);
         $structures = Structure::where(['recipe_id' => $request['recipe_id']])->get();
-        //return response(compact('structures'));
+        // return response(compact('structures'));
         if (count($structures) > 0) {
             foreach ($structures as $product) {
+               // return response(compact('product'));
                 $shoppingList = ShoppingList::where(['product_id' => $product->product_id])->get();
+               // return response(compact('shoppingList'));
                 if (count($shoppingList) > 0
                     && ($shoppingList[0]->quantity >= $product->quantity)) {
                     $shoppingList[0]->quantity -= $product->quantity;
@@ -107,7 +112,20 @@ class ListMenuController extends Controller
                     }
                 }
             }
-            return response(['message' => 'Блюдо удалено'], 200);
+            $dish = ListMenu::where([
+                'users_id' => $request['users_id'],
+                'day_weeks_id' => $request['day_weeks_id'],
+                'meal_times_id' => $request['meal_times_id'],
+                'date' => $request['date'],
+                'recipes_id' => $request['recipe_id'],
+            ])
+                ->limit(1)
+                ->get();
+           // return response(compact('dish'));
+            if (count($dish) > 0 && $dish[0]->delete()) {
+                return response(['message' => 'Блюдо удалено'], 200);
+            }
+
         }
         return response(['message' => 'Блюдо не удалено'], 422);
     }

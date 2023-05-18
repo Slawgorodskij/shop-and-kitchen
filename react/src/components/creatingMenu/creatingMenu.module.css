@@ -57,3 +57,13 @@
   justify-content: space-between;
   border-bottom: 1px dotted darkgray;
 }
+@media (max-width: 520px) {
+  .block__recipe{
+    border: none;
+  }
+  .block__meal {
+    flex-direction: column;
+    border-right: 1px solid darkgray;
+    border-left: 1px solid darkgray;
+  }
+}

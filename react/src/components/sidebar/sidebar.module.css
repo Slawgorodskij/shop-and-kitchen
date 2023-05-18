@@ -99,6 +99,9 @@
 }
 
 @media (max-width: 762px) {
+  .block_button{
+    padding-right: 0.5rem;
+  }
   .burger {
     display: inline-block;
     cursor: pointer;
@@ -110,7 +113,7 @@
     width: 50vw;
     font-size: 18px;
     z-index: 1;
-    transform: translateX(calc(-100% + 60px));
+    transform: translateX(calc(-100% + 50px));
     transition: transform 0.3s ease-in-out;
   }
 

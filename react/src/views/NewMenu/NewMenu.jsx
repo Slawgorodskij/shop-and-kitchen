@@ -6,7 +6,12 @@ import {OneDay} from "../../components/OneDay/OneDay.jsx";
 import {Modal} from "../../components/UI/modal/Modal.jsx";
 import {useStateContext} from "../../context/ContextProvider.jsx";
 import {CreatingMenu} from "../../components/creatingMenu/CreatingMenu.jsx";
+import {ModalInformation} from "../../components/ModalInformation/ModalInformation.jsx";
+import {ConfirmationAction} from "../../components/ConfirmationAction/ConfirmationAction.jsx";
 
+const label = 'Подтверждаю';
+const labelClose = 'Отмена';
+const deleteProductText = 'Вы действительно хотите удалит это блюдо?';
 export const NewMenu = () => {
 
   const [modalActive, setModalActive] = useState(false);
@@ -21,6 +26,13 @@ export const NewMenu = () => {
   const {user} = useStateContext()
   const {listNameRecipes, setListNameRecipes} = useStateContext()
   const {mealTimeAndRecipe, setMealTimeAndRecipe} = useStateContext()
+
+  const [dataResponse, setDataResponse] = useState({});
+  const [modalInformationActive, setModalInformationActive] = useState(false);
+  const [modalConfirmationAction, setModalConfirmationAction] = useState(false);
+  const [dataModal, setDataModal] = useState({});
+  const [textModal, setTextModal] = useState('');
+  const [second, setSecond] = useState('');
 
   const openModal = () => {
     setModalActive(true)
@@ -67,7 +79,8 @@ export const NewMenu = () => {
   }
 
   const creatSelectedRecipeName = (data) => {
-    for (let key in data){
+    setSelectedRecipeName([])
+    for (let key in data) {
       const newName = {
         'id': Math.round(Date.now() * Math.random()).toString(),
         'recipesId': data[key].recipe_id,
@@ -115,16 +128,48 @@ export const NewMenu = () => {
       'recipes_id': recipe.recipe_id,
     })
   }
- const deleteSelectedDish = (data) => {
-   const response = {
-     recipe_id: data.recipesId
-   }
-   axiosClient.post('/deleteSelectedDish', response)
-     .then(({data}) => {
-       console.log(data)
-     })
- }
+  const deleteSelectedDish = (data) => {
+    setModalConfirmationAction(true)
 
+    const newResponse = {
+      users_id: user.id,
+      recipe_id: data[0].recipesId,
+      day_weeks_id: data[0].oneDayWeek,
+      meal_times_id: data[0].itemMealTime,
+      date: data[1],
+    }
+    setDataResponse(newResponse)
+
+    const dataModalRendering = {
+      id: data[0].id,
+      name: data[0].arrayNameRecipe,
+      text: deleteProductText,
+      label: label,
+      labelClose: labelClose,
+      functionName: confirmationDeleteSelectedDish,
+    }
+    setDataModal(dataModalRendering)
+  }
+  const confirmationDeleteSelectedDish = (dataId) => {
+    axiosClient.post('/deleteSelectedDish', dataResponse)
+      .then(({data}) => {
+        console.log(selectedRecipeName)
+        console.log(dataId)
+        setTextModal(data.message)
+        setSecond('5')
+        setModalInformationActive(true)
+        setSelectedRecipeName(selectedRecipeName.filter(item => item.id !== dataId))
+      })
+      .catch(err => {
+        const response = err.response;
+        if (response && response.status === 422) {
+          setTextModal(response.data.message)
+          setSecond('5')
+          setModalInformationActive(true)
+        }
+      })
+    setModalConfirmationAction(false)
+  }
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>Меню на следующую неделю</h2>
@@ -160,6 +205,19 @@ export const NewMenu = () => {
           >
             {recipe.recipe_name}
           </p>)}
+      </Modal>
+
+      <Modal active={modalConfirmationAction} setActive={setModalConfirmationAction}>
+        <ConfirmationAction dataModal={dataModal} setModalActive={setModalConfirmationAction}/>
+      </Modal>
+
+      <Modal active={modalInformationActive} setActive={setModalInformationActive}>
+        <ModalInformation
+          second={second}
+          text={textModal}
+          setModalInformationActive={setModalInformationActive}
+          setTextModal={setTextModal}
+        />
       </Modal>
     </div>
   );

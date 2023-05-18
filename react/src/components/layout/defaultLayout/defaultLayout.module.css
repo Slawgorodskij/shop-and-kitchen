@@ -31,13 +31,18 @@
   display: none;
 }
 
+.main_blur {
+  display: none;
+}
+
 @media (max-width: 762px) {
   .background {
     grid-template-columns: 0.1fr 5fr;
   }
 
   .main {
-    width: 65vw;
+    padding: 0.5rem;
+    width: 75vw;
     height: 80vh;
   }
 
@@ -47,5 +52,12 @@
     width: 100vw;
     height: 100vh;
     backdrop-filter: blur(3px);
+  }
+}
+
+@media (max-width: 520px) {
+  .main {
+    width: 80vw;
+    height: 85vh;
   }
 }
