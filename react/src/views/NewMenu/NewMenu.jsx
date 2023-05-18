@@ -37,11 +37,20 @@ export const NewMenu = () => {
   const openModal = () => {
     setModalActive(true)
   }
-  const addListMenu = (data) => {
-    data['users_id'] = user.id
-    axiosClient.post('/addListMenu', data)
+  const addListMenu = (request, recipeName, mealTimesName) => {
+
+    request['users_id'] = user.id
+    axiosClient.post('/addListMenu', request)
       .then(({data}) => {
-        console.log(data)
+        const newName = {
+          day_weeks_id: data.listMenu.day_weeks_id,
+          id: data.listMenu.id,
+          meal_times_id: data.listMenu.meal_times_id,
+          meal_times_name: mealTimesName,
+          recipe_id: data.listMenu.recipe_id,
+          recipe_name: recipeName,
+        }
+        setListNameRecipes(prev => [...prev, newName])
       })
   }
   const addShoppingList = (data) => {
@@ -121,7 +130,7 @@ export const NewMenu = () => {
       'day_weeks_id': recipe.oneDayWeek,
       'meal_times_id': recipe.itemMealTime,
       'date': recipe.date
-    })
+    }, recipe.recipe_name, recipe.meal_times_name)
     setCreatingModalActive(false)
 
     addShoppingList({
@@ -153,6 +162,7 @@ export const NewMenu = () => {
   const confirmationDeleteSelectedDish = (dataId) => {
     axiosClient.post('/deleteSelectedDish', dataResponse)
       .then(({data}) => {
+        //TODO
         console.log(selectedRecipeName)
         console.log(dataId)
         setTextModal(data.message)
@@ -187,7 +197,7 @@ export const NewMenu = () => {
       <Modal active={modalActive} setActive={setModalActive}>
         <CreatingMenu
           renderDay={renderDay}
-          addListMenu={addListMenu}
+
           addShoppingList={addShoppingList}
           renderRecipe={renderRecipe}
           selectedRecipeName={selectedRecipeName}
