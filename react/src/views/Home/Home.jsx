@@ -73,11 +73,12 @@ export const Home = () => {
       }
 
       {shoppingListRendering.length > 0 &&
-        <div>
+        <div className={styles.main}>
           <h3 className={styles.subtitle}>
             У вас приобретены не все необходимые продукты.
           </h3>
-          <p>Для просмотра посетите страницу <MyLink link={'/shopping_list'} label={'Список покупок'}/></p>
+          <p>Для просмотра посетите страницу</p>
+          <MyLink link={'/shopping_list'} label={'Список покупок'}/>
         </div>
       }
     </>

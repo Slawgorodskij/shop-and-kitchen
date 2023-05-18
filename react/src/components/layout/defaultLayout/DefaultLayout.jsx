@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Navigate, Outlet} from "react-router-dom";
 import {useStateContext} from "../../../context/ContextProvider.jsx";
 import axiosClient from "../../../axios-client.js";
@@ -7,7 +7,7 @@ import {Sidebar} from "../../sidebar/Sidebar.jsx";
 
 export const DefaultLayout = () => {
   const {user, token, setUser, setToken,} = useStateContext()
-
+  const [burgerActive, setBurgerActive] = useState(false)
   if (!token) {
     return <Navigate to={'/home_guest'}/>
   }
@@ -28,13 +28,11 @@ export const DefaultLayout = () => {
 
   return (
     <div className={styles.background}>
-      <Sidebar user={user.name} onLogout={onLogout}/>
+      <Sidebar user={user.name} onLogout={onLogout} burgerActive={burgerActive} setBurgerActive={setBurgerActive}/>
+      <div className={burgerActive ? styles.main_blur : styles.main_none}></div>
       <main className={styles.main}>
         <Outlet/>
       </main>
-      <div className="wrapper">
-        <p onClick={onLogout} className={styles.logout}>Выйти</p>
-      </div>
     </div>
   )
 }
