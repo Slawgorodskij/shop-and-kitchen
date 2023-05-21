@@ -9,7 +9,10 @@ use App\Http\Requests\ApiStoreroomRequest;
 use App\Models\ShoppingList;
 use App\Models\Storeroom;
 use App\Models\Structure;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 
 class ShoppingListController extends Controller
@@ -33,13 +36,12 @@ class ShoppingListController extends Controller
                 $shoppingList[0]->quantity += $structure->quantity;
                 $shoppingList[0]->save();
             } elseif (isset($storeroom)
-                && count($storeroom) > 0) {
-                foreach ($storeroom as $item) {
-                    if ($item->quantity > $structure->quantity) {
-                        $item->quantity -= $structure->quantity;
-                        $item->save();
-                    }
-                }
+                && count($storeroom) > 0
+                && $storeroom[0]->quantity >= $structure->quantity
+            ) {
+                $storeroom[0]->quantity -= $structure->quantity;
+                $storeroom[0]->reserve += $structure->quantity;
+                $storeroom[0]->save();
             } else {
                 $newQuantity = $structure->quantity;
 
@@ -81,6 +83,7 @@ class ShoppingListController extends Controller
 
         return response(compact('shoppingListRendering'));
     }
+
 //TODO добаввить проверку резерва
     public function deleteProductOfShoppingList(Request $request)
     {
@@ -92,18 +95,28 @@ class ShoppingListController extends Controller
         return response(['message' => 'Продукт не удален из списка'], 422);
     }
 
-    //TODO добаввить проверку резерва метод create не подходит
-    public function transferStorerooms(ApiStoreroomRequest $request)
+    public function transferStorerooms(ApiStoreroomRequest $request): \Illuminate\Foundation\Application|Response|Application|ResponseFactory
     {
         $data = $request->validated();
-        $storeroom = Storeroom::create($data);
-
-        if ($storeroom) {
-            $shoppingList = ShoppingList::find($data['shopping_list_id']);
-            $shoppingList->delete();
-            return response(['message' => 'Продукт перенесен в кладовую'], 200);
+        $storeroom = Storeroom::where(['product_id' => $data['product_id'], 'users_id' => $data['users_id']])->get();
+        if (count($storeroom) > 0) {
+            $storeroom[0]->quantity += $data['quantity'];
+            if ($storeroom[0]->save() && $this->shoppingListDelete($data)) {
+                return response(['message' => 'Продукт перенесен в кладовую'], 200);
+            }
+        } else {
+            $storeroomNew = Storeroom::create($data);
+            if ($storeroomNew && $this->shoppingListDelete($data)) {
+                return response(['message' => 'Продукт перенесен в кладовую'], 200);
+            }
         }
-
         return response(['message' => 'Продукт не перенесен в кладовую'], 422);
+    }
+
+    private function shoppingListDelete($data): bool
+    {
+        $shoppingList = ShoppingList::find($data['shopping_list_id']);
+        if ($shoppingList->delete()) return true;
+        return false;
     }
 }

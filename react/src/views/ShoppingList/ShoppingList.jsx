@@ -45,6 +45,7 @@ export const ShoppingList = () => {
     }
     axiosClient.post('/transferStorerooms', request)
       .then(({data}) => {
+        console.log(data)
         setTextModal(data.message)
         setSecond('5')
         setModalInformationActive(true)

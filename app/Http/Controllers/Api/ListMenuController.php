@@ -19,23 +19,27 @@ use Illuminate\Http\Response;
 
 class ListMenuController extends Controller
 {
+    private string|int $monday;
+    private string|int $sunday;
+
     public function listMenu(Request $request)
     {
-        $monday = '';
         switch ($request['date']) {
             case 'next':
-                $monday = strtotime('monday next week');
+                $this->monday = strtotime('monday next week');
                 break;
             case 'this':
-                $monday = strtotime('monday this week');
+                $this->monday = strtotime('monday this week');
                 break;
         }
-
-        $sunday = strtotime('+6 day', $monday);
+        if ($request['date'] === 'next') {
+            $this->sunday = strtotime('+6 day', $this->monday);
+        }
 
         $DayWeek = DayWeek::all();
         $mealTime = MealTime::all();
 
+        $this->checkedAndDeleteReserve($request['users_id']);
 
         $listNameRecipes = ListMenu::select(
             'list_menus.id as id',
@@ -48,7 +52,7 @@ class ListMenuController extends Controller
             ->join('recipes', 'list_menus.recipes_id', '=', 'recipes.id')
             ->join('meal_times', 'list_menus.meal_times_id', '=', 'meal_times.id')
             ->where('users_id', $request['users_id'])
-            ->whereBetween('date', [date("d.m.Y", $monday), date("d.m.Y", $sunday)])
+            ->whereBetween('date', [date("d.m.Y", $this->monday), date("d.m.Y", $this->sunday)])
             ->get();
 
         $mealTimeAndRecipe = MealTime::select(
@@ -61,11 +65,11 @@ class ListMenuController extends Controller
             ->join('recipes', 'meal_time_recipe.recipe_id', '=', 'recipes.id')
             ->get();
 
-        $date = date("Y-m-d", strtotime('-1 day', $monday));
+        $date = date("Y-m-d", strtotime('-1 day', $this->monday));
         return response(compact('listNameRecipes', 'DayWeek', 'mealTime', 'mealTimeAndRecipe', 'date'));
     }
 
-    public function addListMenu(ApiListMenuRequest $request)
+    public function addListMenu(ApiListMenuRequest $request): \Illuminate\Foundation\Application|Response|Application|ResponseFactory
     {
         $data = $request->validated();
         $listMenu = ListMenu::create([
@@ -81,35 +85,40 @@ class ListMenuController extends Controller
 
     public function deleteSelectedDish(Request $request): \Illuminate\Foundation\Application|Response|Application|ResponseFactory
     {
+//        $test= $request['recipe_id'];
+//        return response(compact('test'));
         //$storeroom = Storeroom::find($request['id']);
         $structures = Structure::where(['recipe_id' => $request['recipe_id']])->get();
-        // return response(compact('structures'));
+
         if (count($structures) > 0) {
             foreach ($structures as $product) {
-               // return response(compact('product'));
-                $shoppingList = ShoppingList::where(['product_id' => $product->product_id])->get();
-               // return response(compact('shoppingList'));
+                // return response(compact('product'));
+                $shoppingList = ShoppingList::where(['product_id' => $product->product_id, 'users_id' => $request['users_id']])->get();
+                // return response(compact('shoppingList'));
                 if (count($shoppingList) > 0
                     && ($shoppingList[0]->quantity >= $product->quantity)) {
                     $shoppingList[0]->quantity -= $product->quantity;
                     $shoppingList[0]->save();
                 } else {
                     $newQuantity = $product->quantity;
-                    if (count($shoppingList) > 0) {
+                    if (count($shoppingList) > 0 && isset($shoppingList[0]->quantity)) {
                         $newQuantity -= $shoppingList[0]->quantity;
                     }
 
-                    $storeroom = Storeroom::where(['product_id' => $product->product_id])->get();
+                    $storeroom = Storeroom::where(['product_id' => $product->product_id, 'users_id' => $request['users_id']])->get();
                     if (count($storeroom) > 0) {
-                        if ($storeroom[0]->reserve > $newQuantity) {
+                        if ($storeroom[0]->reserve >= $newQuantity) {
                             $storeroom[0]->reserve -= $newQuantity;
                             $storeroom[0]->quantity += $newQuantity;
                         } else {
-                            $storeroom[0]->reserve = 0;
                             $storeroom[0]->quantity += $storeroom[0]->reserve;
+                            $storeroom[0]->reserve = 0;
                             $storeroom[0]->save();
                         }
                     }
+                }
+                if (isset($shoppingList[0]->quantity) && $shoppingList[0]->quantity === 0) {
+                    $shoppingList[0]->delete();
                 }
             }
             $dish = ListMenu::where([
@@ -121,12 +130,26 @@ class ListMenuController extends Controller
             ])
                 ->limit(1)
                 ->get();
-           // return response(compact('dish'));
+            // return response(compact('dish'));
             if (count($dish) > 0 && $dish[0]->delete()) {
                 return response(['message' => 'Блюдо удалено'], 200);
             }
 
         }
         return response(['message' => 'Блюдо не удалено'], 422);
+    }
+
+    private function checkedAndDeleteReserve($userId): void
+    {
+        $listMenu = ListMenu::where(['users_id' => $userId])
+            ->whereBetween('date', [date("d.m.Y", $this->monday), date("d.m.Y", $this->sunday)])
+            ->get();
+        if (count($listMenu) === 0) {
+            $storeroom = Storeroom::where(['users_id' => $userId])->get();
+            foreach ($storeroom as $product) {
+                $product->reserve = 0;
+                $product->save();
+            }
+        }
     }
 }

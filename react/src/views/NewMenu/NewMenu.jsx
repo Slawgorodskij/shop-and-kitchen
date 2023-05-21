@@ -91,7 +91,7 @@ export const NewMenu = () => {
     setSelectedRecipeName([])
     for (let key in data) {
       const newName = {
-        'id': Math.round(Date.now() * Math.random()).toString(),
+        'id': data[key].id,
         'recipesId': data[key].recipe_id,
         'oneDayWeek': data[key].day_weeks_id,
         'itemMealTime': data[key].meal_times_id,
@@ -105,6 +105,7 @@ export const NewMenu = () => {
     const recipeArray = mealTimeAndRecipe.filter(item => {
       return item.meal_times_id === itemMealTime.id
     })
+    console.log(mealTimeAndRecipe)
     recipeArray.map(recipe => {
       recipe['date'] = oneDayWeek.date
       recipe['itemMealTime'] = itemMealTime.id
@@ -116,6 +117,8 @@ export const NewMenu = () => {
   }
 
   const addRecipe = (recipe) => {
+    console.log('recipe')
+    console.log(recipe)
     const newName = {
       'id': Math.round(Date.now() * Math.random()).toString(),
       'recipesId': recipe.recipe_id,
@@ -162,13 +165,11 @@ export const NewMenu = () => {
   const confirmationDeleteSelectedDish = (dataId) => {
     axiosClient.post('/deleteSelectedDish', dataResponse)
       .then(({data}) => {
-        //TODO
-        console.log(selectedRecipeName)
-        console.log(dataId)
         setTextModal(data.message)
         setSecond('5')
         setModalInformationActive(true)
         setSelectedRecipeName(selectedRecipeName.filter(item => item.id !== dataId))
+        setListNameRecipes(listNameRecipes.filter(item => item.id !== dataId))
       })
       .catch(err => {
         const response = err.response;
@@ -178,6 +179,7 @@ export const NewMenu = () => {
           setModalInformationActive(true)
         }
       })
+    //(prev => [...prev, newName])
     setModalConfirmationAction(false)
   }
   return (
@@ -197,7 +199,6 @@ export const NewMenu = () => {
       <Modal active={modalActive} setActive={setModalActive}>
         <CreatingMenu
           renderDay={renderDay}
-
           addShoppingList={addShoppingList}
           renderRecipe={renderRecipe}
           selectedRecipeName={selectedRecipeName}

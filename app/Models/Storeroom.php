@@ -20,6 +20,7 @@ class Storeroom extends Model
         'product_id',
         'units_id',
         'quantity',
+        'reserve',
     ];
 
     public function users(): BelongsTo
