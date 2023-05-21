@@ -27,7 +27,6 @@ export const NewMenu = () => {
   const {listNameRecipes, setListNameRecipes} = useStateContext()
   const {mealTimeAndRecipe, setMealTimeAndRecipe} = useStateContext()
 
-  const [dataResponse, setDataResponse] = useState({});
   const [modalInformationActive, setModalInformationActive] = useState(false);
   const [modalConfirmationAction, setModalConfirmationAction] = useState(false);
   const [dataModal, setDataModal] = useState({});
@@ -56,8 +55,7 @@ export const NewMenu = () => {
   const addShoppingList = (data) => {
     data['users_id'] = user.id
     axiosClient.post('/addShoppingList', data)
-      .then(({data}) => {
-        console.log(data)
+      .then(({}) => {
       })
   }
   useEffect(() => {
@@ -105,7 +103,6 @@ export const NewMenu = () => {
     const recipeArray = mealTimeAndRecipe.filter(item => {
       return item.meal_times_id === itemMealTime.id
     })
-    console.log(mealTimeAndRecipe)
     recipeArray.map(recipe => {
       recipe['date'] = oneDayWeek.date
       recipe['itemMealTime'] = itemMealTime.id
@@ -117,8 +114,6 @@ export const NewMenu = () => {
   }
 
   const addRecipe = (recipe) => {
-    console.log('recipe')
-    console.log(recipe)
     const newName = {
       'id': Math.round(Date.now() * Math.random()).toString(),
       'recipesId': recipe.recipe_id,
@@ -150,7 +145,6 @@ export const NewMenu = () => {
       meal_times_id: data[0].itemMealTime,
       date: data[1],
     }
-    setDataResponse(newResponse)
 
     const dataModalRendering = {
       id: data[0].id,
@@ -158,12 +152,13 @@ export const NewMenu = () => {
       text: deleteProductText,
       label: label,
       labelClose: labelClose,
+      dataDish: newResponse,
       functionName: confirmationDeleteSelectedDish,
     }
     setDataModal(dataModalRendering)
   }
-  const confirmationDeleteSelectedDish = (dataId) => {
-    axiosClient.post('/deleteSelectedDish', dataResponse)
+  const confirmationDeleteSelectedDish = (dataId, response) => {
+    axiosClient.post('/deleteSelectedDish', response)
       .then(({data}) => {
         setTextModal(data.message)
         setSecond('5')
@@ -179,7 +174,6 @@ export const NewMenu = () => {
           setModalInformationActive(true)
         }
       })
-    //(prev => [...prev, newName])
     setModalConfirmationAction(false)
   }
   return (

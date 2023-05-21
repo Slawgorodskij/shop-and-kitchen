@@ -5,7 +5,7 @@ import {MyButton} from "../UI/MyButton/MyButton.jsx";
 export const ConfirmationAction = ({dataModal, setModalActive}) => {
   return (
     <div className={styles.block}>
-      <h3>Выбран продукт - "{dataModal.name}"</h3>
+      <h3>Выбрано - "{dataModal.name}"</h3>
       <p className={styles.error}>{dataModal.text}</p>
       <div className={styles.block__button}>
         <MyButton
@@ -14,7 +14,7 @@ export const ConfirmationAction = ({dataModal, setModalActive}) => {
         />
         <MyButton
           label={dataModal.label}
-          click={() => dataModal.functionName(dataModal.id)}
+          click={() => dataModal.functionName(dataModal.id, dataModal.dataDish)}
         />
 
       </div>
