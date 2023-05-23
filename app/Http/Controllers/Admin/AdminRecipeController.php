@@ -116,12 +116,16 @@ class AdminRecipeController extends Controller
             $product = Product::firstOrCreate([
                 'name' => $productName[$i]
             ]);
-            Structure::firstOrCreate([
+
+            $structure = Structure::firstOrCreate([
                 'recipe_id' => $recipe->id,
                 'product_id' => $product->id,
                 'units_id' => $unitsId[$i],
-                'quantity' => $quantity[$i],
             ]);
+
+//            $structure->units_id = $unitsId[$i];
+            $structure->quantity = $quantity[$i];
+            $structure->save();
         }
         for ($i = 0; $i < count($mealTimesId); $i++) {
             MealTimeRecipe::firstOrCreate([
@@ -137,7 +141,7 @@ class AdminRecipeController extends Controller
      */
     public function destroy(string $id)
     {
-         //$product->delete();
+        //$product->delete();
         return to_route('admin.recipe');
     }
 }

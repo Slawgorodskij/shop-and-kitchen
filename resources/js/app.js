@@ -12,6 +12,7 @@ if (document.querySelector('.tbody')) {
   fetch('/ajax-autocomplete-unit')
     .then(response => response.json())
     .then(result => {
+      console.log('test')
       renderTable(result)
     })
 
@@ -28,7 +29,7 @@ if (document.querySelector('.tbody')) {
                         <select name="units_id[]">${option}</select>
                    </td>
                    <td>
-                       <input type="number" name="quantity[]" placeholder="КОЛИЧЕСТВО" >
+                       <input type="number" step="any" name="quantity[]" placeholder="КОЛИЧЕСТВО" >
                    </td>
                 </tr>`
 
@@ -38,8 +39,6 @@ if (document.querySelector('.tbody')) {
     const tableRow = renderTableRow(result);
     const tbody = document.querySelector('.tbody');
     const buttonAdd = document.querySelector('.addRow');
-
-   // tbody.insertAdjacentHTML('beforeend', tableRow);
 
     buttonAdd.addEventListener('click', (event) => {
       event.preventDefault();

@@ -78,7 +78,7 @@
                                             {{$data->units->name}}
                                         </td>
                                         <td>
-                                            <input type="number" name="quantity[]" placeholder="КОЛИЧЕСТВО"
+                                            <input type="number" step="any" name="quantity[]" placeholder="КОЛИЧЕСТВО"
                                                    value="{{$data->quantity}}">
                                         </td>
                                     </tr>
