@@ -66,6 +66,7 @@ export const NewMenu = () => {
       }
       axiosClient.post('/listMenu', data)
         .then(({data}) => {
+          console.log(data)
           setDayWeek(data.DayWeek)
           setMealTime(data.mealTime)
           setListNameRecipes(data.listNameRecipes)

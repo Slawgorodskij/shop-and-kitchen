@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\ShoppingList;
 use App\Models\Storeroom;
 use App\Models\Structure;
+use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Request;
@@ -32,17 +33,17 @@ class ListMenuController extends Controller
                 $this->monday = strtotime('monday this week');
                 break;
         }
-        if ($request['date'] === 'next') {
-            $this->sunday = strtotime('+6 day', $this->monday);
-        }
+        $this->sunday = strtotime('+6 day', $this->monday);
 
+        if ($request['date'] === 'next') {
+            $this->checkedAndDeleteReserve($request['users_id']);
+        }
         $DayWeek = DayWeek::all();
         $mealTime = MealTime::all();
 
-        $this->checkedAndDeleteReserve($request['users_id']);
-
         $listNameRecipes = ListMenu::select(
             'list_menus.id as id',
+            'list_menus.date as date',
             'list_menus.day_weeks_id as day_weeks_id',
             'list_menus.meal_times_id as meal_times_id',
             'meal_times.name as meal_times_name',
@@ -52,7 +53,7 @@ class ListMenuController extends Controller
             ->join('recipes', 'list_menus.recipes_id', '=', 'recipes.id')
             ->join('meal_times', 'list_menus.meal_times_id', '=', 'meal_times.id')
             ->where('users_id', $request['users_id'])
-            ->whereBetween('date', [date("d.m.Y", $this->monday), date("d.m.Y", $this->sunday)])
+            ->whereBetween('date', [new Carbon($this->monday), new Carbon($this->sunday)])
             ->get();
 
         $mealTimeAndRecipe = MealTime::select(
@@ -77,7 +78,7 @@ class ListMenuController extends Controller
             'recipes_id' => $data['recipes_id'],
             'day_weeks_id' => $data['day_weeks_id'],
             'meal_times_id' => $data['meal_times_id'],
-            'date' => $data['date'],
+            'date' => new Carbon($data['date']),
         ]);
 
         return response(compact('listMenu'));

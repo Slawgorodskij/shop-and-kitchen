@@ -19,7 +19,6 @@ class ShoppingListController extends Controller
 {
     public function addShoppingList(ApiShoppingListRequest $request)
     {
-        //TODO прверка на наличие продукта в списке покупок
         $data = $request->validated();
         $structures = Structure::where('recipe_id', $data['recipes_id'])->get();
 
