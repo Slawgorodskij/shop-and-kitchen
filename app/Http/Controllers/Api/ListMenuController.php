@@ -126,7 +126,7 @@ class ListMenuController extends Controller
                 'users_id' => $request['users_id'],
                 'day_weeks_id' => $request['day_weeks_id'],
                 'meal_times_id' => $request['meal_times_id'],
-                'date' => $request['date'],
+                'date' => new Carbon($request['date']),
                 'recipes_id' => $request['recipe_id'],
             ])
                 ->limit(1)

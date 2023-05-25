@@ -20,9 +20,6 @@
 }
 
 .modal__content {
-  width: 60vw;
-  min-height: 30vh;
-  max-height: 80vh;
   padding: 1.5rem;
   background-image: url("/images/desk.webp");
   background-position: center;
@@ -31,28 +28,34 @@
   border-radius: 10px;
   transform: scale(0.5);
   transition: 0.4s all;
-  overflow: auto;
 }
 
 .modal__content_active {
   transform: scale(1);
 }
 
-
-.modal__content::-webkit-scrollbar {
-  width: 8px;
+.modal__main{
+  width: 60vw;
+  min-height: 30vh;
+  max-height: 75vh;
+  overflow: auto;
 }
 
-.modal__content::-webkit-scrollbar-track {
+.modal__main::-webkit-scrollbar {
+  width: 4px;
+}
+
+.modal__main::-webkit-scrollbar-track {
   background-color: #8c8c95;
 }
 
-.modal__content::-webkit-scrollbar-thumb {
+.modal__main::-webkit-scrollbar-thumb {
   background-color: #4c7877;
   border-radius: 5px;
 }
 
 .block_button_close {
+  margin-bottom: 1.5rem;
   display: flex;
   justify-content: flex-end;
 }
@@ -67,12 +70,15 @@
 }
 
 @media (max-width: 762px) {
-  .modal__content {
+  .modal__content{
+    padding: 0.5rem;
+  }
+  .modal__main {
     width: 75vw;
   }
 }
 @media (max-width: 520px) {
-  .modal__content {
+  .modal__main {
     width: 90vw;
   }
 }

@@ -7,7 +7,7 @@ export const CreatingMenu = ({renderDay, renderRecipe, selectedRecipeName, delet
   const {mealTime} = useStateContext()
 
   return (
-    <>
+    <div className={styles.border}>
       {renderDay.map(oneDay =>
         <div key={oneDay.id}>
           <div className={styles.block__title}>
@@ -47,6 +47,6 @@ export const CreatingMenu = ({renderDay, renderRecipe, selectedRecipeName, delet
             </div>
           )}
         </div>)}
-    </>
+    </div>
   )
 };

@@ -16,7 +16,9 @@
   display: flex;
   flex-direction: column;
 }
-
+.border{
+  border: 1px solid darkgray;
+}
 .block__meal {
   display: flex;
   border-bottom: 1px solid darkgray;

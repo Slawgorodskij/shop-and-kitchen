@@ -66,7 +66,6 @@ export const NewMenu = () => {
       }
       axiosClient.post('/listMenu', data)
         .then(({data}) => {
-          console.log(data)
           setDayWeek(data.DayWeek)
           setMealTime(data.mealTime)
           setListNameRecipes(data.listNameRecipes)
@@ -159,8 +158,10 @@ export const NewMenu = () => {
     setDataModal(dataModalRendering)
   }
   const confirmationDeleteSelectedDish = (dataId, response) => {
+
     axiosClient.post('/deleteSelectedDish', response)
       .then(({data}) => {
+        console.log(data)
         setTextModal(data.message)
         setSecond('5')
         setModalInformationActive(true)
