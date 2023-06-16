@@ -39,3 +39,7 @@
   text-align: center;
 }
 
+.block__button {
+  height: 2rem;
+  display: flex;
+}

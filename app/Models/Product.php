@@ -19,6 +19,11 @@ class Product extends Model
     protected $fillable = [
         'name',
         'description',
+        'type_product_id',
+        'calories',
+        'squirrels', //белки
+        'fats', //жиры
+        'carbohydrates', //углеводы
     ];
 
     public function images(): MorphMany

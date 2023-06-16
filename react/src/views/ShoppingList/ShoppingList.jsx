@@ -6,6 +6,7 @@ import {OneNotes} from "../../components/OneNotes/OneNotes.jsx";
 import {Modal} from "../../components/UI/modal/Modal.jsx";
 import {ConfirmationAction} from "../../components/ConfirmationAction/ConfirmationAction.jsx";
 import {ModalInformation} from "../../components/ModalInformation/ModalInformation.jsx";
+import {MyButton} from "../../components/UI/MyButton/MyButton.jsx";
 
 const purchasedText = 'Этот товар куплен и вы его хотите перенести в кладовую?';
 const label = 'Подтверждаю';
@@ -126,7 +127,9 @@ export const ShoppingList = () => {
             />)}
         </div>
       }
-
+      <div className={styles.block__button}>
+        <MyButton label={'Добавить продукт/товар'} />
+      </div>
       <Modal active={modalActive} setActive={setModalActive}>
         <ConfirmationAction dataModal={dataModal} setModalActive={setModalActive}/>
       </Modal>

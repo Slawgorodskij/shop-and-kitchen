@@ -25,7 +25,7 @@ export const OneNotes = ({oneNotes, purchased, deleteProduct}) => {
         {deleteProduct &&
           <svg
             onClick={() => deleteProduct(oneNotes.id)}
-            className={styles.button}
+            className={`${styles.button} ${styles.button__delete}`}
             x="0px" y="0px" viewBox="0 0 512.021 512.021" width="20" height="20">
             <g>
               <path
