@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AddShoppingListController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ListMenuController;
 use App\Http\Controllers\Api\ShoppingListController;
@@ -36,4 +37,6 @@ Route::post('/addListMenu', [ListMenuController::class, 'addListMenu']);
 Route::post('/deleteSelectedDish', [ListMenuController::class, 'deleteSelectedDish']);
 Route::post('/storeroomListRendering', [StoreroomController::class, 'storeroomListRendering']);
 Route::post('/deleteProductOfStoreroom', [StoreroomController::class, 'deleteProductOfStoreroom']);
+Route::get('/getTypeProduct', [AddShoppingListController::class, 'getTypeProduct']);
+Route::post('/getProducts', [AddShoppingListController::class, 'getProducts']);
 

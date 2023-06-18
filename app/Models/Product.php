@@ -19,7 +19,7 @@ class Product extends Model
     protected $fillable = [
         'name',
         'description',
-        'type_product_id',
+        'type_products_id',
         'calories',
         'squirrels', //белки
         'fats', //жиры

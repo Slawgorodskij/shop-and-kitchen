@@ -7,6 +7,8 @@ import {Modal} from "../../components/UI/modal/Modal.jsx";
 import {ConfirmationAction} from "../../components/ConfirmationAction/ConfirmationAction.jsx";
 import {ModalInformation} from "../../components/ModalInformation/ModalInformation.jsx";
 import {MyButton} from "../../components/UI/MyButton/MyButton.jsx";
+import {MyLink} from "../../components/UI/MyLink/MyLink.jsx";
+import {Link} from "react-router-dom";
 
 const purchasedText = 'Этот товар куплен и вы его хотите перенести в кладовую?';
 const label = 'Подтверждаю';
@@ -127,9 +129,11 @@ export const ShoppingList = () => {
             />)}
         </div>
       }
-      <div className={styles.block__button}>
-        <MyButton label={'Добавить продукт/товар'} />
-      </div>
+      <Link to={'/add_shopping_list'}>
+        <div className={styles.block__button}>
+          <MyButton label={'Добавить продукт/товар'}/>
+        </div>
+      </Link>
       <Modal active={modalActive} setActive={setModalActive}>
         <ConfirmationAction dataModal={dataModal} setModalActive={setModalActive}/>
       </Modal>

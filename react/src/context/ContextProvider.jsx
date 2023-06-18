@@ -10,6 +10,8 @@ const StateContext = createContext({
   mealTimeAndRecipe: null,
   shoppingListRendering: null,
   storeroomListRendering: null,
+  typeProduct: null,
+  products: null,
   setUser: () => {
   },
   setToken: () => {
@@ -26,6 +28,10 @@ const StateContext = createContext({
   },
   setStoreroomListRendering: () => {
   },
+  setTypeProduct: () => {
+  },
+  setProducts: () => {
+  },
   listPages: listPages,
 })
 export const ContextProvider = ({children}) => {
@@ -39,6 +45,8 @@ export const ContextProvider = ({children}) => {
   const [mealTimeAndRecipe, setMealTimeAndRecipe] = useState([]);
   const [shoppingListRendering, setShoppingListRendering] = useState([]);
   const [storeroomListRendering, setStoreroomListRendering] = useState([]);
+  const [typeProduct, setTypeProduct] = useState([]);
+  const [products, setProducts] = useState([]);
 
 
   const setToken = (token) => {
@@ -68,7 +76,11 @@ export const ContextProvider = ({children}) => {
       shoppingListRendering,
       setShoppingListRendering,
       storeroomListRendering,
-      setStoreroomListRendering
+      setStoreroomListRendering,
+      typeProduct,
+      setTypeProduct,
+      products,
+      setProducts,
     }}>
       {children}
     </StateContext.Provider>

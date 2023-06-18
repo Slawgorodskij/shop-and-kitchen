@@ -13,6 +13,8 @@ import {GuestLayout} from "./components/layout/guestLayout/GuestLayout.jsx";
 import {DefaultLayout} from "./components/layout/defaultLayout/DefaultLayout.jsx";
 import {HomeGuest} from "./views/homeGuest/HomeGuest.jsx";
 import {OldMenu} from "./views/OldMenu/OldMenu.jsx";
+import {AddShoppingList} from "./views/AddShoppingList/AddShoppingList.jsx";
+import {ShowProducts} from "./views/ShowProducts/ShowProducts.jsx";
 
 export const router = createBrowserRouter([
   {
@@ -70,12 +72,20 @@ export const router = createBrowserRouter([
         element: <ShoppingList/>,
       },
       {
+        path: '/add_shopping_list',
+        element: <AddShoppingList/>,
+      },
+      {
         path: '/storeroom',
         element: <Storeroom/>,
       },
       {
         path: '/weeks_recipes',
         element: <WeeksRecipes/>,
+      },
+      {
+        path: '/show_product/:typeProductId',
+        element: <ShowProducts/>,
       },
     ],
   },
