@@ -4,6 +4,7 @@ import axiosClient from "../../axios-client.js";
 import {useStateContext} from "../../context/ContextProvider.jsx";
 import {Link} from "react-router-dom";
 import {MyButton} from "../../components/UI/MyButton/MyButton.jsx";
+import {Card} from "../../components/UI/Card/Card.jsx";
 
 
 export const AddShoppingList = () => {
@@ -34,15 +35,7 @@ export const AddShoppingList = () => {
                 <Link
                   to={`/show_product/${item.id}`}
                   key={item.id}>
-                  <div className={styles.card}>
-                    <div className={styles.card__image_block}>
-                      <img className={styles.card__image} src="/images/cereals.jpg" alt=""/>
-                    </div>
-                    <div className={styles.card__name}>
-                      <h4 className={styles.card__title}>{item.name}</h4>
-                      <p className={styles.card__text}>{item.description}</p>
-                    </div>
-                  </div>
+                  <Card name={item.name} description={item.description}/>
                 </Link>
               ))
               : (
@@ -59,7 +52,7 @@ export const AddShoppingList = () => {
 
       </div>
 
-      <Link to={'/shopping_list'}>
+      <Link to={'/shopping_list'} className={styles.text_dec_non}>
         <div className={styles.block__button}>
           <MyButton label={'Назад'}/>
         </div>

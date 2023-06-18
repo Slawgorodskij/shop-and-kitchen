@@ -2,7 +2,7 @@
   width: 100%;
   font-family: "Roboto", sans-serif;
   outline: 0;
-  background: #5b08a7;
+  background: #244e4d;
   border: 0;
   text-decoration: none;
   /*padding: 15px;*/
@@ -15,5 +15,5 @@
 }
 
 .button:hover {
-  background: #42146c;
+  background: #2d6160;
 }
