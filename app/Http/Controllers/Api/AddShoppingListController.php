@@ -10,15 +10,34 @@ class AddShoppingListController
 {
     public function getTypeProduct()
     {
-        $arrayTypeProduct = TypeProduct::all();
+        $typeProducts = TypeProduct::all();
+        $arrayTypeProduct = [];
+        foreach ($typeProducts as $typeProduct) {
+            if ($typeProduct->images) {
+                foreach ($typeProduct->images as $image) {
+                    $typeProduct['imageName'] = $image->name;
+                }
+            }
+            $arrayTypeProduct[] = $typeProduct;
+        }
+
         return response(compact('arrayTypeProduct'));
     }
 
     public function getProducts(ApiAddShoppingListRequest $request)
     {
         $data = $request->validated();
-        $arrayProducts = Product::where('type_products_id', $data['type_product_id'])->get();
-//        $arrayProducts = $typeProductId;
+        $products = Product::where('type_products_id', $data['type_product_id'])->get();
+        $arrayProducts = [];
+        foreach ($products as $product) {
+            if ($product->images) {
+                foreach ($product->images as $image) {
+                    $product['imageName'] = $image->name;
+                }
+            }
+            $arrayProducts[] = $product;
+        }
+
         return response(compact('arrayProducts'));
     }
 }

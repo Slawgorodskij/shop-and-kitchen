@@ -17,11 +17,9 @@ export const ShowProducts = () => {
   const {user} = useStateContext()
 
   useEffect(() => {
-    console.log(typeProduct)
     if (typeProduct.length === 0) {
       axiosClient.get('/getTypeProduct')
         .then(({data}) => {
-          console.log(data)
           setTypeProduct(data.arrayTypeProduct);
         })
         .catch(err => {
@@ -47,14 +45,33 @@ export const ShowProducts = () => {
       })
   }, [checkedTypeProduct])
 
-
+  const checkedProduct = (event) => {
+    const newProducts = products.slice(0);
+    let product = newProducts.find(item => +item.id === +event.target.name)
+        product['checked'] = event.target.checked
+    setProducts(newProducts)
+  }
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>{checkedTypeProduct && checkedTypeProduct.name}</h2>
-      <p>{checkedTypeProduct && checkedTypeProduct.description}</p>
+      <p className={styles.title}>{checkedTypeProduct && checkedTypeProduct.description}</p>
       <div className={styles.cards}>
         {products.length > 0
-          ? products.map(item => <Card name={item.name} description={item.description} key={item.id}/>)
+          ? products.map(item => <label key={item.id}>
+              <input
+                className={styles.custom_checkbox}
+                type="checkbox"
+                name={item.id}
+                onChange={event => checkedProduct(event)}/>
+              <Card
+                name={item.name}
+                description={item.description}
+                imageName={item.imageName}
+                checked={item.checked}
+              />
+
+            </label>
+          )
           : (
             <div>
               <p>что-то пошло не так</p>

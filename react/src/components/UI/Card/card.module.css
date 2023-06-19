@@ -2,6 +2,19 @@
   position: relative;
   width: 200px;
   height: 150px;
+  border-radius: 10px;
+  border: 1px solid #6893b0;
+  overflow: hidden;
+  box-shadow: 0 5px 10px 2px rgba(34, 60, 80, 0.2);
+}
+.card_checked {
+  position: relative;
+  width: 200px;
+  height: 150px;
+  border-radius: 10px;
+  border: 3px solid #52abe7;
+  overflow: hidden;
+  box-shadow: 0 5px 10px 2px rgb(34 60 80 / 90%) inset;
 }
 
 .card__image_block {

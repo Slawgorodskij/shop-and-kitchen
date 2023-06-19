@@ -35,7 +35,11 @@ export const AddShoppingList = () => {
                 <Link
                   to={`/show_product/${item.id}`}
                   key={item.id}>
-                  <Card name={item.name} description={item.description}/>
+                  <Card
+                    name={item.name}
+                    description={item.description}
+                    imageName={item.imageName}
+                  />
                 </Link>
               ))
               : (
