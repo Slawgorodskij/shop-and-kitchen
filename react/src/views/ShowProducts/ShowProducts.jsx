@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import styles from "./showProducts.module.css"
 
-import {Link, useParams} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import {MyButton} from "../../components/UI/MyButton/MyButton.jsx";
 import {useStateContext} from "../../context/ContextProvider.jsx";
 import axiosClient from "../../axios-client.js";
@@ -9,11 +9,13 @@ import {Card} from "../../components/UI/Card/Card.jsx";
 
 
 export const ShowProducts = () => {
+  const navigate = useNavigate();
   const {typeProductId} = useParams();
   const {typeProduct, setTypeProduct} = useStateContext()
   const {products, setProducts} = useStateContext()
 
-  const [checkedTypeProduct, setCheckedTypeProduct] = useState()
+  const [checkedTypeProduct, setCheckedTypeProduct] = useState([])
+  const [selectedProduct, setSelectedProduct] = useState([])
   const {user} = useStateContext()
 
   useEffect(() => {
@@ -45,12 +47,39 @@ export const ShowProducts = () => {
       })
   }, [checkedTypeProduct])
 
-  const checkedProduct = (event) => {
-    const newProducts = products.slice(0);
-    let product = newProducts.find(item => +item.id === +event.target.name)
-        product['checked'] = event.target.checked
-    setProducts(newProducts)
+  const addSelectedProduct = (id, product) => {
+    if (product['checked']) {
+      const newSelectedProduct = {
+        'product_id': product.id,
+        'units_id': product.units_id,
+        'quantity': product.default_weight,
+      }
+      setSelectedProduct((prevState) => [...prevState, newSelectedProduct])
+    }
+
+    if (!product['checked']) {
+      setSelectedProduct(prevState => prevState.filter(obj => +obj.product_id !== +id))
+    }
   }
+  const checkedProduct = (event) => {
+    const id = +event.target.name
+    const newProducts = products.slice(0);
+    let product = newProducts.find(item => +item.id === id)
+    product['checked'] = event.target.checked
+    setProducts(newProducts)
+    addSelectedProduct(id, product)
+  }
+
+  const deleteProduct = () => {
+    setSelectedProduct([])
+    setProducts(products.map(product => product['checked'] = false))
+    navigate('/add_shopping_list')
+  }
+
+  const addProduct = () => {
+    console.log(selectedProduct)
+  }
+
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>{checkedTypeProduct && checkedTypeProduct.name}</h2>
@@ -80,11 +109,22 @@ export const ShowProducts = () => {
         }
 
       </div>
-      <Link to={'/add_shopping_list'} className={styles.text_dec_non}>
-        <div className={styles.block__button}>
-          <MyButton label={'Назад'}/>
-        </div>
-      </Link>
+      {selectedProduct.length === 0
+        ? (<Link to={'/add_shopping_list'} className={styles.text_dec_non}>
+          <div className={styles.block__button}>
+            <MyButton label={'Назад'}/>
+          </div>
+        </Link>)
+        : (<div className={styles.block}>
+            <p className={styles.title}>Вернуться</p>
+            <div className={styles.block__buttons}>
+              <MyButton label={'без сохранения '} click={deleteProduct}/>
+              <MyButton label={'Добавить продукты'} click={addProduct}/>
+            </div>
+          </div>
+        )
+      }
+
     </div>
   );
 };

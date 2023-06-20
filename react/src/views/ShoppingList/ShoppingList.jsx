@@ -129,7 +129,7 @@ export const ShoppingList = () => {
             />)}
         </div>
       }
-      <Link to={'/add_shopping_list'}>
+      <Link to={'/add_shopping_list'} className={styles.text_dec_non}>
         <div className={styles.block__button}>
           <MyButton label={'Добавить продукт/товар'}/>
         </div>

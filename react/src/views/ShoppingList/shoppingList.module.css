@@ -43,3 +43,6 @@
   height: 2rem;
   display: flex;
 }
+.text_dec_non {
+  text-decoration: none;
+}

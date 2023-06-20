@@ -12,6 +12,10 @@ return new class extends Migration {
                 ->constrained()
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
+            $table->foreignId('units_id')
+                ->constrained()
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
             $table->enum('category', ['продукты', 'товары',]);
             $table->decimal('calories', 6, 2);
             $table->decimal('squirrels', 6, 2);
@@ -28,6 +32,7 @@ return new class extends Migration {
     {
         Schema::table('products', function ($table) {
             $table->dropColumn('type_product_id');
+            $table->dropColumn('units_id');
             $table->dropColumn('category');
             $table->dropColumn('calories');
             $table->dropColumn('squirrels');
