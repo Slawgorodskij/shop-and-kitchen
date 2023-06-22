@@ -23,7 +23,11 @@ class ApiShoppingListRequest extends FormRequest
     {
         return [
             'users_id' => 'required',
-            'recipes_id' => 'required',
+            'products' => 'array',
+            'recipes_id' => 'integer',
+            'product_id' => 'integer',
+            'units_id' => 'integer',
+            'quantity' => 'integer',
         ];
     }
 }

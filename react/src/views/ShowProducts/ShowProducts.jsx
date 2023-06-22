@@ -10,13 +10,16 @@ import {Card} from "../../components/UI/Card/Card.jsx";
 
 export const ShowProducts = () => {
   const navigate = useNavigate();
+
   const {typeProductId} = useParams();
   const {typeProduct, setTypeProduct} = useStateContext()
-  const {products, setProducts} = useStateContext()
+  const {shoppingListRendering, setShoppingListRendering} = useStateContext()
+  const {user} = useStateContext()
 
+  const [products, setProducts] = useState([])
   const [checkedTypeProduct, setCheckedTypeProduct] = useState([])
   const [selectedProduct, setSelectedProduct] = useState([])
-  const {user} = useStateContext()
+
 
   useEffect(() => {
     if (typeProduct.length === 0) {
@@ -50,9 +53,9 @@ export const ShowProducts = () => {
   const addSelectedProduct = (id, product) => {
     if (product['checked']) {
       const newSelectedProduct = {
-        'product_id': product.id,
-        'units_id': product.units_id,
-        'quantity': product.default_weight,
+        product_id: product.id,
+        units_id: product.units_id,
+        quantity: product.default_weight,
       }
       setSelectedProduct((prevState) => [...prevState, newSelectedProduct])
     }
@@ -72,12 +75,22 @@ export const ShowProducts = () => {
 
   const deleteProduct = () => {
     setSelectedProduct([])
-    setProducts(products.map(product => product['checked'] = false))
+    setProducts([]);
     navigate('/add_shopping_list')
   }
 
   const addProduct = () => {
-    console.log(selectedProduct)
+    const data = {
+      users_id: user.id,
+      products:selectedProduct,
+    }
+    axiosClient.post('/addShoppingList', data)
+      .then(() => {
+        navigate('/shopping_list')
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
 
   return (
@@ -86,7 +99,7 @@ export const ShowProducts = () => {
       <p className={styles.title}>{checkedTypeProduct && checkedTypeProduct.description}</p>
       <div className={styles.cards}>
         {products.length > 0
-          ? products.map(item => <label key={item.id}>
+          ? products.map(item => <label key={item.id + item.name}>
               <input
                 className={styles.custom_checkbox}
                 type="checkbox"

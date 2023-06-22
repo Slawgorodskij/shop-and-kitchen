@@ -17,7 +17,7 @@ use Illuminate\Http\Response;
 
 class ShoppingListController extends Controller
 {
-    public function addShoppingList(ApiShoppingListRequest $request)
+    public function addShoppingListInRecipes(ApiShoppingListRequest $request)
     {
         $data = $request->validated();
         $structures = Structure::where('recipe_id', $data['recipes_id'])->get();
@@ -61,6 +61,39 @@ class ShoppingListController extends Controller
         $shoppingList = ShoppingList::all();
 
         return response(compact('shoppingList'));
+    }
+
+    //TODO добавить проверку
+    public function addShoppingList(ApiShoppingListRequest $request)
+    {
+        $data = $request->validated();
+        $success = [];
+        foreach ($data['products'] as $product) {
+
+            $shoppingList = ShoppingList::where('users_id', $data['users_id'])
+                ->where('product_id', $product['product_id'])
+                ->get();
+            if (isset($shoppingList[0])) {
+                $shoppingList[0]->quantity += $product['quantity'];
+                if ($shoppingList[0]->save()) {
+                    $success[] = 'success';
+                }
+            } else {
+                $shoppingList = ShoppingList::create([
+                    'users_id' => $data['users_id'],
+                    'product_id' => $product['product_id'],
+                    'units_id' => $product['units_id'],
+                    'quantity' => $product['quantity'],
+                ]);
+                if ($shoppingList) {
+                    $success[] = $shoppingList;
+                }
+            }
+        }
+        if (count($success) > 0) {
+            return response(['message' => 'Продукты добавлены'], 200);
+        }
+        return response(['message' => 'Продукты не добавлены'], 422);
     }
 
     public function shoppingListRendering(ApiListUserRequest $request)
