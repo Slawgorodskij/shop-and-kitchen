@@ -82,7 +82,7 @@ export const ShowProducts = () => {
   const addProduct = () => {
     const data = {
       users_id: user.id,
-      products:selectedProduct,
+      products: selectedProduct,
     }
     axiosClient.post('/addShoppingList', data)
       .then(() => {
@@ -110,6 +110,12 @@ export const ShowProducts = () => {
                 description={item.description}
                 imageName={item.imageName}
                 checked={item.checked}
+                content={`<h3>На 100 гр. продукта приходится</h3>
+                          <p>Каллорий: ${item.calories}</p>
+                          <p>Белков: ${item.squirrels}</p>
+                          <p>Жиров: ${item.fats}</p>
+                          <p>Углеводов: ${item.carbohydrates}</p>
+                `}
               />
 
             </label>

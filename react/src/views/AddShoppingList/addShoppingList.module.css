@@ -31,7 +31,8 @@
 }
 .cards {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 1fr;
+  justify-items: center;
   gap: 1rem;
 }
 
@@ -42,4 +43,16 @@
 }
 .text_dec_non {
   text-decoration: none;
+}
+
+@media (min-width: 890px) {
+  .cards {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 1250px) {
+  .cards {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
 }

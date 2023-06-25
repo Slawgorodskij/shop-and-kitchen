@@ -24,12 +24,13 @@ export const Card = ({
              alt={name}/>
       </div>
       <div className={styles.card__name}>
-        <Tooltip content={content}>
+        <Tooltip content={content} style={styles.tooltip_card}>
           <h4 className={styles.card__title}>{name}</h4>
         </Tooltip>
 
         <div className={styles.card__block}>
           <p className={styles.card__text}>{description}</p>
+
           <div className={styles.button__block}>
             {purchased &&
               <ButtonSmall name={'watch'}/>

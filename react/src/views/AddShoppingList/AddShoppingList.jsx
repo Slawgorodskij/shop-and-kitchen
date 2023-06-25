@@ -39,6 +39,7 @@ export const AddShoppingList = () => {
                     name={item.name}
                     description={item.description}
                     imageName={item.imageName}
+                    content={item.slogan}
                   />
                 </Link>
               ))
