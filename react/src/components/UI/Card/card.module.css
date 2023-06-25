@@ -1,11 +1,11 @@
 .card {
   position: relative;
   width: 200px;
-  height: 150px;
+  height: 250px;
   border-radius: 10px;
   border: 1px solid #6893b0;
   overflow: hidden;
-  box-shadow: 0 5px 10px 2px rgba(34, 60, 80, 0.2);
+  box-shadow: 0 5px 10px 2px var(--color-background-transparency);
 }
 .card_checked {
   position: relative;
@@ -44,7 +44,7 @@
   align-items: center;
   justify-content: center;
   gap: 1rem;
-  background-color: rgba(26, 32, 44, .5);
+  background-color: var(--color-background-transparency);
   color: #f6f6f6;
   transition: all 0.3s ease-in-out;
 }

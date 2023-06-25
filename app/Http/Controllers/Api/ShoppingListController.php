@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ApiListUserRequest;
 use App\Http\Requests\ApiShoppingListRequest;
 use App\Http\Requests\ApiStoreroomRequest;
+use App\Models\Product;
 use App\Models\ShoppingList;
 use App\Models\Storeroom;
 use App\Models\Structure;
@@ -100,20 +101,19 @@ class ShoppingListController extends Controller
     {
         $data = $request->validated();
 
-        $shoppingListRendering = ShoppingList::select(
-            'shopping_lists.id as id',
-            'shopping_lists.units_id',
-            'shopping_lists.product_id',
-            'units.name as units_name',
-            'shopping_lists.quantity',
-            'products.name as product_name'
-        )
-            ->join('products', 'shopping_lists.product_id', '=', 'products.id')
-            ->join('units', 'shopping_lists.units_id', '=', 'units.id')
-            ->where('users_id', $data['users_id'])
-            ->get();
-
-        return response(compact('shoppingListRendering'));
+        $shoppingListRendering = ShoppingList::where('users_id', $data['users_id'])->get();
+        $arrayProducts = [];
+        foreach ($shoppingListRendering as $data) {
+            $product = Product::where('id', $data['product_id'])->get();
+            if ($product[0]->images) {
+                foreach ($product[0]->images as $image) {
+                    $product[0]['imageName'] = $image->name;
+                }
+            }
+            $product[0]['quantity'] = $data['quantity'];
+            $arrayProducts[] = $product[0];
+        }
+        return response(compact('arrayProducts'));
     }
 
 //TODO добаввить проверку резерва

@@ -9,6 +9,8 @@ import {ModalInformation} from "../../components/ModalInformation/ModalInformati
 import {MyButton} from "../../components/UI/MyButton/MyButton.jsx";
 import {MyLink} from "../../components/UI/MyLink/MyLink.jsx";
 import {Link} from "react-router-dom";
+import {Card} from "../../components/UI/Card/Card.jsx";
+import {Tooltip} from "../../components/UI/Tooltip/Tooltip.jsx";
 
 const purchasedText = 'Этот товар куплен и вы его хотите перенести в кладовую?';
 const label = 'Подтверждаю';
@@ -17,6 +19,8 @@ const deleteProductText = 'Вы действительно хотите удал
 export const ShoppingList = () => {
   const [modalActive, setModalActive] = useState(false);
   const [modalInformationActive, setModalInformationActive] = useState(false);
+  const [visible, setVisible] = useState(false);
+
   const [dataModal, setDataModal] = useState({});
   const [textModal, setTextModal] = useState('');
   const [second, setSecond] = useState('');
@@ -104,11 +108,19 @@ export const ShoppingList = () => {
       }
       axiosClient.post('/shoppingListRendering', data)
         .then(({data}) => {
-          setShoppingListRendering(data.shoppingListRendering)
+          console.log(data)
+          setShoppingListRendering(data.arrayProducts)
         })
     }
   }, [user])
 
+  const show = () => {
+    console.log('test')
+    setVisible(true)
+  }
+  const hide = () => {
+    setVisible(false)
+  }
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>Список покупок</h2>
@@ -120,13 +132,19 @@ export const ShoppingList = () => {
 
       {shoppingListRendering.length > 0 &&
         <div className={styles.main}>
-          {shoppingListRendering.map(oneNote =>
-            <OneNotes
-              key={oneNote.id}
-              oneNotes={oneNote}
-              purchased={purchased}
-              deleteProduct={deleteProduct}
-            />)}
+          {shoppingListRendering.map(item =>
+              <Card
+                name={item.name}
+                description={item.description}
+                imageName={item.imageName}
+                content={`<h3>На 100 гр. продукта приходится</h3>
+                          <p>Каллорий: ${item.calories}</p>
+                          <p>Белков: ${item.squirrels}</p>
+                          <p>Жиров: ${item.fats}</p>
+                          <p>Углеводов: ${item.carbohydrates}</p>
+                `}
+              />
+          )}
         </div>
       }
       <Link to={'/add_shopping_list'} className={styles.text_dec_non}>
