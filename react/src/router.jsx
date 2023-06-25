@@ -15,6 +15,7 @@ import {HomeGuest} from "./views/homeGuest/HomeGuest.jsx";
 import {OldMenu} from "./views/OldMenu/OldMenu.jsx";
 import {AddShoppingList} from "./views/AddShoppingList/AddShoppingList.jsx";
 import {ShowProducts} from "./views/ShowProducts/ShowProducts.jsx";
+import {OneProduct} from "./views/OneProduct/OneProduct.jsx";
 
 export const router = createBrowserRouter([
   {
@@ -86,6 +87,10 @@ export const router = createBrowserRouter([
       {
         path: '/show_product/:typeProductId',
         element: <ShowProducts/>,
+      },
+      {
+        path: '/one_product/:productId',
+        element: <OneProduct/>,
       },
     ],
   },

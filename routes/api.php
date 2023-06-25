@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AddShoppingListController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ListMenuController;
+use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\ShoppingListController;
 use App\Http\Controllers\Api\StoreroomController;
 use Illuminate\Http\Request;
@@ -38,5 +39,6 @@ Route::post('/deleteSelectedDish', [ListMenuController::class, 'deleteSelectedDi
 Route::post('/storeroomListRendering', [StoreroomController::class, 'storeroomListRendering']);
 Route::post('/deleteProductOfStoreroom', [StoreroomController::class, 'deleteProductOfStoreroom']);
 Route::get('/getTypeProduct', [AddShoppingListController::class, 'getTypeProduct']);
-Route::post('/getProducts', [AddShoppingListController::class, 'getProducts']);
+Route::post('/getProducts', [ProductController::class, 'getProducts']);
+Route::post('/getProduct', [ProductController::class, 'getProduct']);
 

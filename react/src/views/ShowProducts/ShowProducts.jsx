@@ -13,7 +13,6 @@ export const ShowProducts = () => {
 
   const {typeProductId} = useParams();
   const {typeProduct, setTypeProduct} = useStateContext()
-  const {shoppingListRendering, setShoppingListRendering} = useStateContext()
   const {user} = useStateContext()
 
   const [products, setProducts] = useState([])

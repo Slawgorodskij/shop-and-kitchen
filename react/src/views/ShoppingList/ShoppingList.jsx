@@ -2,31 +2,28 @@ import React, {useEffect, useState} from 'react';
 import styles from "./shoppingList.module.css"
 import axiosClient from "../../axios-client.js";
 import {useStateContext} from "../../context/ContextProvider.jsx";
-import {OneNotes} from "../../components/OneNotes/OneNotes.jsx";
 import {Modal} from "../../components/UI/modal/Modal.jsx";
 import {ConfirmationAction} from "../../components/ConfirmationAction/ConfirmationAction.jsx";
 import {ModalInformation} from "../../components/ModalInformation/ModalInformation.jsx";
 import {MyButton} from "../../components/UI/MyButton/MyButton.jsx";
-import {MyLink} from "../../components/UI/MyLink/MyLink.jsx";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {Card} from "../../components/UI/Card/Card.jsx";
-import {Tooltip} from "../../components/UI/Tooltip/Tooltip.jsx";
 
 const purchasedText = 'Этот товар куплен и вы его хотите перенести в кладовую?';
 const label = 'Подтверждаю';
 const labelClose = 'Отмена';
 const deleteProductText = 'Вы действительно хотите удалит этот товар?';
 export const ShoppingList = () => {
+  const navigate = useNavigate();
+  const {user} = useStateContext()
+  const {shoppingListRendering, setShoppingListRendering} = useStateContext()
+
   const [modalActive, setModalActive] = useState(false);
   const [modalInformationActive, setModalInformationActive] = useState(false);
-
 
   const [dataModal, setDataModal] = useState({});
   const [textModal, setTextModal] = useState('');
   const [second, setSecond] = useState('');
-
-  const {user} = useStateContext()
-  const {shoppingListRendering, setShoppingListRendering} = useStateContext()
 
   const purchased = (data) => {
     setModalActive(true)
@@ -113,7 +110,9 @@ export const ShoppingList = () => {
     }
   }, [user])
 
-
+  const watch = (data) => {
+    navigate(`/one_product/${data}`)
+  }
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>Список покупок</h2>
@@ -139,6 +138,8 @@ export const ShoppingList = () => {
                 `}
               purchased={purchased}
               deleteProduct={deleteProduct}
+              watch={watch}
+              key={item.id}
             />
           )}
         </div>

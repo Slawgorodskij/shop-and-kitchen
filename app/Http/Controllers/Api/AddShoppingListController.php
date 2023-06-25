@@ -24,20 +24,5 @@ class AddShoppingListController
         return response(compact('arrayTypeProduct'));
     }
 
-    public function getProducts(ApiAddShoppingListRequest $request)
-    {
-        $data = $request->validated();
-        $products = Product::where('type_products_id', $data['type_product_id'])->get();
-        $arrayProducts = [];
-        foreach ($products as $product) {
-            if ($product->images) {
-                foreach ($product->images as $image) {
-                    $product['imageName'] = $image->name;
-                }
-            }
-            $arrayProducts[] = $product;
-        }
 
-        return response(compact('arrayProducts'));
-    }
 }

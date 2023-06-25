@@ -1,18 +1,16 @@
 import React from 'react';
 import styles from "./card.module.css"
 import {Tooltip} from "../Tooltip/Tooltip.jsx";
-import {Link} from "react-router-dom";
-import {MyButton} from "../MyButton/MyButton.jsx";
-
 import {ButtonSmall} from "../ButtonSmall/ButtonSmall.jsx";
 
 export const Card = ({
                        name,
                        description,
                        content,
-                       purchased,
                        id,
+                       purchased,
                        deleteProduct,
+                       watch,
                        imageName = null,
                        checked = false,
                      }) => {
@@ -32,8 +30,8 @@ export const Card = ({
           <p className={styles.card__text}>{description}</p>
 
           <div className={styles.button__block}>
-            {purchased &&
-              <ButtonSmall name={'watch'}/>
+            {watch &&
+              <ButtonSmall name={'watch'} click={() => watch(id)}/>
             }
             {purchased &&
               <ButtonSmall name={'purchased'} click={() => purchased(id)}/>
@@ -47,4 +45,3 @@ export const Card = ({
     </div>
   );
 };
-//className={`${styles.button} ${styles.button__delete}`}
