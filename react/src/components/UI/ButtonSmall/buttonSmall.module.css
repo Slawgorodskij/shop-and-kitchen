@@ -1,0 +1,24 @@
+.button {
+  padding: 0.5rem;
+  fill: var(--color-font-second);
+}
+
+.delete,
+.purchased {
+  bottom: 38px;
+  right: -10px;
+}
+
+.delete {
+  width: 60px;
+}
+
+.purchased,
+.watch {
+  width: 100px;
+}
+
+.watch {
+  bottom: 38px;
+  left: -10px;
+}

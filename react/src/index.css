@@ -4,6 +4,7 @@
   --color-background-primary: #f6f6f6;
   --color-background-second: #6893b0;
   --color-background-transparency: rgba(1, 27, 44, 0.5);
+  --color-background-transparency-hover: rgba(1, 27, 44, 0.8);
 
   --color-hover: #466f86;
   /*---цвет шрифтов---*/
@@ -11,7 +12,6 @@
   --color-font-second: #e4f4ff;
 
 }
-
 
 * {
   box-sizing: border-box;
@@ -26,7 +26,28 @@ body {
   background-color: var(--color-background-primary);
 }
 
+.text_dec_non {
+  text-decoration: none;
+}
 
+.btn {
+  font-family: "Roboto", sans-serif;
+  outline: 0;
+  background: var(--color-background-second);
+  border: 0;
+  text-decoration: none;
+  color: var(--color-font-second);
+  font-size: 16px;
+  transition: all 0.3s ease;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn:hover,
+.btn:active,
+.btn:focus {
+  background: var(--color-hover);
+}
 
 /*TODO проверить удалить*/
 
@@ -38,22 +59,6 @@ h1, h2, h3, h4, h5, h6, p {
   margin: 0;
 }
 
-
-.btn,
-.btn-add,
-.btn-edit,
-.btn-delete {
-  font-family: "Roboto", sans-serif;
-  outline: 0;
-  background: #5b08a7;
-  border: 0;
-  text-decoration: none;
-  padding: 15px;
-  color: #FFFFFF;
-  font-size: 16px;
-  transition: all 0.3s ease;
-  cursor: pointer;
-}
 
 .btn-block {
   width: 100%;
@@ -87,11 +92,6 @@ h1, h2, h3, h4, h5, h6, p {
   background-color: rgba(0, 0, 0, 0.1);
 }
 
-.btn:hover,
-.btn:active,
-.btn:focus {
-  background: #5b08a7;
-}
 
 .text-center {
   text-align: center;

@@ -19,7 +19,7 @@ const deleteProductText = 'Вы действительно хотите удал
 export const ShoppingList = () => {
   const [modalActive, setModalActive] = useState(false);
   const [modalInformationActive, setModalInformationActive] = useState(false);
-  const [visible, setVisible] = useState(false);
+
 
   const [dataModal, setDataModal] = useState({});
   const [textModal, setTextModal] = useState('');
@@ -52,7 +52,6 @@ export const ShoppingList = () => {
     }
     axiosClient.post('/transferStorerooms', request)
       .then(({data}) => {
-        console.log(data)
         setTextModal(data.message)
         setSecond('5')
         setModalInformationActive(true)
@@ -114,13 +113,7 @@ export const ShoppingList = () => {
     }
   }, [user])
 
-  const show = () => {
-    console.log('test')
-    setVisible(true)
-  }
-  const hide = () => {
-    setVisible(false)
-  }
+
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>Список покупок</h2>
@@ -133,17 +126,20 @@ export const ShoppingList = () => {
       {shoppingListRendering.length > 0 &&
         <div className={styles.main}>
           {shoppingListRendering.map(item =>
-              <Card
-                name={item.name}
-                description={item.description}
-                imageName={item.imageName}
-                content={`<h3>На 100 гр. продукта приходится</h3>
+            <Card
+              name={item.name}
+              description={item.description}
+              imageName={item.imageName}
+              id={item.id}
+              content={`<h3>На 100 гр. продукта приходится</h3>
                           <p>Каллорий: ${item.calories}</p>
                           <p>Белков: ${item.squirrels}</p>
                           <p>Жиров: ${item.fats}</p>
                           <p>Углеводов: ${item.carbohydrates}</p>
                 `}
-              />
+              purchased={purchased}
+              deleteProduct={deleteProduct}
+            />
           )}
         </div>
       }

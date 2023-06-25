@@ -7,6 +7,7 @@
   overflow: hidden;
   box-shadow: 0 5px 10px 2px var(--color-background-transparency);
 }
+
 .card_checked {
   position: relative;
   width: 200px;
@@ -53,18 +54,29 @@
   font-size: 20px;
 }
 
-.card__text {
+.card__block {
   display: none;
-  height: 50%;
+  height: 75%;
+  overflow: hidden;
+}
+
+.card__text {
+  height: 65%;
   text-align: center;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .card__name:hover {
-  background-color: rgba(26, 32, 44, .8);
+  background-color: var(--color-background-transparency-hover);
 }
 
-.card__name:hover .card__text {
+.card__name:hover .card__block {
   display: block;
+}
+
+.button__block {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-around;
 }

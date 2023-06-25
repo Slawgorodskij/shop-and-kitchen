@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import styles from "./tooltip.module.css"
 
-export const Tooltip = ({content, children}) => {
+export const Tooltip = ({content, children, style}) => {
   const [visible, setVisible] = useState(false);
 
   const show = () => {
@@ -13,7 +13,7 @@ export const Tooltip = ({content, children}) => {
   return (
     <div className={styles.tooltipWrapper}>
       {
-        visible && <span className={styles.tooltip}
+        visible && <span className={`${styles.tooltip} ${style}`}
                          dangerouslySetInnerHTML={{__html: content}}/>
       }
       <div
