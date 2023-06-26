@@ -40,6 +40,8 @@ class ProductController
             $shoppingList = ShoppingList::where(['product_id' => $product->id, 'users_id' => $data['users_id']])->get();
             if (count($shoppingList) > 0) {
                 $product['quantity'] = $shoppingList[0]['quantity'];
+                $product['count'] = $shoppingList[0]['quantity'] / $product->default_weight;
+
             }
             $dataProduct[] = $product;
         }
