@@ -91,6 +91,10 @@ export const ShowProducts = () => {
         console.log(err)
       })
   }
+  const watch = (data) => {
+    console.log(data)
+    navigate(`/one_product/${data}`)
+  }
 
   return (
     <div className={styles.container}>
@@ -115,6 +119,8 @@ export const ShowProducts = () => {
                           <p>Жиров: ${item.fats}</p>
                           <p>Углеводов: ${item.carbohydrates}</p>
                 `}
+                id={item.id}
+                watch={watch}
               />
 
             </label>

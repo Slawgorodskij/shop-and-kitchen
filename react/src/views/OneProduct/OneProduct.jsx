@@ -3,6 +3,7 @@ import styles from "./oneProduct.module.css"
 import {useStateContext} from "../../context/ContextProvider.jsx";
 import {useNavigate, useParams} from "react-router-dom";
 import axiosClient from "../../axios-client.js";
+import {MyButton} from "../../components/UI/MyButton/MyButton.jsx";
 
 export const OneProduct = () => {
   const navigate = useNavigate();
@@ -68,11 +69,12 @@ export const OneProduct = () => {
       <div className={styles.bottom}>
         {
           product.count
-            ? <p> Вы запланировали {product.name} к покупке  в количестве - {product.count} уп.
+            ? <p> Вы запланировали {product.name} к покупке в количестве - {product.count} уп.
               или {product.quantity / 1000} кг. </p>
             : <p> Вы еще не запланировали покупку {product.name} 😔</p>
         }
       </div>
+      <MyButton label={'Назад'} click={() => navigate(-1)}/>
     </div>
   );
 };
