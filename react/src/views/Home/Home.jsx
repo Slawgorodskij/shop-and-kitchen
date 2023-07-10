@@ -24,7 +24,7 @@ export const Home = () => {
       }
       axiosClient.post('/shoppingListRendering', data)
         .then(({data}) => {
-          setShoppingListRendering(data.arrayProducts)
+          setShoppingListRendering(data.data)
         })
 
       data['date'] = 'this'

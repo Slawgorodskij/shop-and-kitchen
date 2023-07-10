@@ -1,6 +1,7 @@
 .button {
-  padding: 0.5rem;
   fill: var(--color-font-second);
+  height: 45px;
+  width: 45px;
 }
 
 .delete,
@@ -20,5 +21,10 @@
 
 .watch {
   bottom: 38px;
+  left: -10px;
+}
+
+.back {
+  top: 38px;
   left: -10px;
 }

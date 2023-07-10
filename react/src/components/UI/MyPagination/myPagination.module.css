@@ -1,0 +1,42 @@
+.navigationButtons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  list-style: none;
+
+  /*width: 80%;*/
+  /*height: 40px;*/
+  /**/
+  /*display: flex;*/
+  /*justify-content: center;*/
+  /*margin: auto;*/
+  /*padding-top: 40px;*/
+}
+
+.navigationButtons a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--color-background-second);
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.navigationButtons a:hover {
+  border: 2px solid var(--color-hover);
+  background-color: inherit;
+}
+
+.navigationActive a {
+  color: white;
+  background-color: var(--color-background-second);
+}
+
+.navigationDisabled a {
+  color: grey;
+  background-color: grey;
+}
+

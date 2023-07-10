@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ApiListUserRequest;
 use App\Http\Requests\ApiShoppingListRequest;
 use App\Http\Requests\ApiStoreroomRequest;
+use App\Http\Resources\ShoppingListResource;
 use App\Models\Product;
 use App\Models\ShoppingList;
 use App\Models\Storeroom;
@@ -100,20 +101,31 @@ class ShoppingListController extends Controller
     public function shoppingListRendering(ApiListUserRequest $request)
     {
         $data = $request->validated();
-
-        $shoppingListRendering = ShoppingList::where('users_id', $data['users_id'])->get();
-        $arrayProducts = [];
+        $shoppingListRendering = ShoppingList::where('users_id', $data['users_id'])
+            ->orderBy('id', 'desc')
+            ->paginate(10);
         foreach ($shoppingListRendering as $data) {
             $product = Product::where('id', $data['product_id'])->get();
             if ($product[0]->images) {
                 foreach ($product[0]->images as $image) {
-                    $product[0]['imageName'] = $image->name;
+                    $data['imageName'] = $image->name;
                 }
             }
-            $product[0]['quantity'] = $data['quantity'];
-            $arrayProducts[] = $product[0];
+
+            $data['name']=$product[0]->name;
+            $data['description']=$product[0]->description;
+            $data['category']=$product[0]->category;
+            $data['default_weight']=$product[0]->default_weight;
+            $data['calories']=$product[0]->calories;
+            $data['squirrels']=$product[0]->squirrels;
+            $data['fats']=$product[0]->fats;
+            $data['carbohydrates']=$product[0]->carbohydrates;
+            $data['packing_id']=$product[0]->packing_id;
+            $data['type_products_id']=$product[0]->type_products_id;
+            $data['units_id']=$product[0]->units_id;
         }
-        return response(compact('arrayProducts'));
+
+       return ShoppingListResource::collection($shoppingListRendering);
     }
 
 //TODO добаввить проверку резерва

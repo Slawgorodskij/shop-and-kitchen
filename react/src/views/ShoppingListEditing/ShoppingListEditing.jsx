@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import styles from "./shoppingList.module.css"
+import styles from "./shoppingListEditing.module.css"
 import axiosClient from "../../axios-client.js";
 import {useStateContext} from "../../context/ContextProvider.jsx";
 import {Modal} from "../../components/UI/modal/Modal.jsx";
@@ -16,7 +16,7 @@ const purchasedText = 'Этот товар куплен и вы его хоти�
 const label = 'Подтверждаю';
 const labelClose = 'Отмена';
 const deleteProductText = 'Вы действительно хотите удалит этот товар?';
-export const ShoppingList = () => {
+export const ShoppingListEditing = () => {
   const navigate = useNavigate();
   const {user} = useStateContext()
   const {shoppingListRendering, setShoppingListRendering} = useStateContext()

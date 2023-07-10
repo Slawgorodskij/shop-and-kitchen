@@ -34,4 +34,9 @@ class Product extends Model
     {
         return $this->belongsTo(Structure::class, 'product_id');
     }
+
+    public function shoppingList()
+    {
+        return $this->belongsTo(ShoppingList::class);
+    }
 }

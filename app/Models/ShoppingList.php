@@ -26,4 +26,8 @@ class ShoppingList extends Model
     {
         return $this->belongsTo(User::class, 'users_id');
     }
+    public function products()
+    {
+        return $this->belongsTo(Product::class);
+    }
 }

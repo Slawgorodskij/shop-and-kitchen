@@ -16,6 +16,7 @@ import {OldMenu} from "./views/OldMenu/OldMenu.jsx";
 import {AddShoppingList} from "./views/AddShoppingList/AddShoppingList.jsx";
 import {ShowProducts} from "./views/ShowProducts/ShowProducts.jsx";
 import {OneProduct} from "./views/OneProduct/OneProduct.jsx";
+import {ShoppingListEditing} from "./views/ShoppingListEditing/ShoppingListEditing.jsx";
 
 export const router = createBrowserRouter([
   {
@@ -71,6 +72,10 @@ export const router = createBrowserRouter([
       {
         path: '/shopping_list',
         element: <ShoppingList/>,
+      },
+      {
+        path: '/shopping_list_editing',
+        element: <ShoppingListEditing/>,
       },
       {
         path: '/add_shopping_list',
