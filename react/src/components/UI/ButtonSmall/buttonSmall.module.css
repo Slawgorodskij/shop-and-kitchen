@@ -28,3 +28,13 @@
   top: 38px;
   left: -10px;
 }
+.editing {
+  top: 38px;
+  right: 0;
+}
+
+.list,
+.tile{
+  top: 38px;
+  left: -5px;
+}

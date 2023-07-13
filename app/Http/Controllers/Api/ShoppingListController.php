@@ -11,14 +11,32 @@ use App\Models\Product;
 use App\Models\ShoppingList;
 use App\Models\Storeroom;
 use App\Models\Structure;
+use App\Services\ShoppingListService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
 
 
 class ShoppingListController extends Controller
 {
+    public function getShoppingList(ApiListUserRequest $request)
+    {
+        $data = $request->validated();
+        $shoppingListRendering = app(ShoppingListService::class)->shoppingListRenderingAll($data['users_id']);
+
+        return ShoppingListResource::collection($shoppingListRendering);
+    }
+
+    public function shoppingListRendering(ApiListUserRequest $request): AnonymousResourceCollection
+    {
+        $data = $request->validated();
+        $shoppingListRendering = app(ShoppingListService::class)->shoppingListRenderingPagination($data['users_id']);
+
+        return ShoppingListResource::collection($shoppingListRendering);
+    }
+
     public function addShoppingListInRecipes(ApiShoppingListRequest $request)
     {
         $data = $request->validated();
@@ -98,35 +116,6 @@ class ShoppingListController extends Controller
         return response(['message' => 'Продукты не добавлены'], 422);
     }
 
-    public function shoppingListRendering(ApiListUserRequest $request)
-    {
-        $data = $request->validated();
-        $shoppingListRendering = ShoppingList::where('users_id', $data['users_id'])
-            ->orderBy('id', 'desc')
-            ->paginate(10);
-        foreach ($shoppingListRendering as $data) {
-            $product = Product::where('id', $data['product_id'])->get();
-            if ($product[0]->images) {
-                foreach ($product[0]->images as $image) {
-                    $data['imageName'] = $image->name;
-                }
-            }
-
-            $data['name']=$product[0]->name;
-            $data['description']=$product[0]->description;
-            $data['category']=$product[0]->category;
-            $data['default_weight']=$product[0]->default_weight;
-            $data['calories']=$product[0]->calories;
-            $data['squirrels']=$product[0]->squirrels;
-            $data['fats']=$product[0]->fats;
-            $data['carbohydrates']=$product[0]->carbohydrates;
-            $data['packing_id']=$product[0]->packing_id;
-            $data['type_products_id']=$product[0]->type_products_id;
-            $data['units_id']=$product[0]->units_id;
-        }
-
-       return ShoppingListResource::collection($shoppingListRendering);
-    }
 
 //TODO добаввить проверку резерва
     public function deleteProductOfShoppingList(Request $request)

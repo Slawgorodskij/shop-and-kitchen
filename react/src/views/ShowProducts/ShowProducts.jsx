@@ -6,7 +6,7 @@ import {MyButton} from "../../components/UI/MyButton/MyButton.jsx";
 import {useStateContext} from "../../context/ContextProvider.jsx";
 import axiosClient from "../../axios-client.js";
 import {Card} from "../../components/UI/Card/Card.jsx";
-
+import {changeItemArray, checkedProduct} from "../../utils/shoppingList.js";
 
 export const ShowProducts = () => {
   const navigate = useNavigate();
@@ -49,27 +49,14 @@ export const ShowProducts = () => {
       })
   }, [checkedTypeProduct])
 
-  const addSelectedProduct = (id, product) => {
-    if (product['checked']) {
-      const newSelectedProduct = {
-        product_id: product.id,
-        units_id: product.units_id,
-        quantity: product.default_weight,
-      }
-      setSelectedProduct((prevState) => [...prevState, newSelectedProduct])
-    }
-
-    if (!product['checked']) {
-      setSelectedProduct(prevState => prevState.filter(obj => +obj.product_id !== +id))
-    }
+  const changeSelectedProduct = (id, product) => {
+    setSelectedProduct(prevState => changeItemArray(prevState, id, product))
   }
-  const checkedProduct = (event) => {
-    const id = +event.target.name
-    const newProducts = products.slice(0);
-    let product = newProducts.find(item => +item.id === id)
-    product['checked'] = event.target.checked
-    setProducts(newProducts)
-    addSelectedProduct(id, product)
+  const handleCheckedProduct = (event) => {
+    const [newArray, product] = checkedProduct(event, products)
+
+    setProducts(newArray)
+    changeSelectedProduct(+event.target.name, product)
   }
 
   const deleteProduct = () => {
@@ -107,7 +94,7 @@ export const ShowProducts = () => {
                 className={styles.custom_checkbox}
                 type="checkbox"
                 name={item.id}
-                onChange={event => checkedProduct(event)}/>
+                onChange={event => handleCheckedProduct(event)}/>
               <Card
                 name={item.name}
                 description={item.description}
