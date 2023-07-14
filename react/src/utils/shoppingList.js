@@ -2,7 +2,15 @@ export const checkedProduct = (data, products) => {
   const id = +data.id
   const newProducts = products.slice(0);
   let product = newProducts.find(item => +item.id === id)
-  product['checked'] = data.checkedElem
+
+  if (data.checkedElem) {
+    product['checked'] = data.checkedElem
+  } else if (product['checked'] && !data.checkedElem) {
+    product['checked'] = !product['checked']
+  } else {
+    product['checked'] = true
+  }
+
   return [newProducts, product]
 }
 

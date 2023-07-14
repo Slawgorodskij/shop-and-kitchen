@@ -15,8 +15,8 @@ export const OneProduct = () => {
 
 
   useEffect(() => {
-      setLoading(true)
       if (user.id) {
+        setLoading(true)
         axiosClient.post('/getProduct',
           {
             users_id: user.id,
