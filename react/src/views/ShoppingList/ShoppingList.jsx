@@ -11,6 +11,7 @@ import {Card} from "../../components/UI/Card/Card.jsx";
 
 import {ButtonSmall} from "../../components/UI/ButtonSmall/ButtonSmall.jsx";
 import {changeItemArray, checkedProduct} from "../../utils/shoppingList.js";
+import {List} from "../../components/List/List.jsx";
 
 const purchasedText = 'Этот товар куплен и вы его хотите перенести в кладовую?';
 const label = 'Подтверждаю';
@@ -134,9 +135,7 @@ export const ShoppingList = () => {
           <h2>Список покупок</h2>
 
           <Link to={'/shopping_list_editing'} className={'text_dec_non'}>
-            <div className={styles.block__button}>
-              <ButtonSmall name={'editing'}/>
-            </div>
+            <ButtonSmall name={'editing'}/>
           </Link>
         </div>
 
@@ -149,16 +148,25 @@ export const ShoppingList = () => {
 
         {shoppingListRendering.length > 0 &&
           <div className={styles.main}>
-            {shoppingListRendering.map(item =>
-              <div
-                key={item.id + item.name}
-                onClick={() => handleCheckedProduct(item.id)}
-              >
-                {item.checked && <del>{item.name} <span>{item.count}</span> {item.packing}</del>}
-                {!item.checked && <p>{item.name} <span>{item.count}</span> {item.packing}</p>}
-
+            {listTypeRendering ?
+              <div>
+                {shoppingListRendering.map((item, index) =>
+                  <List
+                    product={item}
+                    handleCheckedProduct={handleCheckedProduct}
+                    index={index}
+                  />
+                )}
               </div>
-            )}
+              :
+              <div>
+                {shoppingListRendering.map((item, index) =>
+                  <p>{item.name}</p>
+                )}
+              </div>
+
+            }
+
           </div>
         }
 

@@ -17,10 +17,6 @@
   grid-row-end: 3;
   overflow-y: auto;
   overflow-x: clip;
-  display: grid;
-  justify-items: center;
-  grid-template-columns: 1fr;
-  gap: 1rem;
 }
 
 .main::-webkit-scrollbar {
@@ -45,7 +41,7 @@
 }
 
 .block__button {
-  height: 2rem;
+  height: 1.5rem;
   display: flex;
 }
 
