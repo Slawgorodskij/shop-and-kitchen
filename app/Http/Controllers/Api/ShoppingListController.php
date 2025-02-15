@@ -78,6 +78,26 @@ class ShoppingListController extends Controller
         return response(['message' => 'Продукт не удален из списка'], 422);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Foundation\Application|Response|Application|ResponseFactory
+     */
+    public function updateShoppingList(Request $request): \Illuminate\Foundation\Application|Response|Application|ResponseFactory
+    {
+        $shoppingList = ShoppingList::where('users_id', $request['users_id'])
+            ->where('product_id', $request['product_id'])
+            ->first();
+
+        if ($shoppingList) {
+            $shoppingList->is_buy = $request['is_buy'];
+            if ($shoppingList->save()) {
+                return response(compact('shoppingList'));
+            }
+            return response(['message' => 'Не изменен продукт'], 422);
+        }
+
+        return response(['message' => 'Продукт не изменен'], 422);
+    }
 
     // Еще предстоит оценить
     public function shoppingListRendering(ApiListUserRequest $request): AnonymousResourceCollection

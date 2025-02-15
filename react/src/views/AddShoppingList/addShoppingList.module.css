@@ -102,8 +102,9 @@
 
 
 /* Текущий список */
-.block-selected_products {
-    display: block;
+.block_selected_products {
+    display: none;
+    overflow: hidden;
 }
 
 .selected_title {
@@ -211,6 +212,16 @@
 
 .text_dec_non {
     text-decoration: none;
+}
+
+@media (max-width: 600px) {
+    body {
+        font-size: 14px;
+        background-color: lightcoral;
+    }
+    img {
+        width: 100%;
+    }
 }
 
 @media (min-width: 890px) {

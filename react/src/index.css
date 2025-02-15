@@ -29,8 +29,9 @@ body {
 
 .container {
     margin: 0 auto;
+    padding: 0 10px;
     display: flex;
-    width: 1400px;
+    max-width: 1420px;
     justify-content: space-between;
 }
 

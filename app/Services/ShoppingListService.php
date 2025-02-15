@@ -57,6 +57,7 @@ class ShoppingListService
             $data['carbohydrates'] = $product[0]->carbohydrates;
             $data['type_products_id'] = $product[0]->type_products_id;
             $data['units_id'] = $product[0]->units_id;
+            $data['is_buy'] = $data->is_buy;
         }
         return $array;
     }

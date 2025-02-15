@@ -31,6 +31,7 @@ class ShoppingListResource extends JsonResource
             'units_id' => $this->units_id,
             'quantity' => $this->quantity,
             'count' => $this->count,
+            'is_buy' => $this->is_buy,
         ];
     }
 }

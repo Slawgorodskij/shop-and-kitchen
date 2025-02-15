@@ -1,68 +1,96 @@
+/* Основной контейнер */
+.shopping_list_page {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
 .top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.container {
-  height: 100%;
-  display: grid;
-  grid-template-rows: 0.5fr 7fr 1fr;
-  gap: 2rem;
-  overflow: auto;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
-.main {
-  padding: 1rem;
-  grid-row-start: 2;
-  grid-row-end: 3;
-  overflow-y: auto;
-  overflow-x: clip;
+h2 {
+    text-align: center;
+    color: #4CAF50;
+    margin-bottom: 20px;
 }
-
-.main::-webkit-scrollbar {
-  width: 5px;
-}
-
-.main::-webkit-scrollbar-track {
-  background-color: #8c8c95;
-  border-radius: 5px;
-}
-
-.main::-webkit-scrollbar-thumb {
-  background-color: #6893b0;
-  border-radius: 4px;
-}
-
 
 .none__table {
-  height: 45%;
-  font-size: 20px;
-  text-align: center;
+    height: 45%;
+    font-size: 20px;
+    text-align: center;
 }
 
-.block__button {
-  height: 1.5rem;
-  display: flex;
+.product_list {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: var(--color-background-transparency);
+    overflow: auto;
+    border-radius: 5px;
 }
 
-@media (min-width: 890px) {
-  .main {
-    grid-template-columns: 1fr 1fr;
-  }
+.product_list::-webkit-scrollbar {
+    width: 5px;
 }
 
-@media (min-width: 1250px) {
-  .main {
-    grid-template-columns: 1fr 1fr 1fr;
-  }
+.product_list::-webkit-scrollbar-track {
+    background-color: #8c8c95;
+    border-radius: 5px;
 }
 
-.svg {
-  fill: var(--color-background-second);
+.product_list::-webkit-scrollbar-thumb {
+    background-color: #6893b0;
+    border-radius: 4px;
 }
 
-.block_none {
-  display: none;
+.product_item {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--color-font-primary);
+
+    background: rgba(255, 255, 255, 0.192);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(43, 43, 43, 0.568);
+    border-radius: 4px;
 }
 
+.product_label {
+    padding: 10px;
+    flex: 0 0 calc(100% - 90px);
+    display: flex;
+    gap: 10px;
+    cursor: pointer;
+}
 
+.product_label:hover {
+    color: #4CAF50;
+}
+
+.checkbox {
+    cursor: pointer;
+}
+
+.checked {
+    text-decoration: line-through;
+    color: red;
+}
+
+.remove_button {
+    padding: 5px 10px;
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.remove_button:hover {
+    background-color: #cc0000;
+}

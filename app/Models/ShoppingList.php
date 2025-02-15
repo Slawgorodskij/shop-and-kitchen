@@ -20,6 +20,7 @@ class ShoppingList extends Model
         'product_id',
         'units_id',
         'quantity',
+        'is_buy',
     ];
 
     public function users(): BelongsTo

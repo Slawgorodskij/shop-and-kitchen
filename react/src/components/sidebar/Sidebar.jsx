@@ -10,10 +10,6 @@ export const Sidebar = ({user, onLogout, burgerActive, setBurgerActive}) => {
             className={burgerActive ? `${styles.aside} ${styles.aside_active}` : styles.aside}
         >
             <div className="container">
-                {/*<div className={styles.user}>*/}
-                {/*  <MyLink link={'/home'} label={'ГОТОВИТ ДОМА'}/>*/}
-                {/*  <p> {user}</p>*/}
-                {/*</div>*/}
                 <div className={styles.block_link}>
                     {list.map((item) =>
                         <MyLink

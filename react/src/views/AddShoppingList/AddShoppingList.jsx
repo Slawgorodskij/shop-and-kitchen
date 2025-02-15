@@ -181,7 +181,7 @@ export const AddShoppingList = () => {
                 </div>
             </div>
 
-            <div className={styles.block-selected_products}>
+            <div className={styles.block_selected_products}>
                 <h3 className={styles.selected_title}>Текущий список:</h3>
                 {/* Текущий список */}
                 <div className={styles.selected_products}>

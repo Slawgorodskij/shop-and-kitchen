@@ -30,6 +30,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
 Route::get('/getDataProduct', [AddShoppingListController::class, 'getDataProduct']);
 Route::post('/addShoppingList', [ShoppingListController::class, 'addShoppingList']);
+Route::post('/updateShoppingList', [ShoppingListController::class, 'updateShoppingList']);
 Route::post('/deleteProductOfShoppingList', [ShoppingListController::class, 'deleteProductOfShoppingList']);
 
 
