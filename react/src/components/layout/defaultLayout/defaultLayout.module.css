@@ -1,63 +1,67 @@
 .background {
-  /*padding: 5rem;*/
-  height: 100vh;
-  width: 100vw;
-  display: grid;
-  grid-template-columns: 1fr 3fr;
-  background-image: url("/images/banner_home.webp");
-  /*background-image: url("/images/banner.webp");*/
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
+    /*padding: 5rem;*/
+    /*height: 100vh;*/
+    /*width: 100vw;*/
+    /*display: grid;*/
+    /*grid-template-columns: 1fr 3fr;*/
+    /*background-image: url("/images/banner_home.webp");*/
+
+    height: 100vh; /* На всю высоту экрана */
+    background-image: url("/images/banner.webp");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+
 }
 
 
 .main {
-  margin: 0 auto;
-  padding: 1.5rem;
-  width: 55vw;
-  height: 70vh;
-  grid-column-start: 2;
-  grid-column-end: 3;
-  align-self: center;
-  background-image: url("/images/desk.webp");
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  border-radius: 10px;
+    margin: 0 auto;
+    padding: 1.5rem;
+    width: 55vw;
+    height: 70vh;
+    grid-column-start: 2;
+    grid-column-end: 3;
+    align-self: center;
+    background-image: url("/images/desk.webp");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 10px;
 }
 
 .main_none {
-  display: none;
+    display: none;
 }
 
 .main_blur {
-  display: none;
+    display: none;
 }
 
 @media (max-width: 762px) {
-  .background {
-    grid-template-columns: 0.1fr 5fr;
-  }
+    .background {
+        grid-template-columns: 0.1fr 5fr;
+    }
 
-  .main {
-    padding: 0.5rem;
-    width: 75vw;
-    height: 80vh;
-  }
+    .main {
+        padding: 0.5rem;
+        width: 75vw;
+        height: 80vh;
+    }
 
-  .main_blur {
-    position: absolute;
-    display: block;
-    width: 100vw;
-    height: 100vh;
-    backdrop-filter: blur(3px);
-  }
+    .main_blur {
+        position: absolute;
+        display: block;
+        width: 100vw;
+        height: 100vh;
+        backdrop-filter: blur(3px);
+    }
 }
 
 @media (max-width: 520px) {
-  .main {
-    width: 80vw;
-    height: 85vh;
-  }
+    .main {
+        width: 80vw;
+        height: 85vh;
+    }
 }

@@ -17,6 +17,7 @@ class ShoppingListService
             5 => ["палку", "палки", "палок"],
             6 => ["стакан", "стакана", "стаканов"],
             7 => ["коробку", "коробки", "коробок"],
+            default => null,
         };
     }
 
@@ -44,7 +45,8 @@ class ShoppingListService
                 }
             }
             $data['count'] = $data->quantity / $product[0]->default_weight;
-            $data['packing'] = $this->getPlural($data['count'], $this->getArrayNames((int)$product[0]->packing_id));
+//            $data['packing'] = $this->getPlural($data['count'], $this->getArrayNames((int)$product[0]->packing_id));
+            $data['product_id'] = $product[0]->id;
             $data['name'] = $product[0]->name;
             $data['description'] = $product[0]->description;
             $data['category'] = $product[0]->category;
@@ -76,4 +78,5 @@ class ShoppingListService
 
         return $this->iterateArray($shoppingListRendering);
     }
+
 }

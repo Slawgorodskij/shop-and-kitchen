@@ -1,14 +1,44 @@
-.main{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
+.main {
+    /*padding: 20px;*/
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    color: var(--color-font-primary); /* Цвет текста */
+    text-align: center;
 }
+
+/* Заголовок */
 .title {
-  text-align: center;
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 40px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Тень для текста */
 }
 
-.subtitle {
-  margin: 2rem auto;
-  text-align: center;
+.buttons_container {
+    display: flex;
+    gap: 50px;
+}
+
+
+.button {
+    display: block;
+    padding: 15px 30px;
+    font-family: "Roboto", sans-serif;
+    font-size: 18px;
+    color: white;
+    background-color: #4CAF50; /* Зеленый цвет */
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+}
+
+.button:hover {
+    background-color: #45a049; /* Темно-зеленый при наведении */
+    text-decoration: none;
+    transform: scale(1);
 }

@@ -1,248 +1,256 @@
 /*@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');*/
 :root {
-  /*---цвет фона---*/
-  --color-background-primary: #f6f6f6;
-  --color-background-second: #6893b0;
-  --color-background-transparency: rgba(1, 27, 44, 0.5);
-  --color-background-transparency-hover: rgba(1, 27, 44, 0.8);
+    /*---цвет фона---*/
+    --color-background-primary: #f6f6f6;
+    --color-background-second: #6893b0;
+    --color-background-transparency: rgba(1, 27, 44, 0.5);
+    --color-background-transparency-hover: rgba(1, 27, 44, 0.8);
 
-  --color-hover: #466f86;
-  /*---цвет шрифтов---*/
-  --color-font-primary: #3e4964;
-  --color-font-second: #e4f4ff;
+    --color-hover: #466f86;
+
+    /*---цвет шрифтов---*/
+    --color-font-primary: #e4f4ff;
+    --color-font-second: #3e4964;
 
 }
 
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 body {
-  font-family: 'Open Sans', sans-serif;
-  margin: 0;
-  padding: 0;
-  font-size: 14px;
-  color: var(--color-font-primary);
-  background-color: var(--color-background-primary);
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+    color: var(--color-font-primary);
+    background-color: var(--color-background-primary);
+}
+
+.container {
+    margin: 0 auto;
+    display: flex;
+    width: 1400px;
+    justify-content: space-between;
 }
 
 .text_dec_non {
-  text-decoration: none;
+    text-decoration: none;
 }
 
 .btn {
-  font-family: "Roboto", sans-serif;
-  outline: 0;
-  background: var(--color-background-second);
-  border: 0;
-  text-decoration: none;
-  color: var(--color-font-second);
-  font-size: 16px;
-  transition: all 0.3s ease;
-  border-radius: 5px;
-  cursor: pointer;
+    font-family: "Roboto", sans-serif;
+    outline: 0;
+    background: var(--color-background-second);
+    border: 0;
+    text-decoration: none;
+    color: var(--color-font-second);
+    font-size: 16px;
+    transition: all 0.3s ease;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 .btn:hover,
 .btn:active,
 .btn:focus {
-  background: var(--color-hover);
+    background: var(--color-hover);
 }
 
 /*TODO проверить удалить*/
 
 html, body, #root, #defaultLayout, #guestLayout {
-  min-height: 100vh;
+    min-height: 100vh;
 }
 
 h1, h2, h3, h4, h5, h6, p {
-  margin: 0;
+    margin: 0;
 }
 
 
 .btn-block {
-  width: 100%;
+    width: 100%;
 }
 
 .btn-add,
 .btn-edit,
 .btn-delete {
-  padding: 0.5rem 0.75rem;
-  font-size: 14px;
-  border-radius: 4px;
+    padding: 0.5rem 0.75rem;
+    font-size: 14px;
+    border-radius: 4px;
 }
 
 .btn-add {
-  background-color: #00a762;
+    background-color: #00a762;
 }
 
 .btn-delete {
-  background-color: #b72424;
+    background-color: #b72424;
 }
 
 .btn-logout {
-  text-decoration: none;
-  padding: 0.75rem 1.5rem;
-  color: #212121;
-  transition: all 0.3s;
-  border-radius: 6px;
+    text-decoration: none;
+    padding: 0.75rem 1.5rem;
+    color: #212121;
+    transition: all 0.3s;
+    border-radius: 6px;
 }
 
 .btn-logout:hover {
-  background-color: rgba(0, 0, 0, 0.1);
+    background-color: rgba(0, 0, 0, 0.1);
 }
 
 
 .text-center {
-  text-align: center;
+    text-align: center;
 }
 
 table {
-  width: 100%;
-  border-spacing: 0;
-  border-collapse: collapse;
+    width: 100%;
+    border-spacing: 0;
+    border-collapse: collapse;
 }
 
 table > thead > tr > th {
-  text-align: left;
-  padding: 0.5rem 0.5rem;
-  background-color: #efefef;
+    text-align: left;
+    padding: 0.5rem 0.5rem;
+    background-color: #efefef;
 }
 
 table > tbody > tr > td {
-  padding: 0.5rem 0.5rem;
-  border-bottom: 1px solid #efefef;
-  white-space: nowrap;
+    padding: 0.5rem 0.5rem;
+    border-bottom: 1px solid #efefef;
+    white-space: nowrap;
 }
 
 .card {
-  background-color: #FFF;
-  border-radius: 0.5rem;
-  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
-  padding: 1.25rem 1.5rem;
-  margin-bottom: 1rem;
-  margin-top: 0.5rem;
+    background-color: #FFF;
+    border-radius: 0.5rem;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1rem;
+    margin-top: 0.5rem;
 }
 
 .alert {
-  padding: 1rem;
-  background-color: #ff4040;
-  color: white;
-  border-radius: 0.5rem;
-  margin-bottom: 1rem;
+    padding: 1rem;
+    background-color: #ff4040;
+    color: white;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
 }
 
 .notification {
-  position: fixed;
-  right: 1rem;
-  bottom: 1rem;
-  z-index: 100;
-  padding: 1rem 1.5rem;
-  background-color: #00a762;
-  color: white;
-  border-radius: 0.5rem;
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+    z-index: 100;
+    padding: 1rem 1.5rem;
+    background-color: #00a762;
+    color: white;
+    border-radius: 0.5rem;
 }
 
 /* Login/Signup forms*/
 
 .login-signup-form {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .login-signup-form .form {
-  width: 360px;
-  position: relative;
-  z-index: 1;
-  background: #FFFFFF;
-  max-width: 360px;
-  padding: 34px;
-  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.1);
+    width: 360px;
+    position: relative;
+    z-index: 1;
+    background: #FFFFFF;
+    max-width: 360px;
+    padding: 34px;
+    box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.1);
 }
 
 .login-signup-form .title {
-  font-size: 20px;
-  margin-bottom: 1rem;
-  text-align: center;
+    font-size: 20px;
+    margin-bottom: 1rem;
+    text-align: center;
 }
 
 .login-signup-form .form .message {
-  margin: 15px 0 0;
-  color: #b3b3b3;
-  font-size: 16px;
-  text-align: center;
+    margin: 15px 0 0;
+    color: #b3b3b3;
+    font-size: 16px;
+    text-align: center;
 }
 
 .login-signup-form .form .message a {
-  color: #5b08a7;
-  text-decoration: none;
+    color: #5b08a7;
+    text-decoration: none;
 }
 
 /* Login/Signup form */
 
 
 #defaultLayout {
-  display: flex;
+    display: flex;
 }
 
 #defaultLayout aside {
-  width: 240px;
-  background-color: #5b08a7;
-  padding: 1rem
+    width: 240px;
+    background-color: #5b08a7;
+    padding: 1rem
 }
 
 #defaultLayout aside > a {
-  display: block;
-  padding: 0.75rem 1rem;
-  border-radius: 6px;
-  color: white;
-  text-decoration: none;
-  transition: all 0.2s;
+    display: block;
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+    color: white;
+    text-decoration: none;
+    transition: all 0.2s;
 }
 
 #defaultLayout aside > a:hover {
-  background-color: rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.2);
 }
 
 #defaultLayout .content {
-  flex: 1;
+    flex: 1;
 }
 
 #defaultLayout header {
-  height: 80px;
-  padding: 2rem 3rem;
-  background-color: white;
-  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+    height: 80px;
+    padding: 2rem 3rem;
+    background-color: white;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 #defaultLayout main {
-  padding: 2rem;
+    padding: 2rem;
 }
 
 .animated {
-  -webkit-animation-duration: 0.3s;
-  animation-duration: 0.3s;
-  -webkit-animation-fill-mode: both;
-  animation-fill-mode: both;
+    -webkit-animation-duration: 0.3s;
+    animation-duration: 0.3s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
 }
 
 .fadeInDown {
-  -webkit-animation-name: fadeInDown;
-  animation-name: fadeInDown;
+    -webkit-animation-name: fadeInDown;
+    animation-name: fadeInDown;
 }
 
 @keyframes fadeInDown {
-  0% {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

@@ -1,58 +1,226 @@
+/* Основной контейнер */
+.manual_page {
+    margin: 0 auto;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 800px 500px;
+    gap: 20px;
+    width: 1400px;
+    height: 90vh;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+}
+
+/* кнопки */
+.button {
+    padding: 5px 10px;
+    background-color: #4CAF50;
+    color: var(--color-font-primary);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.button_category {
+    padding: 10px 15px;
+    font-size: 14px;
+    color: var(--color-font-second);
+    white-space: nowrap;
+    border: none;
+    border-radius: 4px;
+    background-color: #f0f0f0;
+    cursor: pointer;
+}
+
+.button_product_remove {
+    padding: 5px 10px;
+    font-size: 12px;
+    color: var(--color-font-primary);
+}
+
+.button_product_remove {
+    background-color: #ff4d4d;
+}
+
+.button_category:hover {
+    background-color: #4CAF50;
+    color: var(--color-font-primary);
+}
+
+.button:hover {
+    background-color: #45a049;
+}
+
+.button_active {
+    color: var(--color-font-primary);
+    background-color: #377339;
+    pointer-events: none;
+}
+
+/* Поисковая строка */
+.search_input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Категории */
+.categories {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+/* Список продуктов */
+.product_list {
+    padding-right: 5px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-content: flex-start;
+    gap: 10px;
+    height: 80vh;
+    overflow: auto;
+}
+
+.product_list::-webkit-scrollbar {
+    width: 5px;
+}
+
+.product_list::-webkit-scrollbar-track {
+    background-color: #8c8c95;
+    border-radius: 5px;
+}
+
+.product_list::-webkit-scrollbar-thumb {
+    background-color: #6893b0;
+    border-radius: 4px;
+}
+
+
+
+/* Текущий список */
+.block-selected_products {
+    display: block;
+}
+
+.selected_title {
+    margin-left: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.selected_products {
+    padding: 10px;
+    border-left: 2px solid #4CAF50;
+    height: 86vh;
+    overflow: auto;
+}
+
+.selected_products::-webkit-scrollbar {
+    width: 5px;
+}
+
+.selected_products::-webkit-scrollbar-track {
+    background-color: #8c8c95;
+    border-radius: 5px;
+}
+
+.selected_products::-webkit-scrollbar-thumb {
+    background-color: #6893b0;
+    border-radius: 4px;
+}
+
+.selected_product {
+    margin-bottom: 10px;
+    padding: 10px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-content: space-between;
+    align-items: center;
+
+    background: rgba(255, 255, 255, 0.192);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(43, 43, 43, 0.568);
+    border-radius: 4px;
+}
+
+.block_button {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.quantity_input {
+    width: 50px;
+    padding: 5px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
 .title {
-  padding: 0;
-  margin: 0;
-  text-align: center;
+    padding: 0;
+    margin: 0;
+    text-align: center;
 }
 
 .container {
-  height: 100%;
-  display: grid;
-  grid-template-rows: 0.5fr 7fr 1fr;
-  gap: 2rem;
-  overflow: auto;
+    height: 100%;
+    display: grid;
+    grid-template-rows: 0.5fr 7fr 1fr;
+    gap: 2rem;
+    overflow: auto;
 }
+
 .container::-webkit-scrollbar {
-  width: 5px;
+    width: 5px;
 }
 
 .container::-webkit-scrollbar-track {
-  background-color: #8c8c95;
-  border-radius: 5px;
+    background-color: #8c8c95;
+    border-radius: 5px;
 }
 
 .container::-webkit-scrollbar-thumb {
-  background-color: #6893b0;
-  border-radius: 4px;
+    background-color: #6893b0;
+    border-radius: 4px;
 }
+
 .subtitle {
-  margin-bottom: 1.5rem;
-  text-align: center;
-  font-size: 20px;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-size: 20px;
 }
+
 .cards {
-  display: grid;
-  grid-template-columns: 1fr;
-  justify-items: center;
-  gap: 1rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 1rem;
 }
 
 .block__button {
-  padding: 0 0.5rem;
-  height: 2rem;
-  display: flex;
+    padding: 0 0.5rem;
+    height: 2rem;
+    display: flex;
 }
+
 .text_dec_non {
-  text-decoration: none;
+    text-decoration: none;
 }
 
 @media (min-width: 890px) {
-  .cards {
-    grid-template-columns: 1fr 1fr;
-  }
+    .cards {
+        grid-template-columns: 1fr 1fr;
+    }
 }
 
 @media (min-width: 1250px) {
-  .cards {
-    grid-template-columns: 1fr 1fr 1fr;
-  }
+    .cards {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
 }

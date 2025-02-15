@@ -21,7 +21,11 @@ use Illuminate\Http\Response;
 
 class ShoppingListController extends Controller
 {
-    public function getShoppingList(ApiListUserRequest $request)
+    /**
+     * @param ApiListUserRequest $request
+     * @return AnonymousResourceCollection
+     */
+    public function getShoppingList(ApiListUserRequest $request): AnonymousResourceCollection
     {
         $data = $request->validated();
         $shoppingListRendering = app(ShoppingListService::class)->shoppingListRenderingAll($data['users_id']);
@@ -29,6 +33,53 @@ class ShoppingListController extends Controller
         return ShoppingListResource::collection($shoppingListRendering);
     }
 
+
+    public function addShoppingList(ApiShoppingListRequest $request)
+    {
+        $data = $request->validated();
+        $shoppingList = ShoppingList::where('users_id', $data['users_id'])
+            ->where('product_id', $data['product_id'])
+            ->first();
+
+        if ($shoppingList) {
+            $shoppingList->quantity += $data['quantity'];
+            if ($shoppingList->save()) {
+                return response(compact('shoppingList'));
+            }
+            return response(['message' => 'Не добавлен продукт ' . $data['product']['name']], 422);
+        }
+
+        $shoppingList = ShoppingList::create([
+            'users_id' => $data['users_id'],
+            'product_id' => $data['product_id'],
+            'units_id' => $data['units_id'],
+            'quantity' => $data['quantity'],
+        ]);
+
+        if ($shoppingList) {
+            return response(compact('shoppingList'));
+        }
+        return response(['message' => 'Не добавлен продукт ' . $data['product']['name']], 422);
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Foundation\Application|Response|Application|ResponseFactory
+     */
+    public function deleteProductOfShoppingList(Request $request): \Illuminate\Foundation\Application|Response|Application|ResponseFactory
+    {
+        $shoppingList = ShoppingList::where('users_id', $request['users_id'])
+            ->where('product_id', $request['id'])
+            ->first();
+        if ($shoppingList->delete()) {
+            return response(['message' => 'Продукт удален из списка'], 200);
+        }
+
+        return response(['message' => 'Продукт не удален из списка'], 422);
+    }
+
+
+    // Еще предстоит оценить
     public function shoppingListRendering(ApiListUserRequest $request): AnonymousResourceCollection
     {
         $data = $request->validated();
@@ -83,50 +134,6 @@ class ShoppingListController extends Controller
         return response(compact('shoppingList'));
     }
 
-    //TODO добавить проверку
-    public function addShoppingList(ApiShoppingListRequest $request)
-    {
-        $data = $request->validated();
-        $success = [];
-        foreach ($data['products'] as $product) {
-
-            $shoppingList = ShoppingList::where('users_id', $data['users_id'])
-                ->where('product_id', $product['product_id'])
-                ->get();
-            if (isset($shoppingList[0])) {
-                $shoppingList[0]->quantity += $product['quantity'];
-                if ($shoppingList[0]->save()) {
-                    $success[] = 'success';
-                }
-            } else {
-                $shoppingList = ShoppingList::create([
-                    'users_id' => $data['users_id'],
-                    'product_id' => $product['product_id'],
-                    'units_id' => $product['units_id'],
-                    'quantity' => $product['quantity'],
-                ]);
-                if ($shoppingList) {
-                    $success[] = $shoppingList;
-                }
-            }
-        }
-        if (count($success) > 0) {
-            return response(['message' => 'Продукты добавлены'], 200);
-        }
-        return response(['message' => 'Продукты не добавлены'], 422);
-    }
-
-
-//TODO добаввить проверку резерва
-    public function deleteProductOfShoppingList(Request $request)
-    {
-        $shoppingList = ShoppingList::find($request['id']);
-        if ($shoppingList->delete()) {
-            return response(['message' => 'Продукт удален из списка'], 200);
-        }
-
-        return response(['message' => 'Продукт не удален из списка'], 422);
-    }
 
     public function transferStorerooms(ApiStoreroomRequest $request): \Illuminate\Foundation\Application|Response|Application|ResponseFactory
     {
