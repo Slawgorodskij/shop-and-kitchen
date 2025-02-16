@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import styles from "./shoppingList.module.css"
 import axiosClient from "../../axios-client.js";
 import {useStateContext} from "../../context/ContextProvider.jsx";
@@ -29,8 +29,6 @@ export const ShoppingList = () => {
         }
     }, [user]);
 
-
-// Изменение статуса "куплено"
     const toggleChecked = (productId, isBuy) => {
         const data = {
             users_id: user.id,
@@ -54,7 +52,6 @@ export const ShoppingList = () => {
     };
 
     const removeProduct = useCallback((productId) => {
-        // event.stopPropagation()
         const data = {
             users_id: user.id,
             id: productId,

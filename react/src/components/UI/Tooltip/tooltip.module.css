@@ -13,7 +13,7 @@
   box-sizing: border-box;
   box-shadow: 1px 1px 10px #777;
   z-index: 3;
-  color: var(--color-font-primary);
+  color: var(--color-font-second);
 }
 
 

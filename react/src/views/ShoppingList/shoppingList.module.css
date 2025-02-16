@@ -51,7 +51,7 @@ h2 {
 .product_item {
     display: flex;
     align-items: center;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: bold;
     color: var(--color-font-primary);
 
@@ -62,7 +62,7 @@ h2 {
 }
 
 .product_label {
-    padding: 10px;
+    padding: 5px;
     flex: 0 0 calc(100% - 90px);
     display: flex;
     gap: 10px;
@@ -93,4 +93,18 @@ h2 {
 
 .remove_button:hover {
     background-color: #cc0000;
+}
+
+.text_dec_non {
+    text-decoration: none;
+}
+
+@media (min-width: 1250px) {
+    .product_item {
+        font-size: 16px;
+    }
+
+    .product_label {
+        padding: 10px;
+    }
 }

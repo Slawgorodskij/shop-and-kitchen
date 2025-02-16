@@ -30,7 +30,6 @@ export const DefaultLayout = () => {
         <div className={styles.background}>
             <Sidebar user={user.name} onLogout={onLogout} burgerActive={burgerActive}
                      setBurgerActive={setBurgerActive}/>
-            <div className={burgerActive ? styles.main_blur : styles.main_none}></div>
             <main>
                 <Outlet/>
             </main>
